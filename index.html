@@ -229,11 +229,15 @@
   }
   #parms .empty { color: #5c5c5c; font-size: 12px; }
   /* SVG 内文字 */
-  /* 字号由 applyVB() 按缩放动态补偿：缩得越小字越大（屏幕上恒定），下限 = 基准的 1.5 倍 */
-  text.node-label { font-family: var(--mono); font-size: var(--fs-label, 58.5px); fill: #d2d2d2; dominant-baseline: central; }
-  text.node-comment { font-family: var(--sans); font-size: var(--fs-comment, 45px); font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
-  text.box-title { font-family: var(--sans); font-size: var(--fs-box, 45px); fill: #e2e2e2; dominant-baseline: central; }
+  /* 字号由 applyVB() 按缩放动态补偿：屏幕字号夹在 [基准 2/3, 基准] 之间（label 26–39px） */
+  text.node-label { font-family: var(--mono); font-size: var(--fs-label, 39px); fill: #d2d2d2; dominant-baseline: central; }
+  text.node-comment { font-family: var(--sans); font-size: var(--fs-comment, 30px); font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
+  text.box-title { font-family: var(--sans); font-size: var(--fs-box, 30px); fill: #e2e2e2; dominant-baseline: central; }
   .note-body { font-family: var(--sans); font-size: 24px; color: #33301e; white-space: pre-wrap; overflow: hidden; line-height: 1.35; }
+  rect.marquee-rect {
+    fill: rgba(127,179,232,0.12); stroke: #7fb3e8; stroke-width: 1.5;
+    stroke-dasharray: 6 4; vector-effect: non-scaling-stroke; pointer-events: none;
+  }
 </style>
 </head>
 <body>
@@ -248,7 +252,7 @@
   <button id="btn-fit">缩放适配 (F)</button>
   <button id="btn-svg">导出 SVG</button>
   <button id="btn-png">导出 PNG</button>
-  <button id="btn-claude" title="把当前页面和选中节点打包成上下文，粘给 Claude Code">🤖 问 Claude</button>
+  <button id="btn-claude" title="把当前层级（或 Shift+拖拽框选的节点）打包成上下文，粘给 Claude Code">🤖 问 Claude</button>
   <span id="meta"></span>
 </header>
 <div id="search-results"></div>
@@ -297,6 +301,7 @@ const svg = $("canvas");
 let graph = null;        // 当前 graph.json
 let level = null;        // 当前显示的网络路径
 let selected = null;     // 选中节点的 id（参数面板）
+let marqueeSel = null;   // 框选的节点 id 集合（Set，null = 没有框选）
 let searchQuery = "";    // 搜索词（命中高亮 / 其余变暗）
 let dirHandle = null;    // 归档文件夹句柄（File System Access API）
 let cloudBase = null;    // 云端归档基址（"" = 与页面同源，即 Pages 上直接打开）；非 null 时快照库是只读云端
@@ -454,6 +459,11 @@ function render() {
       el("rect", { x: -6, y: -6, width: w + 12, height: h + 12, rx: 10, fill: "none", stroke: "var(--accent)", "stroke-width": 2.5, "stroke-dasharray": "6 4" }, g);
     }
 
+    // 框选高亮（问 Claude 只打包这些）
+    if (marqueeSel && marqueeSel.has(n.id)) {
+      el("rect", { x: -5, y: -5, width: w + 10, height: h + 10, rx: 9, fill: "none", stroke: "#7fb3e8", "stroke-width": 2, "stroke-dasharray": "5 3" }, g);
+    }
+
     // display 高亮环（贴近 Houdini 的蓝色描边）
     if (f.display === true) {
       el("rect", { x: -3.5, y: -3.5, width: w + 7, height: h + 7, rx: 9, fill: "none", stroke: "#2f7fd0", "stroke-width": 2, opacity: 0.9 }, g);
@@ -560,7 +570,7 @@ function renderCrumbs() {
   });
   const hint = document.createElement("span");
   hint.className = "hint";
-  hint.textContent = "单击节点看参数 · 双击子网络进入 · U 返回上层 · 滚轮缩放 · 拖拽平移";
+  hint.textContent = "单击节点看参数 · 双击子网络进入 · Shift+拖拽框选（问 Claude 只打包框选内容）· U 返回上层 · 滚轮缩放 · 拖拽平移";
   c.appendChild(hint);
 }
 
@@ -575,6 +585,7 @@ function renderStatus(nodes, conns, boxes, notes) {
 function enterLevel(path) {
   level = path;
   selected = null;
+  marqueeSel = null;
   $("parms").classList.remove("open");
   render();
   fitView();
@@ -585,13 +596,14 @@ function upLevel() {
 }
 
 /* ---------- 缩放 / 平移（改 viewBox） ---------- */
-/* 字号补偿：m = 每屏幕像素对应的 SVG 单位数（缩得越小越大），下限 1.5 =
-   任何缩放下图里的字都不小于基准（39/30/30px）的 1.5 倍 */
+/* 字号补偿：m = 每屏幕像素对应的 SVG 单位数。屏幕字号夹在 [基准 2/3, 基准]：
+   放大到头字也不超过基准（label 39px），缩小到头不低于基准的 2/3（label 26px） */
 function applyFontScale() {
-  const m = Math.max(1.5, vb.w / Math.max(1, svg.clientWidth));
-  svg.style.setProperty("--fs-label", (39 * m).toFixed(1) + "px");
-  svg.style.setProperty("--fs-comment", (30 * m).toFixed(1) + "px");
-  svg.style.setProperty("--fs-box", (30 * m).toFixed(1) + "px");
+  const m = vb.w / Math.max(1, svg.clientWidth);
+  const fs = (base) => (Math.min(base, Math.max(base * 2 / 3, base * 1.5 / m)) * m).toFixed(1) + "px";
+  svg.style.setProperty("--fs-label", fs(39));
+  svg.style.setProperty("--fs-comment", fs(30));
+  svg.style.setProperty("--fs-box", fs(30));
 }
 function applyVB() {
   svg.setAttribute("viewBox", `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
@@ -599,7 +611,7 @@ function applyVB() {
 }
 function fitView() {
   const [cw, ch] = contentSize();
-  const labelRoom = 720;  // 右侧名字标签的额外空间（字号下限 58.5px）
+  const labelRoom = 480;  // 右侧名字标签的额外空间（字号缩到 2/3 后同比例收窄）
   vb = { x: -20, y: -20, w: cw + labelRoom + 40, h: ch + 40 };
   // 匹配视口纵横比，避免 preserveAspectRatio 带来的偏移
   const r = svg.clientWidth / svg.clientHeight;
@@ -609,7 +621,7 @@ function fitView() {
 svg.addEventListener("wheel", (e) => {
   e.preventDefault();
   if (!graph) return;
-  const f = e.deltaY > 0 ? 1.12 : 1 / 1.12;
+  const f = e.deltaY > 0 ? 1.06 : 1 / 1.06;   // 每格 6%，缩放速度是原来（12%）的一半
   const pt = clientToSvg(e.clientX, e.clientY);
   const nw = vb.w * f;
   if (nw < 120 || nw > 60000) return;
@@ -623,11 +635,34 @@ svg.addEventListener("wheel", (e) => {
 /* 平移：超过 4px 才开始捕获，否则 setPointerCapture 会把 dblclick
    重定向到 svg 根元素，节点上的双击进子网络就收不到了 */
 let pan = null;
+let marquee = null;   // 框选拖拽进行中：{x0, y0, box, rect}
 svg.addEventListener("pointerdown", (e) => {
+  if (e.button === 0 && e.shiftKey && graph) {   // Shift+左键 = 框选
+    marquee = { x0: 0, y0: 0, box: null, rect: null };
+    const pt = clientToSvg(e.clientX, e.clientY);
+    marquee.x0 = pt.x; marquee.y0 = pt.y;
+    svg.setPointerCapture(e.pointerId);
+    e.preventDefault();
+    return;
+  }
   if (e.button !== 0 && e.button !== 1) return;
   pan = { x0: e.clientX, y0: e.clientY, vb0: { ...vb }, active: false, id: e.pointerId };
 });
 svg.addEventListener("pointermove", (e) => {
+  if (marquee) {
+    const pt = clientToSvg(e.clientX, e.clientY);
+    const box = {
+      x: Math.min(marquee.x0, pt.x), y: Math.min(marquee.y0, pt.y),
+      w: Math.abs(pt.x - marquee.x0), h: Math.abs(pt.y - marquee.y0),
+    };
+    marquee.box = box;
+    if (!marquee.rect) marquee.rect = el("rect", { class: "marquee-rect" }, svg);
+    marquee.rect.setAttribute("x", box.x);
+    marquee.rect.setAttribute("y", box.y);
+    marquee.rect.setAttribute("width", box.w);
+    marquee.rect.setAttribute("height", box.h);
+    return;
+  }
   if (!pan) return;
   const dx = e.clientX - pan.x0, dy = e.clientY - pan.y0;
   if (!pan.active) {
@@ -643,6 +678,21 @@ svg.addEventListener("pointermove", (e) => {
 });
 let justPanned = false;  // 拖拽结束后的那次 click 不当作选中
 svg.addEventListener("pointerup", () => {
+  if (marquee) {
+    const box = marquee.box;
+    if (marquee.rect) marquee.rect.remove();
+    marquee = null;
+    if (box && (box.w > 2 || box.h > 2)) {
+      const ids = nodeHits
+        .filter((r) => r.x < box.x + box.w && r.x + r.w > box.x && r.y < box.y + box.h && r.y + r.h > box.y)
+        .map((r) => r.node.id);
+      marqueeSel = ids.length ? new Set(ids) : null;
+      justPanned = true;   // 随后的 click 别把框选清掉
+      render();
+      toast(marqueeSel ? `框选了 ${ids.length} 个节点 ——「问 Claude」只打包这些` : "框选范围内没有节点");
+    }
+    return;
+  }
   justPanned = !!(pan && pan.active);
   pan = null;
   svg.classList.remove("panning");
@@ -667,6 +717,7 @@ svg.addEventListener("click", (e) => {
   if (justPanned) { justPanned = false; return; }
   const pt = clientToSvg(e.clientX, e.clientY);
   const hit = nodeHits.find((r) => pt.x >= r.x && pt.x <= r.x + r.w && pt.y >= r.y && pt.y <= r.y + r.h);
+  if (!hit && marqueeSel) { marqueeSel = null; render(); }
   selectNode(hit ? hit.node.id : null);
 });
 
@@ -796,7 +847,10 @@ document.addEventListener("keydown", (e) => {
   if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;  // 表单里打字不触发快捷键
   if (e.key === "u" || e.key === "U") upLevel();
   if (e.key === "f" || e.key === "F") fitView();
-  if (e.key === "Escape") selectNode(null);
+  if (e.key === "Escape") {
+    if (marqueeSel) { marqueeSel = null; render(); }
+    selectNode(null);
+  }
 });
 $("btn-fit").addEventListener("click", fitView);
 
@@ -902,13 +956,13 @@ function hlCode(text, lang) {
  * ============================================================ */
 const EXPORT_CSS = `
   svg { --mono: ui-monospace, Menlo, Consolas, monospace; --sans: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-  text.node-label { font-family: var(--mono); font-size: 58.5px; fill: #d2d2d2; dominant-baseline: central; }
-  text.node-comment { font-family: var(--sans); font-size: 45px; font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
-  text.box-title { font-family: var(--sans); font-size: 45px; fill: #e2e2e2; dominant-baseline: central; }
+  text.node-label { font-family: var(--mono); font-size: 39px; fill: #d2d2d2; dominant-baseline: central; }
+  text.node-comment { font-family: var(--sans); font-size: 30px; font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
+  text.box-title { font-family: var(--sans); font-size: 30px; fill: #e2e2e2; dominant-baseline: central; }
   .note-body { font-family: var(--sans); font-size: 24px; color: #33301e; white-space: pre-wrap; overflow: hidden; line-height: 1.35; }`;
 function buildExportSvg() {
   const [cw, ch] = contentSize();
-  const w = Math.ceil(cw + 780), h = Math.ceil(ch + 80);
+  const w = Math.ceil(cw + 520), h = Math.ceil(ch + 80);
   const clone = svg.cloneNode(true);
   clone.setAttribute("xmlns", NS);
   clone.setAttribute("viewBox", `-20 -20 ${w} ${h}`);
@@ -969,6 +1023,25 @@ function fmtParmMd(name, v) {
   if (v.raw !== undefined && v.raw !== String(v.eval)) s += `　表达式: \`${v.raw}\``;
   return s;
 }
+function pushNodeDetail(L, n, heading) {
+  L.push("", heading, "");
+  L.push(`- 类型: ${n.type_label} (\`${n.type}\`)，路径: \`${n.id}\``);
+  if ((n.children || []).length) L.push(`- 子网络含 ${n.children.length} 个节点`);
+  if (n.flags && n.flags.bypass === true) L.push("- 已 bypass");
+  if (n.comment) L.push(`- 注释: ${n.comment}`);
+  for (const w of n.warnings || []) L.push(`- ⚠ ${w}`);
+  const ud = n.user_data || {};
+  if (ud["hna.concept"]) L.push(`- 我标注的概念: ${ud["hna.concept"]}`);
+  if (ud["hna.confidence"]) L.push(`- 我的掌握度: ${ud["hna.confidence"]}/5`);
+  const pn = Object.keys(n.parms || {}).sort();
+  if (pn.length) {
+    L.push("", "非默认参数：", "");
+    for (const k of pn) L.push(fmtParmMd(k, n.parms[k]));
+  }
+  if (n.code && n.code.text) {
+    L.push("", `代码（${n.code.lang}）：`, "", "```" + n.code.lang, n.code.text, "```");
+  }
+}
 function buildClaudeContext() {
   const L = [];
   L.push("# Houdini 节点快照上下文（由 HNA Viewer 生成）", "");
@@ -976,39 +1049,34 @@ function buildClaudeContext() {
   L.push(`- 导出时间: ${graph.exported_at} · Houdini ${graph.houdini_version}`);
   L.push(`- 网络: ${graph.root} (${graph.context})，当前层级: ${level}`, "");
 
-  const nodes = levelNodes();
+  const allNodes = levelNodes();
+  const nodes = marqueeSel ? allNodes.filter((n) => marqueeSel.has(n.id)) : allNodes;
   const ids = new Set(nodes.map((n) => n.id));
-  L.push(`## 当前层级的节点（${nodes.length} 个）`, "");
-  for (const n of nodes) {
-    let line = `- **${n.name}** (${n.type_label} / \`${n.type}\`)`;
-    if ((n.children || []).length) line += `，子网络含 ${n.children.length} 个节点`;
-    if (n.flags && n.flags.bypass === true) line += "，已 bypass";
-    if (n.comment) line += ` — ${n.comment}`;
-    L.push(line);
-  }
   const conns = levelConns(ids);
-  if (conns.length) {
-    L.push("", "## 连线", "");
-    for (const c of conns) L.push(`- ${c.from.split("/").pop()} → ${c.to.split("/").pop()}（输入口 ${c.to_input}）`);
-  }
 
-  const sel = selected && graph.nodes.find((n) => n.id === selected);
-  if (sel) {
-    L.push("", `## 我选中的节点：${sel.name}`, "");
-    L.push(`- 类型: ${sel.type_label} (\`${sel.type}\`)，路径: \`${sel.id}\``);
-    if (sel.comment) L.push(`- 注释: ${sel.comment}`);
-    for (const w of sel.warnings || []) L.push(`- ⚠ ${w}`);
-    const ud = sel.user_data || {};
-    if (ud["hna.concept"]) L.push(`- 我标注的概念: ${ud["hna.concept"]}`);
-    if (ud["hna.confidence"]) L.push(`- 我的掌握度: ${ud["hna.confidence"]}/5`);
-    const pn = Object.keys(sel.parms || {}).sort();
-    if (pn.length) {
-      L.push("", "### 非默认参数", "");
-      for (const k of pn) L.push(fmtParmMd(k, sel.parms[k]));
+  if (marqueeSel) {
+    /* 框选模式：只打包框选到的节点，每个都带完整详情 */
+    L.push(`## 框选的节点（${nodes.length} 个，层级共 ${allNodes.length} 个，仅打包框选内容）`);
+    for (const n of nodes) pushNodeDetail(L, n, `### ${n.name}（${n.type_label} / \`${n.type}\`）`);
+    if (conns.length) {
+      L.push("", "## 框选节点之间的连线", "");
+      for (const c of conns) L.push(`- ${c.from.split("/").pop()} → ${c.to.split("/").pop()}（输入口 ${c.to_input}）`);
     }
-    if (sel.code && sel.code.text) {
-      L.push("", `### 代码（${sel.code.lang}）`, "", "```" + sel.code.lang, sel.code.text, "```");
+  } else {
+    L.push(`## 当前层级的节点（${nodes.length} 个）`, "");
+    for (const n of nodes) {
+      let line = `- **${n.name}** (${n.type_label} / \`${n.type}\`)`;
+      if ((n.children || []).length) line += `，子网络含 ${n.children.length} 个节点`;
+      if (n.flags && n.flags.bypass === true) line += "，已 bypass";
+      if (n.comment) line += ` — ${n.comment}`;
+      L.push(line);
     }
+    if (conns.length) {
+      L.push("", "## 连线", "");
+      for (const c of conns) L.push(`- ${c.from.split("/").pop()} → ${c.to.split("/").pop()}（输入口 ${c.to_input}）`);
+    }
+    const sel = selected && graph.nodes.find((n) => n.id === selected);
+    if (sel) pushNodeDetail(L, sel, `## 我选中的节点：${sel.name}`);
   }
   L.push("", "---", "我的问题：");
   return L.join("\n");
@@ -1352,6 +1420,7 @@ function loadGraph(obj, name) {
   graph = obj;
   level = obj.root;
   selected = null;
+  marqueeSel = null;
   currentEntry = null;   // 非快照库来源没有写回目标（openSnapshot 会在之后重设）
   $("parms").classList.remove("open");
   fileName = name;
