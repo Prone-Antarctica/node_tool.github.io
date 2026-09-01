@@ -37,7 +37,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "建筑块预处理子网：4 个 FBX 建筑 → 清理/缩放/居中 → 出口0=完整模型(Block)，出口1=占地代理面(BlockPrimitive)，都带 name 标签"
+      },
       "parms": {},
       "code": null,
       "children": [
@@ -114,7 +116,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "出口0：完整建筑模型库"
+      },
       "parms": {
         "outputidx": {
           "raw": "0",
@@ -155,7 +159,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "四种完整建筑合并（靠 name 区分）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -191,7 +197,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "打上 name=BP_Buildings_01——下游 copytopoints 按 name 匹配变体"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -236,7 +244,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "打上 name=BP_Buildings_02——下游 copytopoints 按 name 匹配变体"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -281,7 +291,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "打上 name=BP_Buildings_03——下游 copytopoints 按 name 匹配变体"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -326,7 +338,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "打上 name=BP_Buildings_04——下游 copytopoints 按 name 匹配变体"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -371,7 +385,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ty=-bbox(0,D_YMIN)：把模型底面落到 y=0（此链额外 rx 90）"
+      },
       "parms": {
         "ty": {
           "raw": "-bbox(0,D_YMIN)",
@@ -416,7 +432,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ty=-bbox(0,D_YMIN)：把模型底面落到 y=0"
+      },
       "parms": {
         "ty": {
           "raw": "-bbox(0,D_YMIN)",
@@ -457,7 +475,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ty=-bbox(0,D_YMIN)：把模型底面落到 y=0"
+      },
       "parms": {
         "ty": {
           "raw": "-bbox(0,D_YMIN)",
@@ -498,7 +518,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ty=-bbox(0,D_YMIN)：把模型底面落到 y=0"
+      },
       "parms": {
         "ty": {
           "raw": "-bbox(0,D_YMIN)",
@@ -539,7 +561,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "取包围盒（做占地代理面的第一步）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -575,7 +599,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按法线删面（+Y，90°）：包围盒只留顶面 = 建筑占地面片"
+      },
       "parms": {
         "stdswitcher1": {
           "raw": "2",
@@ -632,7 +658,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "代理面打上 name=Building_01"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -677,7 +705,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "代理面打上 name=Building_02"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -722,7 +752,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "代理面打上 name=Building_03"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -767,7 +799,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "代理面打上 name=Building_04"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -812,7 +846,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "取包围盒（做占地代理面的第一步）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -848,7 +884,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按法线删面（+Y，90°）：包围盒只留顶面 = 建筑占地面片"
+      },
       "parms": {
         "stdswitcher1": {
           "raw": "2",
@@ -905,7 +943,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "取包围盒（做占地代理面的第一步）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -941,7 +981,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按法线删面（+Y，90°）：包围盒只留顶面 = 建筑占地面片"
+      },
       "parms": {
         "stdswitcher1": {
           "raw": "2",
@@ -998,7 +1040,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "取包围盒（做占地代理面的第一步）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -1034,7 +1078,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按法线删面（+Y，90°）：包围盒只留顶面 = 建筑占地面片"
+      },
       "parms": {
         "stdswitcher1": {
           "raw": "2",
@@ -1091,7 +1137,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "四种占地代理面合并"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -1127,7 +1175,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "出口1：占地代理面——交给 uvlayout 当摆放单元"
+      },
       "parms": {
         "outputidx": {
           "raw": "1",
@@ -1168,7 +1218,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Match Size justify=origin：居中到原点"
+      },
       "parms": {
         "justifytarget": {
           "raw": "origin",
@@ -1211,7 +1263,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Match Size justify=origin：居中到原点"
+      },
       "parms": {
         "justifytarget": {
           "raw": "origin",
@@ -1254,7 +1308,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Match Size justify=origin：居中到原点"
+      },
       "parms": {
         "justifytarget": {
           "raw": "origin",
@@ -1297,7 +1353,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Match Size justify=origin：居中到原点"
+      },
       "parms": {
         "justifytarget": {
           "raw": "origin",
@@ -1340,7 +1398,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "FBX 单位换算：scale 0.01（厘米→米）+ rx 90（Z-up→Y-up）"
+      },
       "parms": {
         "ty": {
           "raw": "0",
@@ -1389,7 +1449,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "读入 BP_Buildings_01.fbx 建筑模型"
+      },
       "parms": {
         "file": {
           "raw": "\"D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_01.fbx\"",
@@ -1430,7 +1492,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "FBX 单位换算：scale 0.01（厘米→米）+ rx 90（Z-up→Y-up）"
+      },
       "parms": {
         "ty": {
           "raw": "0",
@@ -1479,7 +1543,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "读入 BP_Buildings_02.fbx 建筑模型"
+      },
       "parms": {
         "file": {
           "raw": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_02.fbx",
@@ -1520,7 +1586,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "FBX 单位换算：scale 0.01（厘米→米）+ rx 90（Z-up→Y-up）"
+      },
       "parms": {
         "ty": {
           "raw": "0",
@@ -1569,7 +1637,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "读入 BP_Buildings_03.fbx 建筑模型"
+      },
       "parms": {
         "file": {
           "raw": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_03.fbx",
@@ -1610,7 +1680,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "FBX 单位换算：scale 0.01（厘米→米）+ rx 90（Z-up→Y-up）"
+      },
       "parms": {
         "ty": {
           "raw": "0",
@@ -1659,7 +1731,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "读入 BP_Buildings_04.fbx 建筑模型"
+      },
       "parms": {
         "file": {
           "raw": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_04.fbx",
@@ -1700,7 +1774,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉 FBX 带来的 fbx_* 变换属性和 N/uv，避免污染下游"
+      },
       "parms": {
         "ptdel": {
           "raw": "fbx_rotation fbx_scale fbx_translation",
@@ -1747,7 +1823,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉 FBX 带来的 fbx_* 变换属性和 N/uv，避免污染下游"
+      },
       "parms": {
         "ptdel": {
           "raw": "fbx_rotation fbx_scale fbx_translation",
@@ -1794,7 +1872,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉 FBX 带来的 fbx_* 变换属性和 N/uv，避免污染下游"
+      },
       "parms": {
         "ptdel": {
           "raw": "fbx_rotation fbx_scale fbx_translation",
@@ -1841,7 +1921,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉 FBX 带来的 fbx_* 变换属性和 N/uv，避免污染下游"
+      },
       "parms": {
         "ptdel": {
           "raw": "fbx_rotation fbx_scale fbx_translation",
@@ -1888,7 +1970,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "@N={0,0,1}：统一代理面法线，配合 uvlayout 的 zx 投影平面"
+      },
       "parms": {
         "snippet": {
           "raw": "@N={0,0,1};",
@@ -1934,7 +2018,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 建筑源（带 name），copytopoints4 的第 0 输入"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -1970,7 +2056,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "给中心点标 delete=1（其余 0）——供下游筛选"
+      },
       "parms": {
         "snippet": {
           "raw": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);",
@@ -2016,7 +2104,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "把角点的 name/N 抄给新加的中心点（面片 4 角点 + 中心点=第 4 号）"
+      },
       "parms": {
         "snippet": {
           "raw": "string Tempname = pointattrib(0,\"name\",0,0);\nvector Tempnormal = pointattrib(0,\"N\",0,0);\nsetpointattrib(0,\"name\",4,Tempname);\nsetpointattrib(0,\"N\",4,Tempnormal);",
@@ -2062,7 +2152,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "class=primitive，addpoint(0,@P)：每个面片中心加一个落点"
+      },
       "parms": {
         "class": {
           "raw": "primitive",
@@ -2112,7 +2204,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "删掉 @delete==0 的点：只留每栋建筑的中心落点"
+      },
       "parms": {
         "group": {
           "raw": "@delete==0",
@@ -2157,7 +2251,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "核心技巧：UV Layout 当摆放求解器——uvattrib=P 直接排点位而非 uv，projplane=zx 水平面，padding=ch(../interval) 即建筑间距，target=地块面；解出无重叠的建筑布局"
+      },
       "parms": {
         "uvattrib": {
           "raw": "P",
@@ -2286,7 +2382,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "把建筑（代理面）copy 到撒点上；applyattribs 排除 N/orient 等变换属性——真正的摆放交给 uvlayout"
+      },
       "parms": {
         "targetattribs": {
           "raw": "3",
@@ -2375,7 +2473,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "合并各 piece"
+      },
       "parms": {
         "itermethod": {
           "raw": "pieces",
@@ -2436,7 +2536,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按 piece（每栋建筑代理面）循环"
+      },
       "parms": {
         "method": {
           "raw": "piece",
@@ -2481,7 +2583,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../null4：地块面，作 uvlayout 的 target geometry"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -2534,7 +2638,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../Scatter_points：取撒点结果"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -2587,7 +2693,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "去掉 unreal_object_path"
+      },
       "parms": {
         "ptdel": {
           "raw": "unreal_object_path",
@@ -2630,7 +2738,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "@P=0：同上（水车筛选链）"
+      },
       "parms": {
         "snippet": {
           "raw": "@P=0;",
@@ -2676,7 +2786,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "keep @Group==WaterMill：从数据表里筛出水车条目"
+      },
       "parms": {
         "group": {
           "raw": "@Group==WaterMill",
@@ -2725,7 +2837,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 水车的 unreal_instance 定义点"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -2761,7 +2875,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "UE 数据表字段改名：unreal_data_table_{1_Name,2_Group,3_Actor} → name/Group/unreal_instance"
+      },
       "parms": {
         "ptdel": {
           "raw": "unreal_data_table_rowname unreal_data_table_rowstruct",
@@ -3042,7 +3158,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "objpath=chsop(../objpath1)：从 HDA 参数指定的 UE DataTable 点云读入"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -3095,7 +3213,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "@P=0：实例源点归零——copy 时只带属性不带位置"
+      },
       "parms": {
         "snippet": {
           "raw": "@P=0;\n",
@@ -3141,7 +3261,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../null4：地块面（做选区用）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -3194,7 +3316,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "包围盒沿点法线挤出 10：做成一个选区体"
+      },
       "parms": {
         "thicknessramp": {
           "ramp": {
@@ -3271,7 +3395,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "地块包围盒"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -3307,7 +3433,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "只保留地块范围内的落点"
+      },
       "parms": {
         "group": {
           "raw": "SelectedPoints",
@@ -3356,7 +3484,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Group Create bounding(convex)：圈出落在选区体内的点 → SelectedPoints"
+      },
       "parms": {
         "groupname": {
           "raw": "SelectedPoints",
@@ -3409,7 +3539,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "v@Dir={0,-1,0}：向下投射方向"
+      },
       "parms": {
         "snippet": {
           "raw": "v@Dir={0,-1,0};",
@@ -3455,7 +3587,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "建 primitive unreal_material 属性（随机化前的占位）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -3580,7 +3714,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化 unreal_material：实例外观变体"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -3706,7 +3842,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化 uv：实例贴图偏移变体"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -3836,7 +3974,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "补点 N 属性（合流前统一属性布局）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -3961,7 +4101,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../Wattermill_all：水车成品"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -4014,7 +4156,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "v@Dire={0,1,0}：向上探测方向"
+      },
       "parms": {
         "snippet": {
           "raw": "v@Dire={0,1,0};",
@@ -4060,7 +4204,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Ray 沿 Dire 向上打河/路面，命中的点进 rayHitGroup"
+      },
       "parms": {
         "entity": {
           "raw": "point",
@@ -4129,7 +4275,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化（悬空备用链：接在几何链 delete5 后，无下游）"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -4239,7 +4387,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "删掉 rayHitGroup：建筑不长在河/路上（几何输出链）"
+      },
       "parms": {
         "group": {
           "raw": "rayHitGroup",
@@ -4284,7 +4434,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Ray 沿 Dir 把落点投到地形（Landscape）表面"
+      },
       "parms": {
         "dirmethod": {
           "raw": "attribute",
@@ -4337,7 +4489,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../LandScape：地形"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -4390,7 +4544,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../River：河面（避让检测用）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -4443,7 +4599,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉河面上会干扰合并的属性（unreal_material/Cd/uv）"
+      },
       "parms": {
         "ptdel": {
           "raw": "Cd uv",
@@ -4490,7 +4648,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "河面 + 路面合并：作为『不能盖房』的碰撞面"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -4526,7 +4686,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "（已 bypass）整体旋转备用方案"
+      },
       "parms": {
         "ry": {
           "raw": "ch(\"../rotation\")+detail(-1,\"randRot\",0)",
@@ -4591,7 +4753,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "道路横截面线：dist=ch(../road_width)，居中"
+      },
       "parms": {
         "originz": {
           "raw": "-ch('../road_width')*0.5",
@@ -4648,7 +4812,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "实例链按落点逐栋循环"
+      },
       "parms": {
         "method": {
           "raw": "piece",
@@ -4693,7 +4859,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "建 primitive unreal_material 属性（随机化前的占位）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -4818,7 +4986,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化 unreal_material：实例外观变体"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -4944,7 +5114,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化 uv：实例贴图偏移变体"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -5074,7 +5246,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "合并实例点"
+      },
       "parms": {
         "itermethod": {
           "raw": "pieces",
@@ -5135,7 +5309,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "把 unreal_instance 点 copy 到落点：输出 UE 实例（点）而非几何"
+      },
       "parms": {
         "useidattrib": {
           "raw": "on",
@@ -5228,7 +5404,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "negate：只留 unreal_instance/P/N 三个属性"
+      },
       "parms": {
         "negate": {
           "raw": "on",
@@ -5275,7 +5453,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉 SelectedPoints 组"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -5324,7 +5504,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "skin 蒙皮成路面"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -5360,7 +5542,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "横截线 copy 到路径点：手工扫掠第一步"
+      },
       "parms": {
         "targetattribs": {
           "raw": "3",
@@ -5449,7 +5633,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "N 用四元数按 rotation+randRot 绕 Y 旋转：实例朝向"
+      },
       "parms": {
         "snippet": {
           "raw": "float tempRandrot=detailattrib(1,\"randRot\",0,0);\nfloat angel=(ch(\"../rotation\")+tempRandrot)/360*3.1415926*2;\nvector upvector={0,1,0};\nvector4 tempQua=quaternion(angel,upvector);\n@N=qrotate(tempQua,@N);",
@@ -5495,7 +5681,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清属性（接子网输入：道路路径线）"
+      },
       "parms": {
         "vtxdel": {
           "raw": "*",
@@ -5546,7 +5734,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 道路路径线"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -5582,7 +5772,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "UE 输出合流：河 + 建筑实例 + 材质/uv 随机化结果"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -5618,7 +5810,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "删掉 rayHitGroup：同上（实例输出链）"
+      },
       "parms": {
         "group": {
           "raw": "rayHitGroup",
@@ -5663,7 +5857,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化（默认 Cd）：给落点补随机量"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -5773,7 +5969,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按落点逐栋循环（piece）"
+      },
       "parms": {
         "method": {
           "raw": "piece",
@@ -5818,7 +6016,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "路径重采样 1.282"
+      },
       "parms": {
         "length": {
           "raw": "1.282",
@@ -5859,7 +6059,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "建 primitive unreal_material 属性（随机化前的占位）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -5984,7 +6186,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化 unreal_material：实例外观变体"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -6110,7 +6314,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化 uv：实例贴图偏移变体"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -6240,7 +6446,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "useidattrib(name)：按落点的 name 匹配同名建筑变体 copy——四种建筑各就各位"
+      },
       "parms": {
         "useidattrib": {
           "raw": "on",
@@ -6333,7 +6541,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "绕自身中心 ry=ch(../rotation)+randRot（spare_input 读 metadata），每栋随机朝向"
+      },
       "parms": {
         "ry": {
           "raw": "ch(\"../rotation\")+detail(-1,\"randRot\",0)",
@@ -6398,7 +6608,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "合并所有建筑"
+      },
       "parms": {
         "itermethod": {
           "raw": "pieces",
@@ -6459,7 +6671,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "randRot=(rand(iteration)-0.5)*2*ch(../rotationrange)（实例链）"
+      },
       "parms": {
         "class": {
           "raw": "detail",
@@ -6509,7 +6723,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "metadata 块：iteration 当种子（实例链）"
+      },
       "parms": {
         "method": {
           "raw": "metadata",
@@ -6554,7 +6770,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "点 N=(0,0,1)（城墙实例链占位）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -6679,7 +6897,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "点 unreal_instance（index 型）占位"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -6804,7 +7024,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../Wall（实例链）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -6857,7 +7079,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清 rayHitGroup"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -6906,7 +7130,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清 Cd"
+      },
       "parms": {
         "ptdel": {
           "raw": "Cd",
@@ -6949,7 +7175,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "randRot=(rand(iteration)-0.5)*2*ch(../rotationrange)：每栋一个随机旋转角"
+      },
       "parms": {
         "class": {
           "raw": "detail",
@@ -6999,7 +7227,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "metadata 块：取当前 iteration 当随机种子"
+      },
       "parms": {
         "method": {
           "raw": "metadata",
@@ -7044,7 +7274,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../River（UE 输出链）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -7097,7 +7329,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "点 unreal_instance 占位（悬空备用链，未接入主流程）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -7222,7 +7456,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "@N={0,1,0}（悬空备用链，未接入主流程）"
+      },
       "parms": {
         "snippet": {
           "raw": "@N={0,1,0};",
@@ -7268,7 +7504,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清理临时组"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -7317,7 +7555,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清理临时属性 name/delete/Dir/Dire"
+      },
       "parms": {
         "ptdel": {
           "raw": "name delete Dir Dire ",
@@ -7364,7 +7604,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "discrete 随机字符串 name ∈ {BP_Buildings_01..04}：每个点抽一种建筑变体"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -7486,7 +7728,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化（默认 Cd）——给点做随机种子用"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -7596,7 +7840,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "（已 bypass）随机化 N 的备用方案"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -7724,7 +7970,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "先建好 N 点属性（占位），scatter 前统一属性布局"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -7849,7 +8097,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "在地块面上撒建筑候选点，npts=ch(../npts) 由 HDA 参数控制"
+      },
       "parms": {
         "npts": {
           "raw": "ch(\"../npts\")",
@@ -7894,7 +8144,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "建筑 + 城墙合流"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -7930,7 +8182,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 撒点结果：每点带随机 name（建筑类型）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -7966,7 +8220,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "绕自身中心缩到 0.8——建筑区比地块小一圈留边"
+      },
       "parms": {
         "scale": {
           "raw": "0.8",
@@ -8023,7 +8279,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../Wall：城墙几何"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -8076,7 +8334,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "调试输出切换（input=ch(../input)）：0建筑 1建筑+墙 2墙 3UE实例合流 4实例foreach 5河"
+      },
       "parms": {
         "input": {
           "raw": "ch(\"../input\")",
@@ -8117,7 +8377,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "HDA 最终输出"
+      },
       "parms": {
         "outputidx": {
           "raw": "0",
@@ -8158,7 +8420,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 地块面：uvlayout 的排布目标 + 选区挤出的底面"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -8194,7 +8458,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉输入几何全部属性（接子网输入：地块边界线）"
+      },
       "parms": {
         "ptdel": {
           "raw": "*",
@@ -8249,7 +8515,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "地块边界线 skin 蒙皮成面"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -8285,7 +8553,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "查看用出口：地块面"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -8321,7 +8591,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "地形随机化（y 1~2）：起伏抖动"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -8447,7 +8719,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 地形"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -8483,7 +8757,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清属性（接子网输入：地形）"
+      },
       "parms": {
         "ptdel": {
           "raw": "*",
@@ -8538,7 +8814,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "墙段体块：sizez=ch(../Wall_Height)，2×2×2 分段 polymesh"
+      },
       "parms": {
         "type": {
           "raw": "polymesh",
@@ -8603,7 +8881,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "墙线重采样 1.561（接子网输入：城墙路径线）"
+      },
       "parms": {
         "length": {
           "raw": "1.561",
@@ -8644,7 +8924,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "点 N=(0,-1,0)：向下投射方向"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -8769,7 +9051,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "整体 ty=1 抬起"
+      },
       "parms": {
         "ty": {
           "raw": "1",
@@ -8810,7 +9094,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "墙段 copy 到墙线点上"
+      },
       "parms": {
         "targetattribs": {
           "raw": "3",
@@ -8899,7 +9185,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "keep rayHitGroup：只留贴上地形的墙点"
+      },
       "parms": {
         "group": {
           "raw": "rayHitGroup",
@@ -8948,7 +9236,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Ray 投到地形，命中进 rayHitGroup"
+      },
       "parms": {
         "folder0": {
           "raw": "1",
@@ -8997,7 +9287,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "随机化（min/max 1~3）：墙段尺寸抖动"
+      },
       "parms": {
         "ramp": {
           "ramp": {
@@ -9127,7 +9419,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 城墙"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -9163,7 +9457,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "河面横截线：dist=ch(../RiverWidth)，居中"
+      },
       "parms": {
         "originz": {
           "raw": "-ch('../RiverWidth')*0.5",
@@ -9220,7 +9516,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "横截线 copy 到河道点（手工扫掠）"
+      },
       "parms": {
         "targetattribs": {
           "raw": "3",
@@ -9309,7 +9607,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "UV Texture 初始 uv"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -9345,7 +9645,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "skin(cols, force)：蒙成河面"
+      },
       "parms": {
         "surftype": {
           "raw": "cols",
@@ -9394,7 +9696,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "primitive unreal_material = M_River_Inst（UE 材质路径）"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -9519,7 +9823,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "手算 uv.y：按点序归一化（沿河向）"
+      },
       "parms": {
         "snippet": {
           "raw": "float pointUv=(@ptnum/(@numprim))*(@numprim);\n@uv.y=pointUv/float(npoints(0));\n\n\n\n",
@@ -9565,7 +9871,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "uv sy=10：沿河平铺 10 次"
+      },
       "parms": {
         "sy": {
           "raw": "10",
@@ -9606,7 +9914,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "再 skin 一次固化"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -9642,7 +9952,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "手算条状 UV：uv.x=primnum/(numprim-1)，Cd 可视化"
+      },
       "parms": {
         "snippet": {
           "raw": "@uv.x=float(@primnum)/float(@numprim-1);\n@Cd=@uv.x;\n\n",
@@ -9688,7 +10000,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "点 unreal_instance 占位"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -9813,7 +10127,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 河面（display）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -9849,7 +10165,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "河道重采样 3.29"
+      },
       "parms": {
         "length": {
           "raw": "3.29",
@@ -9890,7 +10208,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "河道路径线"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -9926,7 +10246,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清属性（接子网输入：河道路径线）"
+      },
       "parms": {
         "ptdel": {
           "raw": "__vertex_id",
@@ -9981,7 +10303,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "@N={0,1,0}：河面法线朝上"
+      },
       "parms": {
         "snippet": {
           "raw": "@N={0,1,0};",
@@ -10027,7 +10351,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 水车成品"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -10063,7 +10389,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "水车子网：沿河骨架蒙皮取三列点，把 Watermill_L/R 分列对位复制"
+      },
       "parms": {},
       "code": null,
       "children": [
@@ -10117,7 +10445,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "水车骨架线"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -10153,7 +10483,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "重采样 length=ch(../../Watermill_density)：水车间距"
+      },
       "parms": {
         "length": {
           "raw": "ch('../../Watermill_density')",
@@ -10194,7 +10526,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "横截线 dist=ch(../../Watermill_width)：水车跨度"
+      },
       "parms": {
         "originz": {
           "raw": "-ch('../../Watermill_width')*0.5",
@@ -10251,7 +10585,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "横截线 copy 到骨架点"
+      },
       "parms": {
         "targetattribs": {
           "raw": "3",
@@ -10340,7 +10676,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "skin(cols) 蒙成 3 列点网格"
+      },
       "parms": {
         "surftype": {
           "raw": "cols",
@@ -10389,7 +10727,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清属性（河道骨架线）"
+      },
       "parms": {
         "ptdel": {
           "raw": "__vertex_id",
@@ -10444,7 +10784,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "水车子网输出"
+      },
       "parms": {
         "outputidx": {
           "raw": "0",
@@ -10485,7 +10827,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ptnum%3==0 留下：右列点"
+      },
       "parms": {
         "snippet": {
           "raw": "i@index=@ptnum%3;\nif(@index!=0)\n{\n    removepoint(0,@ptnum);\n}",
@@ -10531,7 +10875,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ptnum%3==1 留下：中列点"
+      },
       "parms": {
         "snippet": {
           "raw": "i@index=@ptnum%3;\nif(@index!=1)\n{\n    removepoint(0,@ptnum);\n}",
@@ -10577,7 +10923,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ptnum%3==2 留下：左列点"
+      },
       "parms": {
         "snippet": {
           "raw": "i@index=@ptnum%3;\nif(@index!=2)\n{\n    removepoint(0,@ptnum);\n}",
@@ -10623,7 +10971,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "水车实例定义点入口"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -10659,7 +11009,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "删 Watermill_L：留 R 模型定义"
+      },
       "parms": {
         "group": {
           "raw": "@name==Watermill_L",
@@ -10704,7 +11056,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "删 Watermill_R：留 L 模型定义"
+      },
       "parms": {
         "group": {
           "raw": "@name==Watermill_R",
@@ -10749,7 +11103,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "L 模型 copy 到右列点"
+      },
       "parms": {
         "targetattribs": {
           "raw": "3",
@@ -10838,7 +11194,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "R 模型 copy 到左列点"
+      },
       "parms": {
         "targetattribs": {
           "raw": "3",
@@ -10927,7 +11285,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "两侧水车合并"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -10963,7 +11323,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清理 Group/index/name"
+      },
       "parms": {
         "ptdel": {
           "raw": "Group index name",
@@ -11006,7 +11368,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../WaterMill_model：水车 L/R 实例定义点"
+      },
       "parms": {
         "enable1": {
           "raw": "on",

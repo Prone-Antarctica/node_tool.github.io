@@ -37,7 +37,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "建筑块预处理子网：4 个 FBX 建筑 → 清理/缩放/居中 → 出口0=完整模型(Block)，出口1=占地代理面(BlockPrimitive)，都带 name 标签"
+      },
       "parms": {},
       "code": null,
       "children": [
@@ -114,7 +116,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "出口0：完整建筑模型库"
+      },
       "parms": {
         "outputidx": {
           "raw": "0",
@@ -155,7 +159,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "四种完整建筑合并（靠 name 区分）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -191,7 +197,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "打上 name=BP_Buildings_01——下游 copytopoints 按 name 匹配变体"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -236,7 +244,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "打上 name=BP_Buildings_02——下游 copytopoints 按 name 匹配变体"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -281,7 +291,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "打上 name=BP_Buildings_03——下游 copytopoints 按 name 匹配变体"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -326,7 +338,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "打上 name=BP_Buildings_04——下游 copytopoints 按 name 匹配变体"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -371,7 +385,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ty=-bbox(0,D_YMIN)：把模型底面落到 y=0（此链额外 rx 90）"
+      },
       "parms": {
         "ty": {
           "raw": "-bbox(0,D_YMIN)",
@@ -416,7 +432,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ty=-bbox(0,D_YMIN)：把模型底面落到 y=0"
+      },
       "parms": {
         "ty": {
           "raw": "-bbox(0,D_YMIN)",
@@ -457,7 +475,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ty=-bbox(0,D_YMIN)：把模型底面落到 y=0"
+      },
       "parms": {
         "ty": {
           "raw": "-bbox(0,D_YMIN)",
@@ -498,7 +518,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "ty=-bbox(0,D_YMIN)：把模型底面落到 y=0"
+      },
       "parms": {
         "ty": {
           "raw": "-bbox(0,D_YMIN)",
@@ -539,7 +561,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "取包围盒（做占地代理面的第一步）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -575,7 +599,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按法线删面（+Y，90°）：包围盒只留顶面 = 建筑占地面片"
+      },
       "parms": {
         "stdswitcher1": {
           "raw": "2",
@@ -632,7 +658,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "代理面打上 name=Building_01"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -677,7 +705,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "代理面打上 name=Building_02"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -722,7 +752,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "代理面打上 name=Building_03"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -767,7 +799,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "代理面打上 name=Building_04"
+      },
       "parms": {
         "group1": {
           "raw": "",
@@ -812,7 +846,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "取包围盒（做占地代理面的第一步）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -848,7 +884,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按法线删面（+Y，90°）：包围盒只留顶面 = 建筑占地面片"
+      },
       "parms": {
         "stdswitcher1": {
           "raw": "2",
@@ -905,7 +943,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "取包围盒（做占地代理面的第一步）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -941,7 +981,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按法线删面（+Y，90°）：包围盒只留顶面 = 建筑占地面片"
+      },
       "parms": {
         "stdswitcher1": {
           "raw": "2",
@@ -998,7 +1040,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "取包围盒（做占地代理面的第一步）"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -1034,7 +1078,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按法线删面（+Y，90°）：包围盒只留顶面 = 建筑占地面片"
+      },
       "parms": {
         "stdswitcher1": {
           "raw": "2",
@@ -1091,7 +1137,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "四种占地代理面合并"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -1127,7 +1175,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "出口1：占地代理面——交给 uvlayout 当摆放单元"
+      },
       "parms": {
         "outputidx": {
           "raw": "1",
@@ -1168,7 +1218,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Match Size justify=origin：居中到原点"
+      },
       "parms": {
         "justifytarget": {
           "raw": "origin",
@@ -1211,7 +1263,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Match Size justify=origin：居中到原点"
+      },
       "parms": {
         "justifytarget": {
           "raw": "origin",
@@ -1254,7 +1308,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Match Size justify=origin：居中到原点"
+      },
       "parms": {
         "justifytarget": {
           "raw": "origin",
@@ -1297,7 +1353,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "Match Size justify=origin：居中到原点"
+      },
       "parms": {
         "justifytarget": {
           "raw": "origin",
@@ -1340,7 +1398,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "FBX 单位换算：scale 0.01（厘米→米）+ rx 90（Z-up→Y-up）"
+      },
       "parms": {
         "ty": {
           "raw": "0",
@@ -1389,7 +1449,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "读入 BP_Buildings_01.fbx 建筑模型"
+      },
       "parms": {
         "file": {
           "raw": "\"D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_01.fbx\"",
@@ -1430,7 +1492,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "FBX 单位换算：scale 0.01（厘米→米）+ rx 90（Z-up→Y-up）"
+      },
       "parms": {
         "ty": {
           "raw": "0",
@@ -1479,7 +1543,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "读入 BP_Buildings_02.fbx 建筑模型"
+      },
       "parms": {
         "file": {
           "raw": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_02.fbx",
@@ -1520,7 +1586,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "FBX 单位换算：scale 0.01（厘米→米）+ rx 90（Z-up→Y-up）"
+      },
       "parms": {
         "ty": {
           "raw": "0",
@@ -1569,7 +1637,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "读入 BP_Buildings_03.fbx 建筑模型"
+      },
       "parms": {
         "file": {
           "raw": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_03.fbx",
@@ -1610,7 +1680,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "FBX 单位换算：scale 0.01（厘米→米）+ rx 90（Z-up→Y-up）"
+      },
       "parms": {
         "ty": {
           "raw": "0",
@@ -1659,7 +1731,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "读入 BP_Buildings_04.fbx 建筑模型"
+      },
       "parms": {
         "file": {
           "raw": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_04.fbx",
@@ -1700,7 +1774,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉 FBX 带来的 fbx_* 变换属性和 N/uv，避免污染下游"
+      },
       "parms": {
         "ptdel": {
           "raw": "fbx_rotation fbx_scale fbx_translation",
@@ -1747,7 +1823,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉 FBX 带来的 fbx_* 变换属性和 N/uv，避免污染下游"
+      },
       "parms": {
         "ptdel": {
           "raw": "fbx_rotation fbx_scale fbx_translation",
@@ -1794,7 +1872,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉 FBX 带来的 fbx_* 变换属性和 N/uv，避免污染下游"
+      },
       "parms": {
         "ptdel": {
           "raw": "fbx_rotation fbx_scale fbx_translation",
@@ -1841,7 +1921,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "清掉 FBX 带来的 fbx_* 变换属性和 N/uv，避免污染下游"
+      },
       "parms": {
         "ptdel": {
           "raw": "fbx_rotation fbx_scale fbx_translation",
@@ -1888,7 +1970,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "@N={0,0,1}：统一代理面法线，配合 uvlayout 的 zx 投影平面"
+      },
       "parms": {
         "snippet": {
           "raw": "@N={0,0,1};",
@@ -1934,7 +2018,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "OUT 建筑源（带 name），copytopoints4 的第 0 输入"
+      },
       "parms": {},
       "code": null,
       "children": [],
@@ -1970,7 +2056,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "class=primitive，addpoint(0,@P)：每个面片中心加一个落点"
+      },
       "parms": {
         "class": {
           "raw": "primitive",
@@ -2020,7 +2108,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "把角点的 name/N 抄给新加的中心点（面片 4 角点 + 中心点=第 4 号）"
+      },
       "parms": {
         "snippet": {
           "raw": "string Tempname = pointattrib(0,\"name\",0,0);\nvector Tempnormal = pointattrib(0,\"N\",0,0);\nsetpointattrib(0,\"name\",4,Tempname);\nsetpointattrib(0,\"N\",4,Tempnormal);",
@@ -2066,7 +2156,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "给中心点标 delete=1（其余 0）——供下游筛选"
+      },
       "parms": {
         "snippet": {
           "raw": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);",
@@ -2112,7 +2204,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "核心技巧：UV Layout 当摆放求解器——uvattrib=P 直接排点位而非 uv，projplane=zx 水平面，padding=ch(../interval) 即建筑间距，target=地块面；解出无重叠的建筑布局"
+      },
       "parms": {
         "uvattrib": {
           "raw": "P",
@@ -2241,7 +2335,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "把建筑（代理面）copy 到撒点上；applyattribs 排除 N/orient 等变换属性——真正的摆放交给 uvlayout"
+      },
       "parms": {
         "targetattribs": {
           "raw": "3",
@@ -2330,7 +2426,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "删掉 @delete==0 的点：只留每栋建筑的中心落点"
+      },
       "parms": {
         "group": {
           "raw": "@delete==0",
@@ -2375,7 +2473,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "按 piece（每栋建筑代理面）循环"
+      },
       "parms": {
         "method": {
           "raw": "piece",
@@ -2420,7 +2520,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "合并各 piece"
+      },
       "parms": {
         "itermethod": {
           "raw": "pieces",
@@ -2481,7 +2583,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../null4：地块面，作 uvlayout 的 target geometry"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
@@ -2534,7 +2638,9 @@
         "lock": false
       },
       "comment": "",
-      "user_data": {},
+      "user_data": {
+        "hna.ai_note": "object_merge ../Scatter_points：取撒点结果"
+      },
       "parms": {
         "enable1": {
           "raw": "on",
