@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HNA Viewer — Houdini 节点归档查看器</title>
+<style>
+  :root {
+    --bg: #262626;          /* 贴近 Houdini 网络编辑器底色 */
+    --panel: #1c1c1c;
+    --panel-border: #3a3a3a;
+    --text: #d6d6d6;
+    --text-dim: #8f8f8f;
+    --accent: #d8a000;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Cascadia Mono", monospace;
+    --sans: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--panel-border);
+    flex-wrap: wrap;
+  }
+  header .brand { font-weight: 600; letter-spacing: 0.5px; margin-right: 6px; }
+  header button, header label.filebtn {
+    background: #2f2f2f;
+    color: var(--text);
+    border: 1px solid #454545;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+  header button:hover, header label.filebtn:hover { background: #3a3a3a; }
+  header input[type="file"] { display: none; }
+  #meta { margin-left: auto; color: var(--text-dim); font-size: 11px; font-family: var(--mono); }
+  #crumbs {
+    padding: 5px 12px;
+    background: #222;
+    border-bottom: 1px solid var(--panel-border);
+    font-family: var(--mono);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  #crumbs span.seg { color: #7fb3e8; cursor: pointer; }
+  #crumbs span.seg:hover { text-decoration: underline; }
+  #crumbs span.seg.cur { color: var(--text); cursor: default; text-decoration: none; }
+  #crumbs span.sep { color: var(--text-dim); margin: 0 2px; }
+  #crumbs .hint { color: #5c5c5c; margin-left: 14px; }
+  #stage { flex: 1; position: relative; overflow: hidden; }
+  svg#canvas { width: 100%; height: 100%; display: block; cursor: grab; }
+  svg#canvas.panning { cursor: grabbing; }
+  #status {
+    padding: 4px 12px;
+    background: var(--panel);
+    border-top: 1px solid var(--panel-border);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-family: var(--mono);
+    display: flex;
+    gap: 18px;
+  }
+  #error {
+    position: absolute;
+    top: 12px; left: 50%;
+    transform: translateX(-50%);
+    background: #5b2020;
+    color: #f0c0c0;
+    border: 1px solid #8f3030;
+    border-radius: 4px;
+    padding: 6px 14px;
+    display: none;
+    max-width: 70%;
+  }
+  #drophint {
+    position: absolute; inset: 0;
+    display: none;
+    align-items: center; justify-content: center;
+    background: rgba(30,50,70,0.55);
+    border: 2px dashed #5a86ad;
+    font-size: 18px;
+    pointer-events: none;
+  }
+  /* 搜索 */
+  #search {
+    background: #2f2f2f; color: var(--text);
+    border: 1px solid #454545; border-radius: 4px;
+    padding: 4px 10px; font-size: 12px; width: 190px;
+    font-family: var(--sans);
+  }
+  #search:focus { outline: none; border-color: var(--accent); }
+  #search-results {
+    position: absolute; z-index: 30;
+    background: #1e1e1e; border: 1px solid #454545; border-radius: 4px;
+    max-height: 320px; overflow-y: auto; display: none;
+    min-width: 300px; box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  }
+  #search-results .sr {
+    padding: 5px 10px; cursor: pointer; font-size: 12px;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  #search-results .sr:hover { background: #2d2d2d; }
+  #search-results .sr .sr-name { font-family: var(--mono); color: #ffd75e; }
+  #search-results .sr .sr-path { color: var(--text-dim); font-size: 11px; font-family: var(--mono); }
+
+  /* 库视图 / 统计视图 */
+  .view { flex: 1; overflow-y: auto; display: none; padding: 18px 24px; }
+  .view.on { display: block; }
+  .view h1 { font-size: 16px; margin: 0 0 4px; }
+  .view .sub { color: var(--text-dim); font-size: 12px; margin-bottom: 14px; }
+  .view button, .view input[type="date"], .view input[type="url"] {
+    background: #2f2f2f; color: var(--text);
+    border: 1px solid #454545; border-radius: 4px;
+    padding: 5px 12px; font-size: 12px; cursor: pointer; font-family: var(--sans);
+  }
+  .view button:hover { background: #3a3a3a; }
+  .view button.primary { border-color: var(--accent); color: var(--accent); }
+  #lib-cards {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px; margin-top: 16px;
+  }
+  .card {
+    background: #1e1e1e; border: 1px solid #333; border-radius: 6px;
+    padding: 10px 12px; cursor: pointer; transition: border-color 0.15s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card .c-thumb {
+    background: #161616; border-radius: 4px; height: 96px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 8px; overflow: hidden;
+  }
+  .card .c-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .card .c-meta { font-size: 11px; color: var(--text-dim); font-family: var(--mono); }
+  .card .c-ctx {
+    display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px;
+    background: #2c3b4d; color: #8fc1ee; margin-right: 6px;
+  }
+  #stats table { border-collapse: collapse; font-size: 12px; margin-top: 10px; min-width: 60%; }
+  #stats th, #stats td { text-align: left; padding: 5px 14px 5px 0; border-bottom: 1px solid #2c2c2c; }
+  #stats th { color: var(--text-dim); font-weight: 500; font-size: 11px; }
+  #stats td.mono { font-family: var(--mono); }
+  #stats .warn-row td { color: #e8b0a0; }
+  #toast {
+    position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+    background: #333; border: 1px solid #555; color: var(--text);
+    padding: 7px 18px; border-radius: 5px; font-size: 12.5px;
+    display: none; z-index: 99;
+  }
+
+  /* 代码高亮 */
+  .tk-c { color: #6a9955; font-style: italic; }
+  .tk-s { color: #ce9178; }
+  .tk-k { color: #569cd6; }
+  .tk-n { color: #b5cea8; }
+  .tk-a { color: #dcdcaa; }
+
+  /* 复习标注表单 */
+  #parms .anno input, #parms .anno select {
+    background: #242424; color: var(--text); border: 1px solid #3d3d3d;
+    border-radius: 3px; padding: 4px 8px; font-size: 12px; width: 100%;
+    font-family: var(--sans); margin: 2px 0 8px;
+  }
+  #parms .anno label { font-size: 11px; color: var(--text-dim); }
+  #parms .anno button {
+    background: #2f2f2f; color: var(--accent); border: 1px solid var(--accent);
+    border-radius: 4px; padding: 4px 14px; font-size: 12px; cursor: pointer;
+  }
+  #parms .anno button:hover { background: #3a3324; }
+
+  /* 参数面板 */
+  #parms {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 340px;
+    max-width: 55%;
+    background: rgba(24,24,24,0.96);
+    border-left: 1px solid var(--panel-border);
+    overflow-y: auto;
+    display: none;
+    padding: 12px 14px 20px;
+  }
+  #parms.open { display: block; }
+  #parms .p-close {
+    float: right;
+    background: none; border: none; color: var(--text-dim);
+    font-size: 16px; cursor: pointer; padding: 0 2px;
+  }
+  #parms .p-close:hover { color: var(--text); }
+  #parms h2 { margin: 0 0 2px; font-size: 15px; font-family: var(--mono); }
+  #parms .p-type { color: var(--text-dim); font-size: 12px; margin-bottom: 2px; }
+  #parms .p-path { color: #7fb3e8; font-size: 11px; font-family: var(--mono); word-break: break-all; margin-bottom: 8px; }
+  #parms .p-comment { color: #c9c39a; font-size: 12px; font-style: italic; margin: 6px 0; white-space: pre-wrap; }
+  #parms .p-warn { color: #e8a0a0; font-size: 12px; margin: 6px 0; }
+  #parms .p-flags { font-size: 11px; color: var(--text-dim); font-family: var(--mono); margin-bottom: 10px; }
+  #parms .p-flags b { color: var(--accent); font-weight: 600; }
+  #parms h3 {
+    margin: 14px 0 6px; font-size: 12px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 1px;
+    border-bottom: 1px solid var(--panel-border); padding-bottom: 3px;
+  }
+  #parms table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  #parms td { padding: 3px 6px 3px 0; vertical-align: top; border-bottom: 1px solid #2a2a2a; }
+  #parms td.k { color: #9ec98f; font-family: var(--mono); white-space: nowrap; max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+  #parms td.v { font-family: var(--mono); word-break: break-all; }
+  #parms .expr { color: var(--accent); display: block; font-size: 11px; margin-top: 1px; word-break: break-all; }
+  #parms .ramp { color: var(--text-dim); font-size: 11px; }
+  #parms pre {
+    background: #141414; border: 1px solid #2e2e2e; border-radius: 4px;
+    padding: 8px 10px; font-family: var(--mono); font-size: 11.5px;
+    white-space: pre-wrap; word-break: break-all; line-height: 1.5;
+    color: #cfe3cf; margin: 4px 0 0;
+  }
+  #parms .empty { color: #5c5c5c; font-size: 12px; }
+  /* SVG 内文字 */
+  /* 字号由 applyVB() 按缩放动态补偿：缩得越小字越大（屏幕上恒定），下限 = 基准的 1.5 倍 */
+  text.node-label { font-family: var(--mono); font-size: var(--fs-label, 58.5px); fill: #d2d2d2; dominant-baseline: central; }
+  text.node-comment { font-family: var(--sans); font-size: var(--fs-comment, 45px); font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
+  text.box-title { font-family: var(--sans); font-size: var(--fs-box, 45px); fill: #e2e2e2; dominant-baseline: central; }
+  .note-body { font-family: var(--sans); font-size: 24px; color: #33301e; white-space: pre-wrap; overflow: hidden; line-height: 1.35; }
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">HNA Viewer</span>
+  <button id="btn-lib">📚 快照库</button>
+  <button id="btn-stats">📈 统计</button>
+  <label class="filebtn">打开 graph.json…<input type="file" id="file" accept=".json,application/json"></label>
+  <button id="btn-simple">样例：simple</button>
+  <button id="btn-nested">样例：nested</button>
+  <input id="search" type="search" placeholder="搜索节点 / 类型 / 注释 / 代码…">
+  <button id="btn-fit">缩放适配 (F)</button>
+  <button id="btn-svg">导出 SVG</button>
+  <button id="btn-png">导出 PNG</button>
+  <button id="btn-claude" title="把当前页面和选中节点打包成上下文，粘给 Claude Code">🤖 问 Claude</button>
+  <span id="meta"></span>
+</header>
+<div id="search-results"></div>
+<div id="crumbs"></div>
+<div id="stage">
+  <svg id="canvas" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div id="error"></div>
+  <div id="drophint">松开以载入 graph.json</div>
+  <aside id="parms"></aside>
+</div>
+<div id="library" class="view">
+  <h1>快照库</h1>
+  <div class="sub" id="lib-sub">连接你的归档文件夹（默认 <code>~/HoudiniNodeArchive</code>），快照会自动列出，Houdini 里新导出的条目也会自己出现。</div>
+  <button id="btn-pick" class="primary">📁 选择归档文件夹…</button>
+  <button id="btn-reconnect" style="display:none">🔗 重新连接上次的文件夹</button>
+  <div style="margin-top:10px; display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+    <input id="cloud-url" type="url" style="width:320px; cursor:text" placeholder="https://<用户名>.github.io/<归档仓库>/">
+    <button id="btn-cloud">🌐 连接云端归档</button>
+    <button id="btn-cloud-refresh" style="display:none">🔄 刷新云端</button>
+  </div>
+  <div id="lib-cards"></div>
+</div>
+<div id="stats" class="view">
+  <h1>跨快照统计</h1>
+  <div class="sub">基于快照库里的全部 graph.json。反复出现但掌握度低的类型，值得优先复习。</div>
+  <div id="stats-body"></div>
+</div>
+<div id="toast"></div>
+<div id="status"><span id="st-file">未载入</span><span id="st-counts"></span><span id="st-level"></span></div>
+
+<script>
+"use strict";
+/* ============================================================
+ * HNA M2 静态渲染原型。
+ * 坐标契约：Houdini 网络坐标 Y 向上，pos 是节点/框/便签的左下角。
+ * SVG Y 向下 —— toSvg() 里做翻转。
+ * ============================================================ */
+
+const SCALE = 100;   // 每个网络单位的像素数
+const PAD = 1.0;     // 包围盒边距（网络单位）
+const NS = "http://www.w3.org/2000/svg";
+
+const $ = (id) => document.getElementById(id);
+const svg = $("canvas");
+
+let graph = null;        // 当前 graph.json
+let level = null;        // 当前显示的网络路径
+let selected = null;     // 选中节点的 id（参数面板）
+let searchQuery = "";    // 搜索词（命中高亮 / 其余变暗）
+let dirHandle = null;    // 归档文件夹句柄（File System Access API）
+let cloudBase = null;    // 云端归档基址（"" = 与页面同源，即 Pages 上直接打开）；非 null 时快照库是只读云端
+let libEntries = [];     // 快照库条目 [{dir, handle, graph, title, date, nodeCount, ...}]
+let currentEntry = null; // 当前图来自哪个快照（写回标注用）
+let view = "graph";      // graph | library | stats
+let nodeHits = [];       // 当前层级节点的像素矩形，双击命中检测用
+let fileName = "";
+let bbox = null;         // 当前层级的包围盒（网络坐标）
+let vb = { x: 0, y: 0, w: 1000, h: 600 };  // viewBox
+
+/* ---------- 小工具 ---------- */
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function rgb(c, alpha) {
+  if (!c) c = [0.6, 0.6, 0.6];
+  const [r, g, b] = c.map((v) => Math.round(v * 255));
+  return alpha === undefined ? `rgb(${r},${g},${b})` : `rgba(${r},${g},${b},${alpha})`;
+}
+function isLight(c) {
+  if (!c) return false;
+  return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2] > 0.55;
+}
+function showError(msg) {
+  const e = $("error");
+  e.textContent = msg;
+  e.style.display = msg ? "block" : "none";
+  if (msg) setTimeout(() => (e.style.display = "none"), 6000);
+}
+
+/* ---------- 层级筛选 ---------- */
+function levelNodes() { return graph.nodes.filter((n) => n.parent === level); }
+function levelBoxes() { return (graph.network_boxes || []).filter((b) => (b.parent ?? graph.root) === level); }
+function levelNotes() { return (graph.sticky_notes || []).filter((s) => (s.parent ?? graph.root) === level); }
+function levelConns(idsSet) {
+  return (graph.connections || []).filter((c) => idsSet.has(c.from) && idsSet.has(c.to));
+}
+
+/* ---------- 坐标变换（计划第 4 节） ---------- */
+function computeBBox(nodes, boxes, notes) {
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  const grow = (p, s) => {
+    minX = Math.min(minX, p[0]); minY = Math.min(minY, p[1]);
+    maxX = Math.max(maxX, p[0] + s[0]); maxY = Math.max(maxY, p[1] + s[1]);
+  };
+  for (const n of nodes) grow(n.pos, n.size);
+  for (const b of boxes) grow(b.pos, b.size);
+  for (const s of notes) grow(s.pos, s.size);
+  if (minX === Infinity) { minX = 0; minY = 0; maxX = 1; maxY = 1; }
+  return { minX, minY, maxX, maxY };
+}
+function toSvg(p) {
+  return [
+    (p[0] - bbox.minX + PAD) * SCALE,
+    (bbox.maxY - p[1] + PAD) * SCALE,   // Y 翻转
+  ];
+}
+function contentSize() {
+  return [
+    (bbox.maxX - bbox.minX + PAD * 2) * SCALE,
+    (bbox.maxY - bbox.minY + PAD * 2) * SCALE,
+  ];
+}
+
+/* ---------- 连线（贝塞尔） ---------- */
+function wirePath(p0, p1) {
+  // 控制点沿流向偏移，取端点距离的 30%，下限 0.3 个网络单位
+  const dist = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]);
+  const k = Math.max(0.3 * SCALE, dist * 0.3);
+  // vertical 流向：输出朝下（SVG +y），输入从上方进入
+  return `M ${p0[0]} ${p0[1]} C ${p0[0]} ${p0[1] + k}, ${p1[0]} ${p1[1] - k}, ${p1[0]} ${p1[1]}`;
+}
+
+/* ---------- 渲染 ---------- */
+function render() {
+  svg.textContent = "";
+  if (!graph) return;
+
+  const nodes = levelNodes();
+  const boxes = levelBoxes();
+  const notes = levelNotes();
+  bbox = computeBBox(nodes, boxes, notes);
+  const ids = new Set(nodes.map((n) => n.id));
+  const conns = levelConns(ids);
+
+  // 每个节点实际用到的输入口数量（用于沿上边均分）
+  const inCount = {};
+  for (const c of conns) inCount[c.to] = Math.max(inCount[c.to] || 0, c.to_input + 1);
+
+  nodeHits = [];
+  const gBoxes = el("g", {}, svg);
+  const gNotes = el("g", {}, svg);
+  const gWires = el("g", {}, svg);
+  const gNodes = el("g", {}, svg);
+
+  /* 网络框（最底层） */
+  for (const b of boxes) {
+    const [x, y] = toSvg([b.pos[0], b.pos[1] + b.size[1]]);
+    const w = b.size[0] * SCALE, h = b.size[1] * SCALE;
+    const g = el("g", {}, gBoxes);
+    el("rect", { x, y, width: w, height: h, rx: 4, fill: rgb(b.color, 0.16), stroke: rgb(b.color, 0.8), "stroke-width": 1 }, g);
+    el("rect", { x, y, width: w, height: 44, rx: 4, fill: rgb(b.color, 0.45) }, g);
+    const t = el("text", { x: x + 12, y: y + 22, class: "box-title" }, g);   // 垂直居中在标题条内
+    t.textContent = b.comment || b.id;
+  }
+
+  /* 便签 */
+  for (const s of notes) {
+    const [x, y] = toSvg([s.pos[0], s.pos[1] + s.size[1]]);
+    const w = s.size[0] * SCALE, h = s.size[1] * SCALE;
+    const g = el("g", {}, gNotes);
+    el("rect", { x: x + 2, y: y + 3, width: w, height: h, rx: 3, fill: "rgba(0,0,0,0.35)" }, g); // 阴影
+    el("rect", { x, y, width: w, height: h, rx: 3, fill: rgb(s.color || [0.9, 0.9, 0.6]), stroke: "rgba(0,0,0,0.25)" }, g);
+    const fo = el("foreignObject", { x: x + 8, y: y + 6, width: w - 16, height: h - 12 }, g);
+    const div = document.createElement("div");
+    div.className = "note-body";
+    div.textContent = s.text;
+    fo.appendChild(div);
+  }
+
+  /* 连线（在节点下面） */
+  const nodeById = {};
+  for (const n of nodes) nodeById[n.id] = n;
+  for (const c of conns) {
+    const a = nodeById[c.from], b = nodeById[c.to];
+    // 输出端点 = 下边中点；输入端点 = 上边第 i 个（均分）
+    const p0 = toSvg([a.pos[0] + a.size[0] / 2, a.pos[1]]);
+    const n = inCount[b.id] || 1;
+    const p1 = toSvg([b.pos[0] + b.size[0] * (c.to_input + 1) / (n + 1), b.pos[1] + b.size[1]]);
+    el("path", {
+      d: wirePath(p0, p1),
+      fill: "none",
+      stroke: "rgba(160,160,160,0.55)",   // 比节点低的对比度
+      "stroke-width": 2,
+    }, gWires);
+  }
+
+  /* 节点 */
+  for (const n of nodes) {
+    const [x, y] = toSvg([n.pos[0], n.pos[1] + n.size[1]]);
+    const w = n.size[0] * SCALE, h = n.size[1] * SCALE;
+    const g = el("g", { transform: `translate(${x},${y})`, "data-id": n.id }, gNodes);
+    g.style.cursor = "pointer";
+    nodeHits.push({ x, y, w, h, node: n });
+
+    const f = n.flags || {};
+    const bypassed = f.bypass === true;
+
+    // 选中高亮（参数面板对应的节点）
+    if (n.id === selected) {
+      el("rect", { x: -6, y: -6, width: w + 12, height: h + 12, rx: 10, fill: "none", stroke: "var(--accent)", "stroke-width": 2.5, "stroke-dasharray": "6 4" }, g);
+    }
+
+    // display 高亮环（贴近 Houdini 的蓝色描边）
+    if (f.display === true) {
+      el("rect", { x: -3.5, y: -3.5, width: w + 7, height: h + 7, rx: 9, fill: "none", stroke: "#2f7fd0", "stroke-width": 2, opacity: 0.9 }, g);
+    }
+
+    // 本体
+    const rx = n.shape === "circle" ? h / 2 : 7;
+    const body = el("rect", { x: 0, y: 0, width: w, height: h, rx, fill: rgb(n.color), stroke: "rgba(0,0,0,0.55)", "stroke-width": 1.2 }, g);
+    if (bypassed) {
+      el("rect", { x: 0, y: 0, width: w, height: h, rx, fill: "rgba(214,179,0,0.30)" }, g);
+      g.setAttribute("opacity", "0.62");
+    }
+
+    // 左翼：bypass（null = 该节点没有这个标志位，不画）
+    if (f.bypass !== null && f.bypass !== undefined) {
+      el("rect", { x: -7, y: 4, width: 5, height: h - 8, rx: 2.5, fill: f.bypass ? "#d6b300" : "#383838", stroke: "rgba(0,0,0,0.5)", "stroke-width": 0.8 }, g);
+    }
+    // 右翼：上 render / 下 display
+    const wingH = (h - 10) / 2;
+    if (f.render !== null && f.render !== undefined) {
+      el("rect", { x: w + 2, y: 4, width: 5, height: wingH, rx: 2.5, fill: f.render ? "#9d6cff" : "#383838", stroke: "rgba(0,0,0,0.5)", "stroke-width": 0.8 }, g);
+    }
+    if (f.display !== null && f.display !== undefined) {
+      el("rect", { x: w + 2, y: h / 2 + 1, width: 5, height: wingH, rx: 2.5, fill: f.display ? "#33aaff" : "#383838", stroke: "rgba(0,0,0,0.5)", "stroke-width": 0.8 }, g);
+    }
+    // template：左上角一个小粉点
+    if (f.template === true) {
+      el("circle", { cx: 0, cy: 0, r: 4, fill: "#ff6ec7", stroke: "rgba(0,0,0,0.5)" }, g);
+    }
+
+    // 代码块徽标
+    if (n.code) {
+      const dark = !isLight(n.color);
+      el("rect", { x: w - 24, y: (h - 15) / 2, width: 19, height: 15, rx: 3, fill: dark ? "rgba(255,255,255,0.18)" : "rgba(0,0,0,0.35)" }, g);
+      const t = el("text", { x: w - 14.5, y: h / 2 + 3.5, "text-anchor": "middle", style: `font-family: var(--mono); font-size: 10px; fill: ${dark ? "#fff" : "#eee"};` }, g);
+      t.textContent = "{}";
+    }
+    // 子网络徽标（可双击进入）
+    if ((n.children || []).length > 0) {
+      const t = el("text", { x: 7, y: h / 2 + 4, style: "font-family: var(--mono); font-size: 11px; fill: rgba(0,0,0,0.6); font-weight: 600;" }, g);
+      t.textContent = "▸▸";
+    }
+
+    // 名字标签（Houdini 里标签在节点右侧；给右翼让 12px）
+    const label = el("text", { x: w + 14, y: h / 2, class: "node-label" }, g);   // 垂直居中靠 dominant-baseline
+    label.textContent = n.name;
+    if (n.is_hda) label.setAttribute("fill", "#8fd3b6");
+
+    // 注释显示在节点下方
+    if (n.comment) {
+      const c = el("text", { x: 0, y: h + 10, class: "node-comment" }, g);   // hanging：文字挂在 y 下方，字号变了也不压节点
+      c.textContent = n.comment.length > 60 ? n.comment.slice(0, 60) + "…" : n.comment;
+    }
+
+    // 悬停提示
+    const tip = el("title", {}, g);
+    tip.textContent =
+      `${n.name}  (${n.type_label} · ${n.type})` +
+      (n.is_hda ? `\nHDA: ${n.hda_source || "?"}` : "") +
+      (n.comment ? `\n${n.comment}` : "") +
+      ((n.warnings || []).length ? `\n⚠ ${n.warnings.join("; ")}` : "");
+
+    // 双击进入子网络
+    if ((n.children || []).length > 0) {
+      g.style.cursor = "pointer";
+      g.addEventListener("dblclick", (ev) => { ev.stopPropagation(); enterLevel(n.id); });
+    }
+
+    // 搜索：命中描金边，未命中变暗（最后设置，覆盖 bypass 的透明度）
+    if (searchQuery) {
+      if (matchNode(n, searchQuery)) {
+        el("rect", { x: -4, y: -4, width: w + 8, height: h + 8, rx: 9, fill: "none", stroke: "#ffd75e", "stroke-width": 2 }, g);
+      } else {
+        g.setAttribute("opacity", "0.28");
+      }
+    }
+  }
+
+  renderCrumbs();
+  renderStatus(nodes, conns, boxes, notes);
+}
+
+/* ---------- 面包屑 ---------- */
+function renderCrumbs() {
+  const c = $("crumbs");
+  c.textContent = "";
+  if (!graph) return;
+  const rel = level.slice(graph.root.length).split("/").filter(Boolean);
+  const parts = [{ label: graph.root, path: graph.root }];
+  let p = graph.root;
+  for (const seg of rel) { p += "/" + seg; parts.push({ label: seg, path: p }); }
+  parts.forEach((part, i) => {
+    const s = document.createElement("span");
+    s.className = "seg" + (i === parts.length - 1 ? " cur" : "");
+    s.textContent = part.label;
+    if (i < parts.length - 1) s.addEventListener("click", () => enterLevel(part.path));
+    c.appendChild(s);
+    if (i < parts.length - 1) {
+      const sep = document.createElement("span");
+      sep.className = "sep";
+      sep.textContent = " / ";
+      c.appendChild(sep);
+    }
+  });
+  const hint = document.createElement("span");
+  hint.className = "hint";
+  hint.textContent = "单击节点看参数 · 双击子网络进入 · U 返回上层 · 滚轮缩放 · 拖拽平移";
+  c.appendChild(hint);
+}
+
+function renderStatus(nodes, conns, boxes, notes) {
+  $("st-file").textContent = `${fileName} · schema v${graph.schema} · Houdini ${graph.houdini_version} · ${graph.exported_at}`;
+  $("st-counts").textContent = `节点 ${nodes.length} · 连线 ${conns.length} · 框 ${boxes.length} · 便签 ${notes.length}`;
+  $("st-level").textContent = `层级 ${level} (${graph.context}, ${graph.flow})`;
+  $("meta").textContent = graph.hip_file || "(hip 未保存)";
+}
+
+/* ---------- 导航 ---------- */
+function enterLevel(path) {
+  level = path;
+  selected = null;
+  $("parms").classList.remove("open");
+  render();
+  fitView();
+}
+function upLevel() {
+  if (!graph || level === graph.root) return;
+  enterLevel(level.slice(0, level.lastIndexOf("/")));
+}
+
+/* ---------- 缩放 / 平移（改 viewBox） ---------- */
+/* 字号补偿：m = 每屏幕像素对应的 SVG 单位数（缩得越小越大），下限 1.5 =
+   任何缩放下图里的字都不小于基准（39/30/30px）的 1.5 倍 */
+function applyFontScale() {
+  const m = Math.max(1.5, vb.w / Math.max(1, svg.clientWidth));
+  svg.style.setProperty("--fs-label", (39 * m).toFixed(1) + "px");
+  svg.style.setProperty("--fs-comment", (30 * m).toFixed(1) + "px");
+  svg.style.setProperty("--fs-box", (30 * m).toFixed(1) + "px");
+}
+function applyVB() {
+  svg.setAttribute("viewBox", `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+  applyFontScale();
+}
+function fitView() {
+  const [cw, ch] = contentSize();
+  const labelRoom = 720;  // 右侧名字标签的额外空间（字号下限 58.5px）
+  vb = { x: -20, y: -20, w: cw + labelRoom + 40, h: ch + 40 };
+  // 匹配视口纵横比，避免 preserveAspectRatio 带来的偏移
+  const r = svg.clientWidth / svg.clientHeight;
+  if (vb.w / vb.h < r) vb.w = vb.h * r; else vb.h = vb.w / r;
+  applyVB();
+}
+svg.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  if (!graph) return;
+  const f = e.deltaY > 0 ? 1.12 : 1 / 1.12;
+  const pt = clientToSvg(e.clientX, e.clientY);
+  const nw = vb.w * f;
+  if (nw < 120 || nw > 60000) return;
+  vb.x = pt.x - (pt.x - vb.x) * f;
+  vb.y = pt.y - (pt.y - vb.y) * f;
+  vb.w *= f;
+  vb.h *= f;
+  applyVB();
+}, { passive: false });
+
+/* 平移：超过 4px 才开始捕获，否则 setPointerCapture 会把 dblclick
+   重定向到 svg 根元素，节点上的双击进子网络就收不到了 */
+let pan = null;
+svg.addEventListener("pointerdown", (e) => {
+  if (e.button !== 0 && e.button !== 1) return;
+  pan = { x0: e.clientX, y0: e.clientY, vb0: { ...vb }, active: false, id: e.pointerId };
+});
+svg.addEventListener("pointermove", (e) => {
+  if (!pan) return;
+  const dx = e.clientX - pan.x0, dy = e.clientY - pan.y0;
+  if (!pan.active) {
+    if (Math.hypot(dx, dy) < 4) return;
+    pan.active = true;
+    svg.classList.add("panning");
+    svg.setPointerCapture(pan.id);
+  }
+  const sx = vb.w / svg.clientWidth;
+  vb.x = pan.vb0.x - dx * sx;
+  vb.y = pan.vb0.y - dy * sx;
+  applyVB();
+});
+let justPanned = false;  // 拖拽结束后的那次 click 不当作选中
+svg.addEventListener("pointerup", () => {
+  justPanned = !!(pan && pan.active);
+  pan = null;
+  svg.classList.remove("panning");
+});
+function clientToSvg(cx, cy) {
+  const p = new DOMPoint(cx, cy);
+  return p.matrixTransform(svg.getScreenCTM().inverse());
+}
+
+/* 双击兜底：不依赖事件目标（pointer capture 可能把事件重定向到 svg 根），
+   直接用坐标做命中检测 */
+svg.addEventListener("dblclick", (e) => {
+  if (!graph) return;
+  const pt = clientToSvg(e.clientX, e.clientY);
+  const hit = nodeHits.find((r) => pt.x >= r.x && pt.x <= r.x + r.w && pt.y >= r.y && pt.y <= r.y + r.h);
+  if (hit && (hit.node.children || []).length > 0) enterLevel(hit.node.id);
+});
+
+/* 单击：选中节点 → 参数面板；点空白处取消选中 */
+svg.addEventListener("click", (e) => {
+  if (!graph) return;
+  if (justPanned) { justPanned = false; return; }
+  const pt = clientToSvg(e.clientX, e.clientY);
+  const hit = nodeHits.find((r) => pt.x >= r.x && pt.x <= r.x + r.w && pt.y >= r.y && pt.y <= r.y + r.h);
+  selectNode(hit ? hit.node.id : null);
+});
+
+function selectNode(id) {
+  if (selected === id) return;
+  selected = id;
+  render();
+  const panel = $("parms");
+  if (!id) { panel.classList.remove("open"); return; }
+  const n = graph.nodes.find((x) => x.id === id);
+  renderParmPanel(n);
+  panel.classList.add("open");
+}
+
+function fmtEval(v) {
+  if (v === null || v === undefined) return "—";
+  if (Array.isArray(v)) return "[" + v.map(fmtEval).join(", ") + "]";
+  if (typeof v === "number") return Number.isInteger(v) ? String(v) : String(+v.toFixed(4));
+  return String(v);
+}
+
+function renderParmPanel(n) {
+  const p = $("parms");
+  p.textContent = "";
+  const add = (tag, cls, text) => {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined) e.textContent = text;
+    p.appendChild(e);
+    return e;
+  };
+
+  const close = add("button", "p-close", "✕");
+  close.title = "关闭 (Esc)";
+  close.addEventListener("click", () => selectNode(null));
+
+  add("h2", null, n.name);
+  add("div", "p-type", `${n.type_label} · ${n.type}` + (n.is_hda ? `　HDA: ${n.hda_source || "?"}` : ""));
+  add("div", "p-path", n.id);
+
+  const f = n.flags || {};
+  const on = Object.entries(f).filter(([, v]) => v === true).map(([k]) => k);
+  add("div", "p-flags").innerHTML =
+    "标志位: " + (on.length ? on.map((k) => `<b>${k}</b>`).join(" ") : "无");
+
+  if (n.comment) add("div", "p-comment", n.comment);
+  for (const w of n.warnings || []) add("div", "p-warn", "⚠ " + w);
+
+  /* 参数表：只列非默认值（导出器只导这些） */
+  add("h3", null, `参数（非默认，${Object.keys(n.parms || {}).length} 个）`);
+  const names = Object.keys(n.parms || {}).sort();
+  if (!names.length) {
+    add("div", "empty", "全部保持默认值");
+  } else {
+    const table = add("table");
+    for (const name of names) {
+      const v = n.parms[name];
+      const tr = document.createElement("tr");
+      const k = document.createElement("td"); k.className = "k"; k.textContent = name; k.title = name;
+      const val = document.createElement("td"); val.className = "v";
+      if (v.ramp) {
+        const r = v.ramp;
+        val.innerHTML = `<span class="ramp">ramp · ${r.keys.length} 个关键点<br>` +
+          r.keys.map((key, i) => `(${fmtEval(key)} → ${fmtEval(r.values[i])}, ${r.basis[i]})`).join("<br>") + `</span>`;
+      } else {
+        val.textContent = fmtEval(v.eval);
+        // raw 与求值结果不同 → 是表达式，附在下面
+        if (v.raw !== undefined && v.raw !== String(v.eval) && v.raw !== fmtEval(v.eval)) {
+          const ex = document.createElement("span");
+          ex.className = "expr";
+          ex.textContent = v.raw;
+          val.appendChild(ex);
+        }
+      }
+      tr.appendChild(k); tr.appendChild(val); table.appendChild(tr);
+    }
+  }
+
+  /* 代码块（VEX / Python …），带语法高亮 */
+  if (n.code && n.code.text) {
+    add("h3", null, `代码 · ${n.code.lang}`);
+    add("pre").innerHTML = hlCode(n.code.text, n.code.lang);
+  }
+
+  /* 其他用户标注（hna.concept / hna.confidence 在下面的表单里编辑） */
+  const ud = Object.entries(n.user_data || {})
+    .filter(([k]) => k !== "hna.concept" && k !== "hna.confidence");
+  if (ud.length) {
+    add("h3", null, "其他标注");
+    const table = add("table");
+    for (const [k, v] of ud) {
+      const tr = document.createElement("tr");
+      const a = document.createElement("td"); a.className = "k"; a.textContent = k;
+      const b = document.createElement("td"); b.className = "v"; b.textContent = v;
+      tr.appendChild(a); tr.appendChild(b); table.appendChild(tr);
+    }
+  }
+
+  /* M5 复习标注：写回 graph.json */
+  add("h3", null, "复习标注");
+  const anno = add("div", "anno");
+  const udAll = n.user_data || {};
+  anno.innerHTML = `
+    <label>概念（这个节点在学什么）</label>
+    <input id="anno-concept" placeholder="如：rand/ptnum 做种子">
+    <label>掌握度（1 生疏 — 5 熟练）</label>
+    <select id="anno-conf">
+      <option value="">未评估</option>
+      <option value="1">1 完全靠抄</option><option value="2">2 勉强看懂</option>
+      <option value="3">3 能改动</option><option value="4">4 能重建</option>
+      <option value="5">5 信手拈来</option>
+    </select>
+    <button id="anno-save">保存标注</button>`;
+  anno.querySelector("#anno-concept").value = udAll["hna.concept"] || "";
+  anno.querySelector("#anno-conf").value = udAll["hna.confidence"] || "";
+  anno.querySelector("#anno-save").addEventListener("click", () => {
+    n.user_data = n.user_data || {};
+    const c = anno.querySelector("#anno-concept").value.trim();
+    const cf = anno.querySelector("#anno-conf").value;
+    if (c) n.user_data["hna.concept"] = c; else delete n.user_data["hna.concept"];
+    if (cf) n.user_data["hna.confidence"] = cf; else delete n.user_data["hna.confidence"];
+    saveGraphBack();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;  // 表单里打字不触发快捷键
+  if (e.key === "u" || e.key === "U") upLevel();
+  if (e.key === "f" || e.key === "F") fitView();
+  if (e.key === "Escape") selectNode(null);
+});
+$("btn-fit").addEventListener("click", fitView);
+
+/* ============================================================
+ * 视图切换：graph / library / stats
+ * ============================================================ */
+function setView(v) {
+  view = v;
+  $("stage").style.display = v === "graph" ? "" : "none";
+  $("crumbs").style.display = v === "graph" ? "" : "none";
+  $("library").classList.toggle("on", v === "library");
+  $("stats").classList.toggle("on", v === "stats");
+  if (v === "library") renderLibrary();
+  if (v === "stats") renderStats();
+}
+$("btn-lib").addEventListener("click", () => setView(view === "library" && graph ? "graph" : "library"));
+$("btn-stats").addEventListener("click", () => setView(view === "stats" && graph ? "graph" : "stats"));
+
+function toast(msg) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.style.display = "block";
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => (t.style.display = "none"), 2600);
+}
+
+/* ============================================================
+ * 搜索（M4）：按名字 / 类型 / 注释 / 代码 / 标注全图匹配
+ * ============================================================ */
+function matchNode(n, q) {
+  q = q.toLowerCase();
+  const hay = [n.name, n.type, n.type_label, n.comment,
+               n.code && n.code.text, ...Object.values(n.user_data || {})];
+  return hay.some((s) => s && String(s).toLowerCase().includes(q));
+}
+const searchBox = $("search");
+searchBox.addEventListener("input", () => {
+  searchQuery = searchBox.value.trim();
+  if (graph && view === "graph") render();
+  renderSearchResults();
+});
+searchBox.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") { searchBox.value = ""; searchQuery = ""; hideSearchResults(); if (graph) render(); searchBox.blur(); }
+});
+document.addEventListener("click", (e) => {
+  if (!$("search-results").contains(e.target) && e.target !== searchBox) hideSearchResults();
+});
+function hideSearchResults() { $("search-results").style.display = "none"; }
+function renderSearchResults() {
+  const box = $("search-results");
+  if (!graph || !searchQuery) { hideSearchResults(); return; }
+  const hits = graph.nodes.filter((n) => matchNode(n, searchQuery)).slice(0, 20);
+  box.textContent = "";
+  for (const n of hits) {
+    const d = document.createElement("div");
+    d.className = "sr";
+    d.innerHTML = `<span class="sr-name"></span> <span class="sr-path"></span>`;
+    d.querySelector(".sr-name").textContent = `${n.name} (${n.type_label})`;
+    d.querySelector(".sr-path").textContent = n.id;
+    d.addEventListener("click", () => {
+      hideSearchResults();
+      if (level !== n.parent) enterLevel(n.parent);
+      selectNode(n.id);
+    });
+    box.appendChild(d);
+  }
+  if (!hits.length) {
+    const d = document.createElement("div");
+    d.className = "sr";
+    d.style.color = "#777";
+    d.textContent = "没有匹配的节点";
+    box.appendChild(d);
+  }
+  const r = searchBox.getBoundingClientRect();
+  box.style.left = r.left + "px";
+  box.style.top = r.bottom + 4 + "px";
+  box.style.display = "block";
+}
+
+/* ============================================================
+ * 语法高亮（M4）：够用的单遍正则，不引外部库
+ * ============================================================ */
+function escHtml(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+function hlCode(text, lang) {
+  const py = lang === "python";
+  const re = py
+    ? /(#[^\n]*)|("""[\s\S]*?"""|'''[\s\S]*?'''|"(?:\\.|[^"\n\\])*"|'(?:\\.|[^'\n\\])*')|\b(def|class|import|from|return|if|elif|else|for|while|in|not|and|or|None|True|False|with|as|try|except|lambda|print|hou)\b|(\b\d+\.?\d*\b)/g
+    : /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\n\\])*"|'(?:\\.|[^'\n\\])*')|([@$]\w+)|\b(if|else|for|foreach|while|do|return|int|float|vector|vector2|vector4|matrix|matrix3|string|dict|void|export|function|struct|break|continue|chramp|chf|chi|chv|chs)\b|(\b\d+\.?\d*\b)/g;
+  const cls = py ? ["c", "s", "k", "n"] : ["c", "s", "a", "k", "n"];
+  let out = "", last = 0, m;
+  while ((m = re.exec(text))) {
+    out += escHtml(text.slice(last, m.index));
+    for (let i = 1; i < m.length; i++) {
+      if (m[i] !== undefined) { out += `<span class="tk-${cls[i - 1]}">${escHtml(m[i])}</span>`; break; }
+    }
+    last = m.index + m[0].length;
+  }
+  return out + escHtml(text.slice(last));
+}
+
+/* ============================================================
+ * 导出 SVG / PNG（M4）：当前层级整图，样式内联进文件
+ * ============================================================ */
+const EXPORT_CSS = `
+  svg { --mono: ui-monospace, Menlo, Consolas, monospace; --sans: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+  text.node-label { font-family: var(--mono); font-size: 58.5px; fill: #d2d2d2; dominant-baseline: central; }
+  text.node-comment { font-family: var(--sans); font-size: 45px; font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
+  text.box-title { font-family: var(--sans); font-size: 45px; fill: #e2e2e2; dominant-baseline: central; }
+  .note-body { font-family: var(--sans); font-size: 24px; color: #33301e; white-space: pre-wrap; overflow: hidden; line-height: 1.35; }`;
+function buildExportSvg() {
+  const [cw, ch] = contentSize();
+  const w = Math.ceil(cw + 780), h = Math.ceil(ch + 80);
+  const clone = svg.cloneNode(true);
+  clone.setAttribute("xmlns", NS);
+  clone.setAttribute("viewBox", `-20 -20 ${w} ${h}`);
+  clone.setAttribute("width", w);
+  clone.setAttribute("height", h);
+  const style = document.createElementNS(NS, "style");
+  style.textContent = EXPORT_CSS;
+  clone.insertBefore(style, clone.firstChild);
+  const bg = document.createElementNS(NS, "rect");
+  bg.setAttribute("x", -20); bg.setAttribute("y", -20);
+  bg.setAttribute("width", w); bg.setAttribute("height", h);
+  bg.setAttribute("fill", "#262626");
+  clone.insertBefore(bg, style.nextSibling);
+  return { str: new XMLSerializer().serializeToString(clone), w, h };
+}
+function exportName(ext) {
+  const lvl = level ? level.split("/").pop() : "graph";
+  return `${(fileName || "graph").replace(/\.json$/, "")}_${lvl}.${ext}`;
+}
+function download(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+$("btn-svg").addEventListener("click", () => {
+  if (!graph) return;
+  const { str } = buildExportSvg();
+  download(new Blob([str], { type: "image/svg+xml" }), exportName("svg"));
+  toast("已导出 SVG");
+});
+$("btn-png").addEventListener("click", () => {
+  if (!graph) return;
+  const { str, w, h } = buildExportSvg();
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = w * 2; canvas.height = h * 2;   // 2x，贴笔记清晰
+    canvas.getContext("2d").drawImage(img, 0, 0, w * 2, h * 2);
+    canvas.toBlob((b) => { download(b, exportName("png")); toast("已导出 PNG（2x）"); }, "image/png");
+  };
+  img.onerror = () => showError("PNG 导出失败（SVG 栅格化出错），可先导出 SVG");
+  img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(str);
+});
+
+/* ============================================================
+ * 问 Claude：把当前视图 + 选中节点打包成 Markdown 上下文，
+ * 复制到剪贴板（粘进 Claude Code 即可）；连接归档时同时写
+ * _claude_context.md 到归档根目录
+ * ============================================================ */
+function fmtParmMd(name, v) {
+  if (v.ramp) {
+    const r = v.ramp;
+    return `- \`${name}\`: ramp [${r.keys.map((k, i) => `${k}→${r.values[i]}(${r.basis[i]})`).join(", ")}]`;
+  }
+  let s = `- \`${name}\` = ${JSON.stringify(v.eval)}`;
+  if (v.raw !== undefined && v.raw !== String(v.eval)) s += `　表达式: \`${v.raw}\``;
+  return s;
+}
+function buildClaudeContext() {
+  const L = [];
+  L.push("# Houdini 节点快照上下文（由 HNA Viewer 生成）", "");
+  L.push(`- 快照: ${currentEntry ? currentEntry.title : fileName}`);
+  L.push(`- 导出时间: ${graph.exported_at} · Houdini ${graph.houdini_version}`);
+  L.push(`- 网络: ${graph.root} (${graph.context})，当前层级: ${level}`, "");
+
+  const nodes = levelNodes();
+  const ids = new Set(nodes.map((n) => n.id));
+  L.push(`## 当前层级的节点（${nodes.length} 个）`, "");
+  for (const n of nodes) {
+    let line = `- **${n.name}** (${n.type_label} / \`${n.type}\`)`;
+    if ((n.children || []).length) line += `，子网络含 ${n.children.length} 个节点`;
+    if (n.flags && n.flags.bypass === true) line += "，已 bypass";
+    if (n.comment) line += ` — ${n.comment}`;
+    L.push(line);
+  }
+  const conns = levelConns(ids);
+  if (conns.length) {
+    L.push("", "## 连线", "");
+    for (const c of conns) L.push(`- ${c.from.split("/").pop()} → ${c.to.split("/").pop()}（输入口 ${c.to_input}）`);
+  }
+
+  const sel = selected && graph.nodes.find((n) => n.id === selected);
+  if (sel) {
+    L.push("", `## 我选中的节点：${sel.name}`, "");
+    L.push(`- 类型: ${sel.type_label} (\`${sel.type}\`)，路径: \`${sel.id}\``);
+    if (sel.comment) L.push(`- 注释: ${sel.comment}`);
+    for (const w of sel.warnings || []) L.push(`- ⚠ ${w}`);
+    const ud = sel.user_data || {};
+    if (ud["hna.concept"]) L.push(`- 我标注的概念: ${ud["hna.concept"]}`);
+    if (ud["hna.confidence"]) L.push(`- 我的掌握度: ${ud["hna.confidence"]}/5`);
+    const pn = Object.keys(sel.parms || {}).sort();
+    if (pn.length) {
+      L.push("", "### 非默认参数", "");
+      for (const k of pn) L.push(fmtParmMd(k, sel.parms[k]));
+    }
+    if (sel.code && sel.code.text) {
+      L.push("", `### 代码（${sel.code.lang}）`, "", "```" + sel.code.lang, sel.code.text, "```");
+    }
+  }
+  L.push("", "---", "我的问题：");
+  return L.join("\n");
+}
+$("btn-claude").addEventListener("click", async () => {
+  if (!graph) { showError("先载入一个 graph.json"); return; }
+  const md = buildClaudeContext();
+  let wrote = false;
+  if (dirHandle) {
+    try {
+      const fh = await dirHandle.getFileHandle("_claude_context.md", { create: true });
+      const w = await fh.createWritable();
+      await w.write(md);
+      await w.close();
+      wrote = true;
+    } catch {}
+  }
+  try {
+    await navigator.clipboard.writeText(md);
+    toast(wrote ? "上下文已复制，并写入归档根目录 _claude_context.md —— 去 Claude Code 粘贴"
+                : "上下文已复制 —— 切到 Claude Code 粘贴即可");
+  } catch {
+    if (wrote) toast("已写入归档根目录 _claude_context.md（剪贴板不可用）");
+    else showError("剪贴板不可用，且未连接归档文件夹");
+  }
+});
+
+/* ============================================================
+ * 快照库（M3）：File System Access API 读归档文件夹
+ * Chrome / Edge 可用；不支持的浏览器仍能拖 graph.json 进来
+ * ============================================================ */
+function idb() {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open("hna", 1);
+    r.onupgradeneeded = () => r.result.createObjectStore("kv");
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+  });
+}
+async function kvSet(k, v) {
+  const db = await idb();
+  return new Promise((res, rej) => {
+    const tx = db.transaction("kv", "readwrite");
+    tx.objectStore("kv").put(v, k);
+    tx.oncomplete = res;
+    tx.onerror = () => rej(tx.error);
+  });
+}
+async function kvGet(k) {
+  const db = await idb();
+  return new Promise((res, rej) => {
+    const rq = db.transaction("kv").objectStore("kv").get(k);
+    rq.onsuccess = () => res(rq.result);
+    rq.onerror = () => rej(rq.error);
+  });
+}
+
+async function pickArchiveDir() {
+  if (!window.showDirectoryPicker) {
+    showError("此浏览器不支持文件夹访问，请用 Chrome 或 Edge（拖入单个 graph.json 仍然可用）");
+    return;
+  }
+  try {
+    dirHandle = await window.showDirectoryPicker({ id: "hna-archive", mode: "readwrite" });
+  } catch { return; }  // 用户取消
+  cloudBase = null;    // 选了本地文件夹就退出云端模式
+  kvSet("cloudBase", null).catch(() => {});
+  kvSet("archiveDir", dirHandle).catch(() => {});
+  await scanArchive();
+  renderLibrary();
+}
+async function reconnectArchive() {
+  if (!dirHandle) return;
+  try {
+    if (await dirHandle.requestPermission({ mode: "readwrite" }) !== "granted") return;
+  } catch { return; }
+  await scanArchive();
+  renderLibrary();
+}
+
+/* 云端归档：拉 manifest.json + 各快照 graph.json（GitHub Pages 带 CORS *，
+   跨域也能连；base = "" 表示查看器就放在归档仓库里，同源相对路径） */
+async function connectCloud(base, opts = {}) {
+  try {
+    const res = await fetch(base + "manifest.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const man = await res.json();
+    const entries = await Promise.all((man.snapshots || []).map(async (s) => {
+      try {
+        const r = await fetch(base + encodeURIComponent(s.dir) + "/graph.json", { cache: "no-store" });
+        if (!r.ok) throw new Error(r.status);
+        const g = await r.json();
+        return {
+          dir: s.dir, cloud: true, graph: g,
+          title: s.title || s.dir,
+          date: s.date || g.exported_at || "",
+          nodeCount: s.node_count || g.nodes.length,
+          context: g.context, root: g.root,
+        };
+      } catch { return null; }  // 单个快照拉不下来不拖垮整个库
+    }));
+    libEntries = entries.filter(Boolean).sort((a, b) => b.date.localeCompare(a.date));
+    cloudBase = base;
+    return true;
+  } catch (e) {
+    if (!opts.silent) showError("云端归档连接失败：" + e.message);
+    return false;
+  }
+}
+$("btn-cloud").addEventListener("click", async () => {
+  let u = $("cloud-url").value.trim();
+  if (!u) { showError("先填云端归档地址（GitHub Pages URL）"); return; }
+  if (!/^https?:\/\//.test(u)) u = "https://" + u;
+  if (!u.endsWith("/")) u += "/";
+  if (await connectCloud(u)) {
+    kvSet("cloudBase", u).catch(() => {});
+    renderLibrary();
+    toast(`已连接云端 · ${libEntries.length} 个快照`);
+  }
+});
+$("btn-cloud-refresh").addEventListener("click", async () => {
+  if (cloudBase === null) return;
+  if (await connectCloud(cloudBase)) { renderLibrary(); toast("云端已刷新"); }
+});
+
+async function scanArchive() {
+  if (!dirHandle) return;
+  const entries = [];
+  try {
+    for await (const h of dirHandle.values()) {
+      if (h.kind !== "directory") continue;
+      try {
+        const g = JSON.parse(await (await (await h.getFileHandle("graph.json")).getFile()).text());
+        let meta = {};
+        try { meta = JSON.parse(await (await (await h.getFileHandle("meta.json")).getFile()).text()); } catch {}
+        entries.push({
+          dir: h.name, handle: h, graph: g,
+          title: meta.title || h.name,
+          date: meta.exported_at || g.exported_at || "",
+          nodeCount: meta.node_count || g.nodes.length,
+          context: g.context, root: g.root,
+        });
+      } catch {}  // 没有 graph.json 或解析失败的目录跳过
+    }
+  } catch (e) { showError("读取归档文件夹失败：" + e.message); }
+  entries.sort((a, b) => b.date.localeCompare(a.date));
+  libEntries = entries;
+}
+
+/* 缩略图：根层级节点画成小色块 + 细连线 */
+function thumbSvg(g) {
+  const nodes = g.nodes.filter((n) => n.parent === g.root);
+  if (!nodes.length) return "";
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for (const n of nodes) {
+    x0 = Math.min(x0, n.pos[0]); y0 = Math.min(y0, n.pos[1]);
+    x1 = Math.max(x1, n.pos[0] + n.size[0]); y1 = Math.max(y1, n.pos[1] + n.size[1]);
+  }
+  const pad = 0.6; x0 -= pad; y0 -= pad; x1 += pad; y1 += pad;
+  const ids = new Set(nodes.map((n) => n.id));
+  const byId = {}; for (const n of nodes) byId[n.id] = n;
+  let s = `<svg xmlns="${NS}" viewBox="0 0 ${(x1 - x0).toFixed(2)} ${(y1 - y0).toFixed(2)}" style="max-width:100%;max-height:100%">`;
+  const tx = (p) => [(p[0] - x0).toFixed(2), (y1 - p[1]).toFixed(2)];
+  for (const c of g.connections || []) {
+    if (!ids.has(c.from) || !ids.has(c.to)) continue;
+    const a = byId[c.from], b = byId[c.to];
+    const [ax, ay] = tx([a.pos[0] + a.size[0] / 2, a.pos[1]]);
+    const [bx, by] = tx([b.pos[0] + b.size[0] / 2, b.pos[1] + b.size[1]]);
+    s += `<line x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}" stroke="rgba(160,160,160,0.5)" stroke-width="0.06"/>`;
+  }
+  for (const n of nodes) {
+    const [px, py] = tx([n.pos[0], n.pos[1] + n.size[1]]);
+    s += `<rect x="${px}" y="${py}" width="${n.size[0]}" height="${n.size[1]}" rx="0.12" fill="${rgb(n.color)}" stroke="rgba(0,0,0,0.4)" stroke-width="0.03"/>`;
+  }
+  return s + "</svg>";
+}
+
+function fmtDate(iso) {
+  if (!iso) return "?";
+  return iso.slice(0, 16).replace("T", " ");
+}
+function renderLibrary() {
+  const cards = $("lib-cards");
+  cards.textContent = "";
+  $("btn-reconnect").style.display = dirHandle && cloudBase === null && !libEntries.length ? "" : "none";
+  $("btn-cloud-refresh").style.display = cloudBase !== null ? "" : "none";
+  if (cloudBase !== null && cloudBase !== "") $("cloud-url").value = cloudBase;
+  if (cloudBase !== null) {
+    $("lib-sub").textContent = `☁ 云端归档 · ${libEntries.length} 个快照 · 只读（标注要在电脑上连本地文件夹改，改完跑「HNA 同步」上云）`;
+  } else if (!window.showDirectoryPicker) {
+    $("lib-sub").textContent = "此浏览器不支持文件夹访问（需要 Chrome / Edge）。仍可连云端归档，或回图视图拖入单个 graph.json。";
+  } else if (libEntries.length) {
+    $("lib-sub").textContent = `${libEntries.length} 个快照 · 新导出的会自动出现（每 5 秒刷新）`;
+  }
+  for (const e of libEntries) {
+    const c = document.createElement("div");
+    c.className = "card";
+    c.innerHTML = `<div class="c-thumb">${thumbSvg(e.graph)}</div>
+      <div class="c-title"></div>
+      <div class="c-meta"><span class="c-ctx"></span><span class="c-info"></span></div>`;
+    c.querySelector(".c-title").textContent = e.title;
+    c.querySelector(".c-ctx").textContent = e.context;
+    c.querySelector(".c-info").textContent = `${fmtDate(e.date)} · ${e.nodeCount} 节点`;
+    c.addEventListener("click", () => openSnapshot(e));
+    cards.appendChild(c);
+  }
+  if (!libEntries.length && dirHandle) {
+    const d = document.createElement("div");
+    d.style.cssText = "color:#777;margin-top:16px;font-size:12px";
+    d.textContent = "（文件夹里还没有可读的快照，或需要点上面的按钮重新授权）";
+    cards.appendChild(d);
+  }
+}
+function openSnapshot(e) {
+  loadGraph(e.graph, e.title);   // loadGraph 会清 currentEntry，之后再设
+  currentEntry = e;
+  setView("graph");
+}
+$("btn-pick").addEventListener("click", pickArchiveDir);
+$("btn-reconnect").addEventListener("click", reconnectArchive);
+
+/* 文件夹轮询：库视图打开时每 5 秒重扫，新快照自动出现（云端模式不轮询，手动刷新） */
+setInterval(async () => {
+  if (view !== "library" || !dirHandle || cloudBase !== null) return;
+  try {
+    if (await dirHandle.queryPermission({ mode: "read" }) !== "granted") return;
+  } catch { return; }
+  const before = libEntries.map((e) => e.dir + e.date).join(",");
+  await scanArchive();
+  if (libEntries.map((e) => e.dir + e.date).join(",") !== before) renderLibrary();
+}, 5000);
+
+/* ============================================================
+ * 标注写回（M5）：有文件夹权限就写回 graph.json，否则下载副本
+ * ============================================================ */
+async function saveGraphBack() {
+  if (!graph) return;
+  render();  // 标注可能改了 user_data，刷新面板外的显示
+  if (currentEntry && currentEntry.handle) {
+    try {
+      const fh = await currentEntry.handle.getFileHandle("graph.json");
+      const w = await fh.createWritable();
+      await w.write(JSON.stringify(graph, null, 2));
+      await w.close();
+      toast(`已写回 ${currentEntry.dir}/graph.json`);
+      return;
+    } catch (e) {
+      showError("写回失败：" + e.message + "，改为下载副本");
+    }
+  }
+  download(new Blob([JSON.stringify(graph, null, 2)], { type: "application/json" }),
+           (fileName || "graph").replace(/\.json$/, "") + ".annotated.json");
+  toast(currentEntry && currentEntry.cloud
+        ? "云端归档是只读的——已下载修改副本，回电脑改本地归档再同步"
+        : "已下载修改副本（从快照库打开才能直接写回）");
+}
+
+/* ============================================================
+ * 跨快照统计 + AI 导出（M5）
+ * ============================================================ */
+function renderStats() {
+  const body = $("stats-body");
+  body.textContent = "";
+  if (!libEntries.length) {
+    body.innerHTML = `<p style="color:#999">先到 <b>快照库</b> 连接归档文件夹，这里才有数据。</p>`;
+    return;
+  }
+  const byType = new Map();
+  for (const e of libEntries) {
+    for (const n of e.graph.nodes) {
+      let s = byType.get(n.type);
+      if (!s) byType.set(n.type, s = { label: n.type_label, nodes: 0, snaps: new Set(), confs: [], concepts: new Set() });
+      s.nodes++;
+      s.snaps.add(e.dir);
+      const ud = n.user_data || {};
+      if (ud["hna.confidence"]) s.confs.push(+ud["hna.confidence"]);
+      if (ud["hna.concept"]) s.concepts.add(ud["hna.concept"]);
+    }
+  }
+  const rows = [...byType.entries()].sort((a, b) => b[1].snaps.size - a[1].snaps.size || b[1].nodes - a[1].nodes);
+  const avg = (a) => (a.length ? (a.reduce((x, y) => x + y) / a.length).toFixed(1) : "—");
+
+  let html = `<h3 style="font-size:13px;margin:18px 0 0">节点类型使用统计（出现快照数降序）</h3>
+    <table><tr><th>类型</th><th>名称</th><th>节点数</th><th>快照数</th><th>平均掌握度</th><th>概念标注</th></tr>`;
+  for (const [t, s] of rows) {
+    const a = avg(s.confs);
+    const weak = s.snaps.size >= 2 && (a === "—" || +a <= 2);
+    html += `<tr${weak ? ' class="warn-row"' : ""}><td class="mono">${escHtml(t)}</td><td>${escHtml(s.label)}</td><td>${s.nodes}</td><td>${s.snaps.size}</td><td>${a}</td><td>${escHtml([...s.concepts].join("; "))}</td></tr>`;
+  }
+  html += `</table>
+    <p style="color:#888;font-size:11.5px">红色行 = 反复出现（≥2 个快照）但掌握度 ≤2 或未评估——你在重复搭同样的东西却还没吃透，优先复习。</p>
+    <h3 style="font-size:13px;margin:24px 0 6px">给 AI 的复习素材导出</h3>
+    <p style="color:#999;font-size:12px;margin:4px 0 8px">按日期范围把快照精简成小 JSON（只留名字/类型/注释/代码/标注/参数表达式），直接粘给 AI 出复习题。</p>
+    <input type="date" id="ai-from"> — <input type="date" id="ai-to">
+    <button id="ai-copy">复制到剪贴板</button>
+    <button id="ai-dl">下载 JSON</button>`;
+  body.innerHTML = html;
+
+  const condensed = () => {
+    const from = $("ai-from").value, to = $("ai-to").value;
+    const snaps = libEntries.filter((e) => {
+      const d = (e.date || "").slice(0, 10);
+      return (!from || d >= from) && (!to || d <= to);
+    });
+    return JSON.stringify({
+      purpose: "Houdini 学习快照精简导出，供 AI 出复习题",
+      generated_at: new Date().toISOString().slice(0, 19),
+      snapshots: snaps.map((e) => ({
+        title: e.title, date: e.date, root: e.root, context: e.context,
+        nodes: e.graph.nodes.map((n) => {
+          const o = { name: n.name, type: n.type };
+          if (n.comment) o.comment = n.comment;
+          const ud = n.user_data || {};
+          if (ud["hna.concept"]) o.concept = ud["hna.concept"];
+          if (ud["hna.confidence"]) o.confidence = ud["hna.confidence"];
+          if (n.code && n.code.text) o.code = n.code;
+          const parms = {};
+          for (const [k, v] of Object.entries(n.parms || {})) if (v.raw !== undefined) parms[k] = v.raw;
+          if (Object.keys(parms).length) o.parms = parms;
+          return o;
+        }),
+        connections: (e.graph.connections || []).map((c) => [c.from.split("/").pop(), c.to.split("/").pop()]),
+      })),
+    }, null, 1);
+  };
+  $("ai-copy").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(condensed()); toast("已复制，粘给 AI 即可"); }
+    catch { showError("剪贴板不可用，用下载按钮"); }
+  });
+  $("ai-dl").addEventListener("click", () => {
+    download(new Blob([condensed()], { type: "application/json" }), "hna_review_export.json");
+  });
+}
+
+/* ---------- 载入 ---------- */
+function loadGraph(obj, name) {
+  if (!obj || obj.schema !== 1) {
+    showError(`不认识的 schema 版本：${obj && obj.schema}（本查看器支持 v1）`);
+    return;
+  }
+  graph = obj;
+  level = obj.root;
+  selected = null;
+  currentEntry = null;   // 非快照库来源没有写回目标（openSnapshot 会在之后重设）
+  $("parms").classList.remove("open");
+  fileName = name;
+  render();
+  fitView();
+  if (view !== "graph") setView("graph");
+}
+
+$("file").addEventListener("change", (e) => {
+  const f = e.target.files[0];
+  if (f) readFile(f);
+  e.target.value = "";
+});
+function readFile(f) {
+  const r = new FileReader();
+  r.onload = () => {
+    try { loadGraph(JSON.parse(r.result), f.name); }
+    catch (err) { showError("JSON 解析失败：" + err.message); }
+  };
+  r.readAsText(f, "utf-8");
+}
+const stage = $("stage");
+stage.addEventListener("dragover", (e) => { e.preventDefault(); $("drophint").style.display = "flex"; });
+stage.addEventListener("dragleave", () => { $("drophint").style.display = "none"; });
+stage.addEventListener("drop", (e) => {
+  e.preventDefault();
+  $("drophint").style.display = "none";
+  const f = e.dataTransfer.files[0];
+  if (f) readFile(f);
+});
+
+/* 样例：先试 fetch（http 服务时永远是最新），失败退回内嵌副本（file:// 直接打开也能用） */
+async function loadSample(name) {
+  try {
+    const res = await fetch(`../../schema/samples/${name}.json`);
+    if (!res.ok) throw new Error(res.status);
+    loadGraph(await res.json(), `samples/${name}.json`);
+  } catch {
+    const emb = document.getElementById(`sample-${name}`);
+    loadGraph(JSON.parse(emb.textContent), `samples/${name}.json (内嵌副本)`);
+  }
+}
+$("btn-simple").addEventListener("click", () => loadSample("simple"));
+$("btn-nested").addEventListener("click", () => loadSample("nested"));
+
+window.addEventListener("resize", () => { if (graph) applyVB(); });
+
+// 调试/集成钩子：外部代码可直接灌入一个 graph 对象（M3 的文件层也走这里）
+window.hnaLoad = loadGraph;
+
+/* 启动顺序：同源云端 manifest（= 查看器就放在归档仓库里，Pages 上打开即用）
+   → 记住的云端地址 → 上次的归档文件夹句柄 → 样例 */
+(async () => {
+  if (location.protocol !== "file:" && await connectCloud("", { silent: true })) {
+    setView("library");
+    return;
+  }
+  let savedCloud = null;
+  try { savedCloud = await kvGet("cloudBase"); } catch {}
+  if (savedCloud && await connectCloud(savedCloud, { silent: true })) {
+    setView("library");
+    return;
+  }
+  try { dirHandle = await kvGet("archiveDir"); } catch {}
+  if (dirHandle) {
+    let granted = false;
+    try { granted = (await dirHandle.queryPermission({ mode: "readwrite" })) === "granted"; } catch {}
+    if (granted) await scanArchive();
+    setView("library");   // 没权限时库视图里会显示"重新连接"按钮
+  } else {
+    loadSample("nested");
+  }
+})();
+</script>
+
+<!-- ====== 内嵌样例副本（file:// 打开时的退路；以 schema/samples/ 为准） ====== -->
+<script type="application/json" id="sample-simple">
+{
+  "schema": 1,
+  "exported_at": "2026-08-30T16:40:00+08:00",
+  "houdini_version": "20.5.370",
+  "hip_file": "C:/work/wall_gen_v3.hip",
+
+  "root": "/obj/wall_simple",
+  "context": "Sop",
+  "flow": "vertical",
+
+  "nodes": [
+    {
+      "id": "/obj/wall_simple/grid1",
+      "parent": "/obj/wall_simple",
+      "name": "base_grid",
+      "type": "grid",
+      "type_label": "Grid",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [0.0, 4.0],
+      "size": [1.0, 0.3],
+      "color": [0.8, 0.8, 0.8],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "sizex": { "raw": "10", "eval": 10 },
+        "sizey": { "raw": "4", "eval": 4 },
+        "rows": { "raw": "5", "eval": 5 },
+        "cols": { "raw": "12", "eval": 12 }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_simple/scatter1",
+      "parent": "/obj/wall_simple",
+      "name": "scatter_bricks",
+      "type": "scatter::2.0",
+      "type_label": "Scatter",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [0.0, 2.8],
+      "size": [1.0, 0.3],
+      "color": [0.6, 0.6, 0.6],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "seed 固定，重算不跳",
+      "user_data": {},
+      "parms": {
+        "npts": { "raw": "200", "eval": 200 },
+        "seed": { "raw": "7", "eval": 7 }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_simple/attribwrangle1",
+      "parent": "/obj/wall_simple",
+      "name": "orient_by_normal",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [0.0, 1.6],
+      "size": [1.0, 0.3],
+      "color": [0.478, 0.478, 0.478],
+      "shape": "bone",
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "四元数控制朝向",
+      "user_data": {
+        "hna.concept": "orient / quaternion",
+        "hna.confidence": "3"
+      },
+      "parms": {
+        "class": { "raw": "0", "eval": 0 },
+        "snippet": {
+          "raw": "@orient = quaternion(maketransform(@N, {0,1,0}));",
+          "eval": "@orient = quaternion(maketransform(@N, {0,1,0}));"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "@orient = quaternion(maketransform(@N, {0,1,0}));"
+      },
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_simple/box1",
+      "parent": "/obj/wall_simple",
+      "name": "brick_proto",
+      "type": "box",
+      "type_label": "Box",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [-2.5, 1.6],
+      "size": [1.0, 0.3],
+      "color": [0.8, 0.8, 0.8],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "sizex": { "raw": "0.8", "eval": 0.8 },
+        "sizey": { "raw": "0.4", "eval": 0.4 },
+        "sizez": { "raw": "0.3", "eval": 0.3 }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_simple/copytopoints1",
+      "parent": "/obj/wall_simple",
+      "name": "copy_bricks",
+      "type": "copytopoints::2.0",
+      "type_label": "Copy to Points",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [0.0, 0.4],
+      "size": [1.0, 0.3],
+      "color": [0.6, 0.6, 0.6],
+      "shape": null,
+      "flags": {
+        "display": true,
+        "render": true,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    }
+  ],
+
+  "connections": [
+    { "from": "/obj/wall_simple/grid1", "from_output": 0, "to": "/obj/wall_simple/scatter1", "to_input": 0 },
+    { "from": "/obj/wall_simple/scatter1", "from_output": 0, "to": "/obj/wall_simple/attribwrangle1", "to_input": 0 },
+    { "from": "/obj/wall_simple/box1", "from_output": 0, "to": "/obj/wall_simple/copytopoints1", "to_input": 0 },
+    { "from": "/obj/wall_simple/attribwrangle1", "from_output": 0, "to": "/obj/wall_simple/copytopoints1", "to_input": 1 }
+  ],
+
+  "network_boxes": [],
+  "sticky_notes": []
+}
+</script>
+<script type="application/json" id="sample-nested">
+{
+  "schema": 1,
+  "exported_at": "2026-08-30T16:45:30+08:00",
+  "houdini_version": "20.5.370",
+  "hip_file": null,
+
+  "root": "/obj/wall_gen",
+  "context": "Sop",
+  "flow": "vertical",
+
+  "nodes": [
+    {
+      "id": "/obj/wall_gen/line1",
+      "parent": "/obj/wall_gen",
+      "name": "wall_path",
+      "type": "line",
+      "type_label": "Line",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [-1.5, 5.2],
+      "size": [1.0, 0.3],
+      "color": [0.8, 0.8, 0.8],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "城墙走向的骨架线",
+      "user_data": {},
+      "parms": {
+        "distx": { "raw": "ch(\"../ctrl/wall_length\")", "eval": 24 },
+        "points": { "raw": "$F < 10 ? 8 : 12", "eval": 12 }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_gen/subnet1",
+      "parent": "/obj/wall_gen",
+      "name": "砖块阶段",
+      "type": "subnet",
+      "type_label": "Subnetwork",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [-1.5, 3.8],
+      "size": [1.0, 0.3],
+      "color": [0.29, 0.565, 0.886],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "砖块的生成和随机化都在这里面",
+      "user_data": {
+        "hna.concept": "subnet / encapsulation"
+      },
+      "parms": {},
+      "code": null,
+      "children": [
+        "/obj/wall_gen/subnet1/box1",
+        "/obj/wall_gen/subnet1/randomize_scale",
+        "/obj/wall_gen/subnet1/output0"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_gen/subnet1/box1",
+      "parent": "/obj/wall_gen/subnet1",
+      "name": "brick_proto",
+      "type": "box",
+      "type_label": "Box",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [0.0, 2.0],
+      "size": [1.0, 0.3],
+      "color": [0.8, 0.8, 0.8],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "sizex": { "raw": "0.8", "eval": 0.8 }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_gen/subnet1/randomize_scale",
+      "parent": "/obj/wall_gen/subnet1",
+      "name": "randomize_scale",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [0.0, 0.8],
+      "size": [1.0, 0.3],
+      "color": [0.478, 0.478, 0.478],
+      "shape": "bone",
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "每块砖的尺寸抖动，rand 的种子用 @ptnum",
+      "user_data": {
+        "hna.concept": "rand / ptnum seed",
+        "hna.confidence": "2"
+      },
+      "parms": {
+        "class": { "raw": "0", "eval": 0 },
+        "snippet": {
+          "raw": "float j = fit01(rand(@ptnum * 7.13), 0.85, 1.15);\n@pscale *= j;",
+          "eval": "float j = fit01(rand(@ptnum * 7.13), 0.85, 1.15);\n@pscale *= j;"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "float j = fit01(rand(@ptnum * 7.13), 0.85, 1.15);\n@pscale *= j;"
+      },
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_gen/subnet1/output0",
+      "parent": "/obj/wall_gen/subnet1",
+      "name": "output0",
+      "type": "output",
+      "type_label": "Output",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [0.0, -0.4],
+      "size": [1.0, 0.3],
+      "color": [0.6, 0.6, 0.6],
+      "shape": null,
+      "flags": {
+        "display": true,
+        "render": true,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_gen/switch1",
+      "parent": "/obj/wall_gen",
+      "name": "debug_switch",
+      "type": "switch",
+      "type_label": "Switch",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [-1.5, 2.4],
+      "size": [1.0, 0.3],
+      "color": [0.9, 0.6, 0.1],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": true,
+        "template": false,
+        "lock": false
+      },
+      "comment": "调试用，平时 bypass",
+      "user_data": {},
+      "parms": {
+        "input": { "raw": "0", "eval": 0 }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_gen/labs_lot1",
+      "parent": "/obj/wall_gen",
+      "name": "battlements",
+      "type": "labs::building_generator::2.0",
+      "type_label": "Labs Building Generator",
+      "is_hda": true,
+      "hda_source": "C:/Users/me/Documents/houdini20.5/otls/labs_building_generator.hda",
+      "pos": [-4.0, 2.4],
+      "size": [1.0, 0.3],
+      "color": [0.145, 0.667, 0.557],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": null,
+        "lock": null
+      },
+      "comment": "垛口直接用 Labs 节点，先不深究内部",
+      "user_data": {
+        "hna.concept": "HDA as black box",
+        "hna.confidence": "1"
+      },
+      "parms": {
+        "seed": { "raw": "$F", "eval": 1 }
+      },
+      "code": null,
+      "children": [],
+      "warnings": ["locked HDA, children not exported"]
+    },
+    {
+      "id": "/obj/wall_gen/pyreport",
+      "parent": "/obj/wall_gen",
+      "name": "report_stats",
+      "type": "python",
+      "type_label": "Python",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [-1.5, 1.0],
+      "size": [1.0, 0.3],
+      "color": [0.6, 0.6, 0.6],
+      "shape": "tabbed_left",
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": true,
+        "lock": false
+      },
+      "comment": "打印砖块数量，确认 scatter 密度",
+      "user_data": {},
+      "parms": {
+        "python": {
+          "raw": "node = hou.pwd()\ngeo = node.geometry()\nprint(f\"bricks: {len(geo.prims())}\")",
+          "eval": "node = hou.pwd()\ngeo = node.geometry()\nprint(f\"bricks: {len(geo.prims())}\")"
+        }
+      },
+      "code": {
+        "lang": "python",
+        "text": "node = hou.pwd()\ngeo = node.geometry()\nprint(f\"bricks: {len(geo.prims())}\")"
+      },
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/wall_gen/OUT",
+      "parent": "/obj/wall_gen",
+      "name": "OUT",
+      "type": "null",
+      "type_label": "Null",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [-1.5, -0.6],
+      "size": [1.0, 0.3],
+      "color": [0.0, 0.0, 0.0],
+      "shape": "circle",
+      "flags": {
+        "display": true,
+        "render": true,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    }
+  ],
+
+  "connections": [
+    { "from": "/obj/wall_gen/line1", "from_output": 0, "to": "/obj/wall_gen/subnet1", "to_input": 0 },
+    { "from": "/obj/wall_gen/subnet1", "from_output": 0, "to": "/obj/wall_gen/switch1", "to_input": 0 },
+    { "from": "/obj/wall_gen/labs_lot1", "from_output": 0, "to": "/obj/wall_gen/switch1", "to_input": 1 },
+    { "from": "/obj/wall_gen/switch1", "from_output": 0, "to": "/obj/wall_gen/pyreport", "to_input": 0 },
+    { "from": "/obj/wall_gen/pyreport", "from_output": 0, "to": "/obj/wall_gen/OUT", "to_input": 0 },
+
+    { "from": "/obj/wall_gen/subnet1/box1", "from_output": 0, "to": "/obj/wall_gen/subnet1/randomize_scale", "to_input": 0 },
+    { "from": "/obj/wall_gen/subnet1/randomize_scale", "from_output": 0, "to": "/obj/wall_gen/subnet1/output0", "to_input": 0 }
+  ],
+
+  "network_boxes": [
+    {
+      "id": "nb_0",
+      "parent": "/obj/wall_gen",
+      "comment": "散布与砖块阶段",
+      "pos": [-5.0, 1.9],
+      "size": [5.5, 2.6],
+      "color": [0.3, 0.3, 0.4],
+      "nodes": [
+        "/obj/wall_gen/subnet1",
+        "/obj/wall_gen/switch1",
+        "/obj/wall_gen/labs_lot1"
+      ]
+    }
+  ],
+
+  "sticky_notes": [
+    {
+      "id": "sn_0",
+      "parent": "/obj/wall_gen",
+      "text": "这里的 seed 要和上游 scatter 保持一致，否则重算会跳",
+      "pos": [1.0, 3.0],
+      "size": [3.0, 1.5],
+      "color": [0.9, 0.9, 0.6]
+    },
+    {
+      "id": "sn_1",
+      "parent": "/obj/wall_gen",
+      "text": "TODO: battlements 的 HDA 之后要自己重建一遍才算学会",
+      "pos": [-8.5, 3.0],
+      "size": [3.5, 1.2],
+      "color": [0.98, 0.75, 0.75]
+    },
+    {
+      "id": "sn_2",
+      "parent": "/obj/wall_gen/subnet1",
+      "text": "rand 的种子乘一个无理数附近的常数，避免和 ptnum 周期共振",
+      "pos": [1.5, 0.6],
+      "size": [3.2, 1.2],
+      "color": [0.9, 0.9, 0.6]
+    }
+  ]
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,3109 @@
+{
+  "schema": 1,
+  "exported_at": "2026-08-31T15:57:34+08:00",
+  "houdini_version": "21.0.671",
+  "hip_file": null,
+  "root": "/obj/trynew_copy_1_1/trynew_copy1",
+  "context": "Sop",
+  "flow": "vertical",
+  "nodes": [
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "subnet1",
+      "type": "subnet",
+      "type_label": "Subnetwork",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -32.4318,
+        -9.77433
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/Block",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge5",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name1",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name2",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name3",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name4",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform1",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform2",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform3",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform4",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound1",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete1",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name6",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name7",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name8",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name9",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound2",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete2",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound3",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete3",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound4",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete4",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge6",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/BlockPrimitive",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center1",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center2",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center3",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center4",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform5",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file1",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform6",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file2",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform7",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file3",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform8",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file4",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete1",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete2",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete3",
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete4"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/Block",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "Block",
+      "type": "output",
+      "type_label": "Output",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        4.74814,
+        -3.25992
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "outputidx": {
+          "raw": "0",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge5",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "merge5",
+      "type": "merge",
+      "type_label": "Merge",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        4.74699,
+        -0.558848
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "name1",
+      "type": "name",
+      "type_label": "Name",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        1.91394,
+        1.38409
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "name1": {
+          "raw": "BP_Buildings_01",
+          "eval": "BP_Buildings_01"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "name2",
+      "type": "name",
+      "type_label": "Name",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        4.5018,
+        1.2272
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "name1": {
+          "raw": "BP_Buildings_02",
+          "eval": "BP_Buildings_02"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "name3",
+      "type": "name",
+      "type_label": "Name",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        7.90399,
+        1.2272
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "name1": {
+          "raw": "BP_Buildings_03",
+          "eval": "BP_Buildings_03"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "name4",
+      "type": "name",
+      "type_label": "Name",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        11.0935,
+        1.10278
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "name1": {
+          "raw": "BP_Buildings_04",
+          "eval": "BP_Buildings_04"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "transform1",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.9506,
+        3.19906
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "-bbox(0,D_YMIN)",
+          "eval": 5.740718841552734
+        },
+        "rx": {
+          "raw": "90",
+          "eval": 90.0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "transform2",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -9.7855,
+        3.19906
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "-bbox(0,D_YMIN)",
+          "eval": 5.682424068450928
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "transform3",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -5.34848,
+        3.19906
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "-bbox(0,D_YMIN)",
+          "eval": 9.607867240905762
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "transform4",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.841596,
+        3.0936
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "-bbox(0,D_YMIN)",
+          "eval": 5.313709735870361
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "bound1",
+      "type": "bound",
+      "type_label": "Bound",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.9506,
+        1.71642
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "delete1",
+      "type": "delete",
+      "type_label": "Delete",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.9506,
+        0.65908
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "stdswitcher1": {
+          "raw": "2",
+          "eval": 2
+        },
+        "affectnormal": {
+          "raw": "on",
+          "eval": 1
+        },
+        "diry": {
+          "raw": "1",
+          "eval": 1.0
+        },
+        "dirz": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "angle": {
+          "raw": "90",
+          "eval": 90.0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name6",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "name6",
+      "type": "name",
+      "type_label": "Name",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.922,
+        -1.82522
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "name1": {
+          "raw": "Building_01",
+          "eval": "Building_01"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name7",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "name7",
+      "type": "name",
+      "type_label": "Name",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -11.0749,
+        -1.98212
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "name1": {
+          "raw": "Building_02",
+          "eval": "Building_02"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name8",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "name8",
+      "type": "name",
+      "type_label": "Name",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -7.93194,
+        -1.98212
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "name1": {
+          "raw": "Building_03",
+          "eval": "Building_03"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name9",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "name9",
+      "type": "name",
+      "type_label": "Name",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -4.74241,
+        -2.10653
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "name1": {
+          "raw": "Building_04",
+          "eval": "Building_04"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "bound2",
+      "type": "bound",
+      "type_label": "Bound",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -11.0749,
+        1.71642
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "delete2",
+      "type": "delete",
+      "type_label": "Delete",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -11.0749,
+        0.659077
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "stdswitcher1": {
+          "raw": "2",
+          "eval": 2
+        },
+        "affectnormal": {
+          "raw": "on",
+          "eval": 1
+        },
+        "diry": {
+          "raw": "1",
+          "eval": 1.0
+        },
+        "dirz": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "angle": {
+          "raw": "90",
+          "eval": 90.0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "bound3",
+      "type": "bound",
+      "type_label": "Bound",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -7.76562,
+        1.71642
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "delete3",
+      "type": "delete",
+      "type_label": "Delete",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -7.76562,
+        0.65908
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "stdswitcher1": {
+          "raw": "2",
+          "eval": 2
+        },
+        "affectnormal": {
+          "raw": "on",
+          "eval": 1
+        },
+        "diry": {
+          "raw": "1",
+          "eval": 1.0
+        },
+        "dirz": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "angle": {
+          "raw": "90",
+          "eval": 90.0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "bound4",
+      "type": "bound",
+      "type_label": "Bound",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -4.62555,
+        1.71642
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "delete4",
+      "type": "delete",
+      "type_label": "Delete",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -4.62555,
+        0.65908
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "stdswitcher1": {
+          "raw": "2",
+          "eval": 2
+        },
+        "affectnormal": {
+          "raw": "on",
+          "eval": 1
+        },
+        "diry": {
+          "raw": "1",
+          "eval": 1.0
+        },
+        "dirz": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "angle": {
+          "raw": "90",
+          "eval": 90.0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge6",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "merge6",
+      "type": "merge",
+      "type_label": "Merge",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -9.70069,
+        -4.68692
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": true,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/BlockPrimitive",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "BlockPrimitive",
+      "type": "output",
+      "type_label": "Output",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -9.69954,
+        -6.85342
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": true,
+        "render": true,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "outputidx": {
+          "raw": "1",
+          "eval": 1
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "center1",
+      "type": "matchsize",
+      "type_label": "Match Size",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -13.9506,
+        4.9855
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "justifytarget": {
+          "raw": "origin",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "center2",
+      "type": "matchsize",
+      "type_label": "Match Size",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -9.7855,
+        4.9855
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "justifytarget": {
+          "raw": "origin",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "center3",
+      "type": "matchsize",
+      "type_label": "Match Size",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -5.04391,
+        4.9855
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "justifytarget": {
+          "raw": "origin",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "center4",
+      "type": "matchsize",
+      "type_label": "Match Size",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -0.703463,
+        4.9855
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "justifytarget": {
+          "raw": "origin",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform5",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "transform5",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.7637,
+        7.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "rx": {
+          "raw": "90",
+          "eval": 90.0
+        },
+        "scale": {
+          "raw": "0.01",
+          "eval": 0.01
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "file1",
+      "type": "file",
+      "type_label": "File",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.7637,
+        9.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.8999999761581421,
+        0.800000011920929,
+        0.550000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "file": {
+          "raw": "\"D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_01.fbx\"",
+          "eval": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_01.fbx"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform6",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "transform6",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -9.7855,
+        7.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "rx": {
+          "raw": "90",
+          "eval": 90.0
+        },
+        "scale": {
+          "raw": "0.01",
+          "eval": 0.01
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "file2",
+      "type": "file",
+      "type_label": "File",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -9.7855,
+        9.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.8999999761581421,
+        0.800000011920929,
+        0.550000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "file": {
+          "raw": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_02.fbx",
+          "eval": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_02.fbx"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform7",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "transform7",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -4.86871,
+        7.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "rx": {
+          "raw": "90",
+          "eval": 90.0
+        },
+        "scale": {
+          "raw": "0.01",
+          "eval": 0.01
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "file3",
+      "type": "file",
+      "type_label": "File",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -4.86871,
+        9.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.8999999761581421,
+        0.800000011920929,
+        0.550000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "file": {
+          "raw": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_03.fbx",
+          "eval": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_03.fbx"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform8",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "transform8",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.951786,
+        7.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "rx": {
+          "raw": "90",
+          "eval": 90.0
+        },
+        "scale": {
+          "raw": "0.01",
+          "eval": 0.01
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "file4",
+      "type": "file",
+      "type_label": "File",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.951786,
+        9.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.8999999761581421,
+        0.800000011920929,
+        0.550000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "file": {
+          "raw": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_04.fbx",
+          "eval": "D:/Houdini_work/HoudiniBlocksGenerate/BlockGenerate/GenerateBlocks/BP_Buildings_04.fbx"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "attribdelete1",
+      "type": "attribdelete",
+      "type_label": "Attribute Delete",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -13.7637,
+        8.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ptdel": {
+          "raw": "fbx_rotation fbx_scale fbx_translation",
+          "eval": "fbx_rotation fbx_scale fbx_translation"
+        },
+        "vtxdel": {
+          "raw": "N uv",
+          "eval": "N uv"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "attribdelete2",
+      "type": "attribdelete",
+      "type_label": "Attribute Delete",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -9.78895,
+        8.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ptdel": {
+          "raw": "fbx_rotation fbx_scale fbx_translation",
+          "eval": "fbx_rotation fbx_scale fbx_translation"
+        },
+        "vtxdel": {
+          "raw": "N uv",
+          "eval": "N uv"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "attribdelete3",
+      "type": "attribdelete",
+      "type_label": "Attribute Delete",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -4.87216,
+        8.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ptdel": {
+          "raw": "fbx_rotation fbx_scale fbx_translation",
+          "eval": "fbx_rotation fbx_scale fbx_translation"
+        },
+        "vtxdel": {
+          "raw": "N uv",
+          "eval": "N uv"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "name": "attribdelete4",
+      "type": "attribdelete",
+      "type_label": "Attribute Delete",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -0.955236,
+        8.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ptdel": {
+          "raw": "fbx_rotation fbx_scale fbx_translation",
+          "eval": "fbx_rotation fbx_scale fbx_translation"
+        },
+        "vtxdel": {
+          "raw": "N uv",
+          "eval": "N uv"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/attribwrangle1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "attribwrangle1",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -31.7487,
+        -10.9012
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "@N={0,0,1};",
+          "eval": "@N={0,0,1};"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "@N={0,0,1};"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/null3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "null3",
+      "type": "null",
+      "type_label": "Null",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -31.7457,
+        -12.0807
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.6000000238418579,
+        0.699999988079071,
+        0.7699999809265137
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/center_point",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "center_point",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -31.4874,
+        -17.902
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "class": {
+          "raw": "primitive",
+          "eval": 1
+        },
+        "snippet": {
+          "raw": "addpoint(0,@P);",
+          "eval": "addpoint(0,@P);"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "addpoint(0,@P);"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/set_name",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "set_name",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -31.4874,
+        -18.9904
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "string Tempname = pointattrib(0,\"name\",0,0);\nvector Tempnormal = pointattrib(0,\"N\",0,0);\nsetpointattrib(0,\"name\",4,Tempname);\nsetpointattrib(0,\"N\",4,Tempnormal);",
+          "eval": "string Tempname = pointattrib(0,\"name\",0,0);\nvector Tempnormal = pointattrib(0,\"N\",0,0);\nsetpointattrib(0,\"name\",4,Tempname);\nsetpointattrib(0,\"N\",4,Tempnormal);"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "string Tempname = pointattrib(0,\"name\",0,0);\nvector Tempnormal = pointattrib(0,\"N\",0,0);\nsetpointattrib(0,\"name\",4,Tempname);\nsetpointattrib(0,\"N\",4,Tempnormal);"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/Tag",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "Tag",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "D:/Houdini_21/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -31.4874,
+        -20.0682
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);",
+          "eval": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/uvlayout1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "uvlayout1",
+      "type": "uvlayout::3.0",
+      "type_label": "UV Layout",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -31.4844,
+        -15.199
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "uvattrib": {
+          "raw": "P",
+          "eval": "P"
+        },
+        "projplane": {
+          "raw": "zx",
+          "eval": 2
+        },
+        "axisalignislands": {
+          "raw": "none",
+          "eval": 0
+        },
+        "scaling": {
+          "raw": "custom",
+          "eval": 1
+        },
+        "packbetween": {
+          "raw": "on",
+          "eval": 1
+        },
+        "padding": {
+          "raw": "ch(\"../interval\")",
+          "eval": 120
+        },
+        "expandpadding": {
+          "raw": "on",
+          "eval": 1
+        },
+        "packingadvanced": {
+          "raw": "1",
+          "eval": 1
+        },
+        "iterations": {
+          "raw": "5",
+          "eval": 5
+        },
+        "resolution": {
+          "raw": "res4",
+          "eval": 3
+        },
+        "customresolution": {
+          "raw": "1840",
+          "eval": 1840
+        },
+        "randseed": {
+          "raw": "50",
+          "eval": 50
+        },
+        "targets": {
+          "raw": "1",
+          "eval": 1
+        },
+        "targettype": {
+          "raw": "geo",
+          "eval": 2
+        },
+        "folder0": {
+          "raw": "1",
+          "eval": 1
+        },
+        "targetuvattrib": {
+          "raw": "P",
+          "eval": "P"
+        },
+        "targetprojplane": {
+          "raw": "zx",
+          "eval": 2
+        },
+        "targetconnectivityoverrides": {
+          "raw": "1",
+          "eval": 1
+        },
+        "rect_use0": {
+          "raw": "on",
+          "eval": 1
+        },
+        "rect_center0x": {
+          "raw": "0.5",
+          "eval": 0.5
+        },
+        "rect_center0y": {
+          "raw": "0.5",
+          "eval": 0.5
+        },
+        "rect_size0x": {
+          "raw": "1",
+          "eval": 1.0
+        },
+        "rect_size0y": {
+          "raw": "1",
+          "eval": 1.0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/copytopoints4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "copytopoints4",
+      "type": "copytopoints::2.0",
+      "type_label": "Copy to Points",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -31.4844,
+        -13.2972
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        1.0,
+        0.6499999761581421,
+        0.10000000149011612
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "targetattribs": {
+          "raw": "3",
+          "eval": 3
+        },
+        "useapply1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "applyto1": {
+          "raw": "points",
+          "eval": 0
+        },
+        "applymethod1": {
+          "raw": "copy",
+          "eval": 0
+        },
+        "applyattribs1": {
+          "raw": "*,^v,^Alpha,^N,^up,^pscale,^scale,^orient,^rot,^pivot,^trans,^transform",
+          "eval": "*,^v,^Alpha,^N,^up,^pscale,^scale,^orient,^rot,^pivot,^trans,^transform"
+        },
+        "useapply2": {
+          "raw": "on",
+          "eval": 1
+        },
+        "applyto2": {
+          "raw": "points",
+          "eval": 0
+        },
+        "applymethod2": {
+          "raw": "mult",
+          "eval": 2
+        },
+        "applyattribs2": {
+          "raw": "Alpha",
+          "eval": "Alpha"
+        },
+        "useapply3": {
+          "raw": "on",
+          "eval": 1
+        },
+        "applyto3": {
+          "raw": "points",
+          "eval": 0
+        },
+        "applymethod3": {
+          "raw": "add",
+          "eval": 3
+        },
+        "applyattribs3": {
+          "raw": "v",
+          "eval": "v"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/delete3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "delete3",
+      "type": "delete",
+      "type_label": "Delete",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -31.4844,
+        -22.7273
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group": {
+          "raw": "@delete==0",
+          "eval": "@delete==0"
+        },
+        "entity": {
+          "raw": "point",
+          "eval": 1
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/foreach_begin1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "foreach_begin1",
+      "type": "block_begin",
+      "type_label": "Block Begin",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -31.4828,
+        -16.7716
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.75,
+        0.4000000059604645,
+        0.0
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "method": {
+          "raw": "piece",
+          "eval": 1
+        },
+        "blockpath": {
+          "raw": "../foreach_end1",
+          "eval": "../foreach_end1"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/foreach_end1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "foreach_end1",
+      "type": "block_end",
+      "type_label": "Block End",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -31.4828,
+        -21.1525
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.75,
+        0.4000000059604645,
+        0.0
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "itermethod": {
+          "raw": "pieces",
+          "eval": 1
+        },
+        "method": {
+          "raw": "merge",
+          "eval": 1
+        },
+        "class": {
+          "raw": "primitive",
+          "eval": 0
+        },
+        "useattrib": {
+          "raw": "off",
+          "eval": 0
+        },
+        "blockpath": {
+          "raw": "../foreach_begin1",
+          "eval": "../foreach_begin1"
+        },
+        "templatepath": {
+          "raw": "../foreach_begin1",
+          "eval": "../foreach_begin1"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/skin_transform1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "skin_transform1",
+      "type": "object_merge",
+      "type_label": "Object Merge",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -29.7189,
+        -13.8352
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.9760000109672546,
+        0.7799999713897705,
+        0.2630000114440918
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "enable1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "objpath1": {
+          "raw": "../null4",
+          "eval": "../null4"
+        },
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "expand1": {
+          "raw": "off",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/Scatter_points1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "Scatter_points1",
+      "type": "object_merge",
+      "type_label": "Object Merge",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -29.7189,
+        -12.1895
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        1.0,
+        0.5289999842643738,
+        0.6240000128746033
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "enable1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "objpath1": {
+          "raw": "../Scatter_points",
+          "eval": "../Scatter_points"
+        },
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "expand1": {
+          "raw": "off",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    }
+  ],
+  "connections": [
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge5",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/Block",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge5",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge5",
+      "to_input": 1
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name2",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge5",
+      "to_input": 2
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge5",
+      "to_input": 3
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform2",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name2",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name4",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center2",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform2",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform4",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name6",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete2",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name7",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name8",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name9",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform2",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound2",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound2",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete2",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound4",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/bound4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/delete4",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name6",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge6",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name7",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge6",
+      "to_input": 1
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name8",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge6",
+      "to_input": 2
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/name9",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge6",
+      "to_input": 3
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/merge6",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/BlockPrimitive",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform5",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform6",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center2",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform7",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform8",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/center4",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform5",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete2",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform6",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform7",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/transform8",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file2",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete2",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/file4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet1/attribdelete4",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+      "from_output": 1,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/attribwrangle1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/attribwrangle1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/null3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/foreach_begin1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/center_point",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/center_point",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/set_name",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/set_name",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/Tag",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/copytopoints4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/uvlayout1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/skin_transform1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/uvlayout1",
+      "to_input": 1
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/null3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/copytopoints4",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/Scatter_points1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/copytopoints4",
+      "to_input": 1
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/foreach_end1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/delete3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/uvlayout1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/foreach_begin1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/Tag",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/foreach_end1",
+      "to_input": 0
+    }
+  ],
+  "network_boxes": [
+    {
+      "id": "nb_0",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        -32.80583475594284,
+        -25.13178836975494
+      ],
+      "size": [
+        5.478694761903302,
+        15.900659877276999
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": [
+        "/obj/trynew_copy_1_1/trynew_copy1/subnet1",
+        "/obj/trynew_copy_1_1/trynew_copy1/null3",
+        "/obj/trynew_copy_1_1/trynew_copy1/uvlayout1",
+        "/obj/trynew_copy_1_1/trynew_copy1/copytopoints4",
+        "/obj/trynew_copy_1_1/trynew_copy1/foreach_end1",
+        "/obj/trynew_copy_1_1/trynew_copy1/foreach_begin1",
+        "/obj/trynew_copy_1_1/trynew_copy1/center_point",
+        "/obj/trynew_copy_1_1/trynew_copy1/set_name",
+        "/obj/trynew_copy_1_1/trynew_copy1/Tag",
+        "/obj/trynew_copy_1_1/trynew_copy1/delete3",
+        "/obj/trynew_copy_1_1/trynew_copy1/skin_transform1",
+        "/obj/trynew_copy_1_1/trynew_copy1/Scatter_points1",
+        "/obj/trynew_copy_1_1/trynew_copy1/attribwrangle1"
+      ]
+    },
+    {
+      "id": "nb_1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        -24.739975238499497,
+        -25.346600006771087
+      ],
+      "size": [
+        2.9927752376888748,
+        8.187382449729988
+      ],
+      "color": [
+        0.6000000238418579,
+        0.6000000238418579,
+        0.6000000238418579
+      ],
+      "nodes": []
+    },
+    {
+      "id": "nb_2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        -19.859171434318412,
+        -33.76807576407906
+      ],
+      "size": [
+        11.381155012356276,
+        16.773435512244586
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": []
+    },
+    {
+      "id": "nb_3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        16.230900000000002,
+        -10.163422165731864
+      ],
+      "size": [
+        8.248004590479308,
+        18.641111446452356
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": []
+    },
+    {
+      "id": "nb_4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        28.75122512360058,
+        3.2471020086231195
+      ],
+      "size": [
+        6.291871324622026,
+        4.414500352086252
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": []
+    },
+    {
+      "id": "nb_5",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        -17.406499999999998,
+        -46.48024508643241
+      ],
+      "size": [
+        8.737802961715664,
+        9.202145082188565
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": []
+    }
+  ],
+  "sticky_notes": [
+    {
+      "id": "sn_0",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "获取面的中心点；\n并赋予属性\n",
+      "pos": [
+        -29.7462,
+        -11.1697
+      ],
+      "size": [
+        2.26906,
+        1.04757
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    },
+    {
+      "id": "sn_1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "贴合地形，并且删除道路上的点\n",
+      "pos": [
+        -11.7862,
+        -20.9862
+      ],
+      "size": [
+        2.5,
+        2.5
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    },
+    {
+      "id": "sn_2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "河水生成\nuv沿着河流朝向",
+      "pos": [
+        21.2556,
+        3.48609
+      ],
+      "size": [
+        2.5,
+        2.5
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    },
+    {
+      "id": "sn_3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "水车生成\nuv沿着河流朝向",
+      "pos": [
+        32.586,
+        3.72586
+      ],
+      "size": [
+        2.5,
+        2.5
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    },
+    {
+      "id": "sn_4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "随机旋转",
+      "pos": [
+        -11.7104,
+        -43.2624
+      ],
+      "size": [
+        2.5,
+        2.5
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    }
+  ]
+}

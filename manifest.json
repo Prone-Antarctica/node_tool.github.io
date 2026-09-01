@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-09-01T08:21:55",
+  "snapshot_count": 2,
+  "snapshots": [
+    {
+      "dir": "2026-08-31_test",
+      "title": "test",
+      "date": "2026-08-31T15:57:34+08:00",
+      "node_count": 53,
+      "context": "Sop",
+      "root": "/obj/trynew_copy_1_1/trynew_copy1",
+      "houdini_version": "21.0.671"
+    },
+    {
+      "dir": "2026-08-31_whole_nodes",
+      "title": "whole_nodes",
+      "date": "2026-08-31T15:13:00+08:00",
+      "node_count": 182,
+      "context": "Sop",
+      "root": "/obj/trynew_copy_1_1/trynew_copy1",
+      "houdini_version": "21.0.671"
+    }
+  ]
+}
