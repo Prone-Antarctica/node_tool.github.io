@@ -229,10 +229,13 @@
   }
   #parms .empty { color: #5c5c5c; font-size: 12px; }
   /* SVG 内文字 */
-  /* 字号由 applyVB() 按缩放动态补偿：屏幕字号夹在 [基准 2/3, 基准] 之间（label 26–39px） */
-  text.node-label { font-family: var(--mono); font-size: var(--fs-label, 39px); fill: #d2d2d2; dominant-baseline: central; }
-  text.node-comment { font-family: var(--sans); font-size: var(--fs-comment, 30px); font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
-  text.box-title { font-family: var(--sans); font-size: var(--fs-box, 30px); fill: #e2e2e2; dominant-baseline: central; }
+  /* 字号由 applyVB() 按缩放动态补偿：屏幕字号夹在 [基准 2/3, 基准] 之间（label 约 17–26px） */
+  text.node-label { font-family: var(--mono); font-size: var(--fs-label, 26px); fill: #d2d2d2; dominant-baseline: central; }
+  text.node-comment { font-family: var(--sans); font-size: var(--fs-comment, 20px); font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
+  text.box-title { font-family: var(--sans); font-size: var(--fs-box, 20px); fill: #e2e2e2; dominant-baseline: central; }
+  /* 节点类型图标（简笔画，颜色随节点底色反转） */
+  .node-icon * { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .node-icon .f { fill: currentColor; stroke: none; }
   .note-body { font-family: var(--sans); font-size: 24px; color: #33301e; white-space: pre-wrap; overflow: hidden; line-height: 1.35; }
   rect.marquee-rect {
     fill: rgba(127,179,232,0.12); stroke: #7fb3e8; stroke-width: 1.5;
@@ -334,6 +337,54 @@ function showError(msg) {
   e.textContent = msg;
   e.style.display = msg ? "block" : "none";
   if (msg) setTimeout(() => (e.style.display = "none"), 6000);
+}
+
+/* ---------- 节点类型图标 ----------
+ * Houdini 自带图标是版权资源拿不到，这里按同样的视觉语言手绘简笔画。
+ * 每个图标画在 16×16 坐标系里；class="f" 的元素实心填充，其余描边。
+ * key 是去掉版本号（::2.0）后的节点类型。 */
+const ICONS = {
+  subnet: '<rect x="2.5" y="2.5" width="11" height="11" rx="1.5"/><rect class="f" x="5" y="5" width="2.6" height="2.6"/><rect class="f" x="8.6" y="8.6" width="2.6" height="2.6"/>',
+  output: '<path d="M3 3 H13 M8 6 V13 M5.5 10.5 L8 13 L10.5 10.5"/>',
+  null: '<circle cx="8" cy="8" r="5"/>',
+  merge: '<path d="M3 3 L8 8.5 M13 3 L8 8.5 M8 8.5 L8 13"/>',
+  switch: '<path d="M8 13 V8 L3.5 3.5 M8 8 L12.5 3.5"/><circle class="f" cx="3.5" cy="3.5" r="1.4"/>',
+  name: '<path d="M3 3 H9 L13 7 V13 H3 Z"/><circle class="f" cx="6" cy="6" r="1.3"/>',
+  attribute: '<path d="M3 3 H8 L11.5 6.5 V13 H3 Z"/><path d="M9 10 H14 M12 8 L14 10 L12 12"/>',
+  attribcreate: '<path d="M3 3 H9 L13 7 V13 H3 Z"/><path d="M8 8 V12 M6 10 H10"/>',
+  attribdelete: '<path d="M3 3 H9 L13 7 V13 H3 Z"/><path d="M6 10 H10"/>',
+  attribrandomize: '<rect x="2.5" y="2.5" width="11" height="11" rx="2"/><circle class="f" cx="5.4" cy="5.4" r="1.15"/><circle class="f" cx="10.6" cy="5.4" r="1.15"/><circle class="f" cx="8" cy="8" r="1.15"/><circle class="f" cx="5.4" cy="10.6" r="1.15"/><circle class="f" cx="10.6" cy="10.6" r="1.15"/>',
+  attribwrangle: '<path d="M6 3 C4.2 3 5.2 6 3 8 C5.2 10 4.2 13 6 13 M10 3 C11.8 3 10.8 6 13 8 C10.8 10 11.8 13 10 13"/>',
+  python: '<path d="M4 4.5 H12 M4 8 H12 M4 11.5 H8.5"/>',
+  xform: '<path d="M8 2 V14 M2 8 H14 M6.4 3.6 L8 2 L9.6 3.6 M6.4 12.4 L8 14 L9.6 12.4 M3.6 6.4 L2 8 L3.6 9.6 M12.4 6.4 L14 8 L12.4 9.6"/>',
+  bound: '<rect x="3" y="3" width="10" height="10" stroke-dasharray="2.4 1.9"/>',
+  delete: '<path d="M4 4 L12 12 M12 4 L4 12"/>',
+  matchsize: '<rect x="5" y="5" width="6" height="6"/><path d="M2.5 2.5 L5 5 M13.5 2.5 L11 5 M2.5 13.5 L5 11 M13.5 13.5 L11 11"/>',
+  file: '<path d="M4 2.5 H9.5 L12.5 5.5 V13.5 H4 Z"/><path d="M9.5 2.5 V5.5 H12.5"/>',
+  object_merge: '<path d="M6 2.5 H10.5 L13.5 5.5 V13.5 H6 Z"/><path d="M1.5 8 H7.5 M5.7 6.2 L7.5 8 L5.7 9.8"/>',
+  scatter: '<circle class="f" cx="4" cy="5" r="1.4"/><circle class="f" cx="11" cy="3.8" r="1.4"/><circle class="f" cx="7.5" cy="8.8" r="1.4"/><circle class="f" cx="12.5" cy="11" r="1.4"/><circle class="f" cx="4.5" cy="12" r="1.4"/>',
+  copytopoints: '<rect x="2.5" y="2.5" width="5" height="5"/><circle class="f" cx="11.3" cy="5" r="1.3"/><circle class="f" cx="5" cy="11.5" r="1.3"/><circle class="f" cx="11.5" cy="11.5" r="1.3"/>',
+  line: '<path d="M3 13 L13 3"/><circle class="f" cx="3" cy="13" r="1.3"/><circle class="f" cx="13" cy="3" r="1.3"/>',
+  resample: '<path d="M2.5 12 C6 4 10 12 13.5 4"/><circle class="f" cx="2.5" cy="12" r="1.2"/><circle class="f" cx="8" cy="8.2" r="1.2"/><circle class="f" cx="13.5" cy="4" r="1.2"/>',
+  skin: '<path d="M3 4.5 C6 2.5 10 6.5 13 4.5 M3 8 C6 6 10 10 13 8 M3 11.5 C6 9.5 10 13.5 13 11.5"/>',
+  ray: '<path d="M8 2.5 V9.5 M5.5 7 L8 9.5 L10.5 7 M3 12.5 H13"/>',
+  box: '<rect x="3" y="5.5" width="7.5" height="7.5"/><path d="M3 5.5 L5.5 3 H13 V10.5 L10.5 13 M13 3 L10.5 5.5"/>',
+  grid: '<rect x="2.5" y="2.5" width="11" height="11"/><path d="M2.5 8 H13.5 M8 2.5 V13.5"/>',
+  uvlayout: '<rect x="2.5" y="2.5" width="11" height="11"/><rect class="f" x="4.2" y="4.2" width="3.4" height="3.4"/><rect class="f" x="9" y="4.2" width="2.6" height="5"/><rect class="f" x="4.2" y="9.2" width="5" height="2.6"/>',
+  uvtransform: '<rect x="3" y="3" width="10" height="10"/><path d="M6 6 L10 10 M10 6.6 V10 H6.6"/>',
+  texture: '<rect x="2.5" y="2.5" width="11" height="11"/><rect class="f" x="2.5" y="2.5" width="5.5" height="5.5"/><rect class="f" x="8" y="8" width="5.5" height="5.5"/>',
+  groupcreate: '<circle cx="8" cy="8" r="5" stroke-dasharray="2.2 1.8"/><circle class="f" cx="8" cy="8" r="1.4"/>',
+  groupdelete: '<circle cx="8" cy="8" r="5" stroke-dasharray="2.2 1.8"/><path d="M5.2 10.8 L10.8 5.2"/>',
+  polyextrude: '<rect x="3" y="9.5" width="10" height="4"/><path d="M8 7.5 V2.5 M5.8 4.7 L8 2.5 L10.2 4.7"/>',
+  block_begin: '<path d="M12.6 4.6 A5.5 5.5 0 1 0 13.5 8.6"/><path d="M13 1.8 V4.9 H9.9"/>',
+  block_end: '<path d="M3.4 11.4 A5.5 5.5 0 1 0 2.5 7.4"/><path d="M3 14.2 V11.1 H6.1"/>',
+  _default: '<circle cx="8" cy="8" r="4.5"/><circle class="f" cx="8" cy="8" r="1.2"/>',
+};
+function drawIcon(parent, type, x, y, s, dark) {
+  const src = ICONS[type.split("::")[0]] || ICONS._default;
+  const g = el("g", { transform: `translate(${x},${y}) scale(${(s / 16).toFixed(3)})`, class: "node-icon" }, parent);
+  g.style.color = dark ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.62)";
+  g.innerHTML = src;
 }
 
 /* ---------- 层级筛选 ---------- */
@@ -477,6 +528,11 @@ function render() {
       g.setAttribute("opacity", "0.62");
     }
 
+    // 类型图标（左侧；圆形节点让开圆角）
+    const iconS = Math.min(20, h - 8);
+    const iconX = n.shape === "circle" ? Math.max(8, h / 2 - iconS / 2) : 6;
+    drawIcon(g, n.type, iconX, (h - iconS) / 2, iconS, !isLight(n.color));
+
     // 左翼：bypass（null = 该节点没有这个标志位，不画）
     if (f.bypass !== null && f.bypass !== undefined) {
       el("rect", { x: -7, y: 4, width: 5, height: h - 8, rx: 2.5, fill: f.bypass ? "#d6b300" : "#383838", stroke: "rgba(0,0,0,0.5)", "stroke-width": 0.8 }, g);
@@ -501,9 +557,10 @@ function render() {
       const t = el("text", { x: w - 14.5, y: h / 2 + 3.5, "text-anchor": "middle", style: `font-family: var(--mono); font-size: 10px; fill: ${dark ? "#fff" : "#eee"};` }, g);
       t.textContent = "{}";
     }
-    // 子网络徽标（可双击进入）
+    // 子网络徽标（可双击进入；排在类型图标右边）
     if ((n.children || []).length > 0) {
-      const t = el("text", { x: 7, y: h / 2 + 4, style: "font-family: var(--mono); font-size: 11px; fill: rgba(0,0,0,0.6); font-weight: 600;" }, g);
+      const dk = !isLight(n.color);
+      const t = el("text", { x: iconX + iconS + 4, y: h / 2 + 4, style: `font-family: var(--mono); font-size: 11px; fill: ${dk ? "rgba(255,255,255,0.7)" : "rgba(0,0,0,0.6)"}; font-weight: 600;` }, g);
       t.textContent = "▸▸";
     }
 
@@ -597,13 +654,13 @@ function upLevel() {
 
 /* ---------- 缩放 / 平移（改 viewBox） ---------- */
 /* 字号补偿：m = 每屏幕像素对应的 SVG 单位数。屏幕字号夹在 [基准 2/3, 基准]：
-   放大到头字也不超过基准（label 39px），缩小到头不低于基准的 2/3（label 26px） */
+   放大到头字也不超过基准（label 26px），缩小到头不低于基准的 2/3（label ≈17px） */
 function applyFontScale() {
   const m = vb.w / Math.max(1, svg.clientWidth);
   const fs = (base) => (Math.min(base, Math.max(base * 2 / 3, base * 1.5 / m)) * m).toFixed(1) + "px";
-  svg.style.setProperty("--fs-label", fs(39));
-  svg.style.setProperty("--fs-comment", fs(30));
-  svg.style.setProperty("--fs-box", fs(30));
+  svg.style.setProperty("--fs-label", fs(26));
+  svg.style.setProperty("--fs-comment", fs(20));
+  svg.style.setProperty("--fs-box", fs(20));
 }
 function applyVB() {
   svg.setAttribute("viewBox", `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
@@ -611,7 +668,7 @@ function applyVB() {
 }
 function fitView() {
   const [cw, ch] = contentSize();
-  const labelRoom = 480;  // 右侧名字标签的额外空间（字号缩到 2/3 后同比例收窄）
+  const labelRoom = 320;  // 右侧名字标签的额外空间（随字号上限 26px 收窄）
   vb = { x: -20, y: -20, w: cw + labelRoom + 40, h: ch + 40 };
   // 匹配视口纵横比，避免 preserveAspectRatio 带来的偏移
   const r = svg.clientWidth / svg.clientHeight;
@@ -956,13 +1013,15 @@ function hlCode(text, lang) {
  * ============================================================ */
 const EXPORT_CSS = `
   svg { --mono: ui-monospace, Menlo, Consolas, monospace; --sans: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-  text.node-label { font-family: var(--mono); font-size: 39px; fill: #d2d2d2; dominant-baseline: central; }
-  text.node-comment { font-family: var(--sans); font-size: 30px; font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
-  text.box-title { font-family: var(--sans); font-size: 30px; fill: #e2e2e2; dominant-baseline: central; }
-  .note-body { font-family: var(--sans); font-size: 24px; color: #33301e; white-space: pre-wrap; overflow: hidden; line-height: 1.35; }`;
+  text.node-label { font-family: var(--mono); font-size: 26px; fill: #d2d2d2; dominant-baseline: central; }
+  text.node-comment { font-family: var(--sans); font-size: 20px; font-style: italic; fill: #8f8f8f; dominant-baseline: hanging; }
+  text.box-title { font-family: var(--sans); font-size: 20px; fill: #e2e2e2; dominant-baseline: central; }
+  .note-body { font-family: var(--sans); font-size: 24px; color: #33301e; white-space: pre-wrap; overflow: hidden; line-height: 1.35; }
+  .node-icon * { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .node-icon .f { fill: currentColor; stroke: none; }`;
 function buildExportSvg() {
   const [cw, ch] = contentSize();
-  const w = Math.ceil(cw + 520), h = Math.ceil(ch + 80);
+  const w = Math.ceil(cw + 360), h = Math.ceil(ch + 80);
   const clone = svg.cloneNode(true);
   clone.setAttribute("xmlns", NS);
   clone.setAttribute("viewBox", `-20 -20 ${w} ${h}`);
