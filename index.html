@@ -132,6 +132,12 @@
   }
   .view button:hover { background: #3a3a3a; }
   .view button.primary { border-color: var(--accent); color: var(--accent); }
+  .view button.danger { border-color: #a04040; color: #e08080; }
+  .view button.danger:hover { background: #3a2424; }
+  .view button:disabled { opacity: 0.45; cursor: default; }
+  .card.manage .c-title::before { content: "☐ "; color: var(--text-dim); }
+  .card.manage.sel { border-color: #e05050; background: #2a1c1c; }
+  .card.manage.sel .c-title::before { content: "☑ "; color: #e08080; }
   #lib-cards {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 14px; margin-top: 16px;
@@ -275,6 +281,9 @@
     <input id="cloud-url" type="url" style="width:320px; cursor:text" placeholder="https://<用户名>.github.io/<归档仓库>/">
     <button id="btn-cloud">🌐 连接云端归档</button>
     <button id="btn-cloud-refresh" style="display:none">🔄 刷新云端</button>
+    <button id="btn-cloud-manage" style="display:none" title="勾选快照后从云端仓库删除（需要 GitHub token）">🗑 管理快照</button>
+    <button id="btn-cloud-delete" class="danger" style="display:none">删除选中 (0)</button>
+    <button id="btn-gh-settings" style="display:none" title="配置云端仓库和 GitHub token（只存在这个浏览器里）">🔑 GitHub 设置</button>
   </div>
   <div id="lib-cards"></div>
 </div>
@@ -309,6 +318,9 @@ let searchQuery = "";    // 搜索词（命中高亮 / 其余变暗）
 let dirHandle = null;    // 归档文件夹句柄（File System Access API）
 let cloudBase = null;    // 云端归档基址（"" = 与页面同源，即 Pages 上直接打开）；非 null 时快照库是只读云端
 let libEntries = [];     // 快照库条目 [{dir, handle, graph, title, date, nodeCount, ...}]
+let cloudManifest = null; // 云端模式下拉到的 manifest.json 原文（删除快照时改写后推回）
+let manageMode = false;   // 快照库「管理」模式：点卡片是勾选而不是打开
+let delSel = new Set();   // 管理模式下勾选的快照 dir
 let currentEntry = null; // 当前图来自哪个快照（写回标注用）
 let view = "graph";      // graph | library | stats
 let nodeHits = [];       // 当前层级节点的像素矩形，双击命中检测用
@@ -1239,6 +1251,8 @@ async function connectCloud(base, opts = {}) {
     }));
     libEntries = entries.filter(Boolean).sort((a, b) => b.date.localeCompare(a.date));
     cloudBase = base;
+    cloudManifest = man;
+    manageMode = false; delSel.clear();
     return true;
   } catch (e) {
     if (!opts.silent) showError("云端归档连接失败：" + e.message);
@@ -1259,6 +1273,118 @@ $("btn-cloud").addEventListener("click", async () => {
 $("btn-cloud-refresh").addEventListener("click", async () => {
   if (cloudBase === null) return;
   if (await connectCloud(cloudBase)) { renderLibrary(); toast("云端已刷新"); }
+});
+
+/* ============================================================
+ * 云端删除快照：查看器直接调 GitHub API 在归档仓库里做一次提交
+ * （删掉整个快照文件夹 + 改写 manifest.json）。不需要服务器；
+ * token 只存在这个浏览器的 IndexedDB 里，不进仓库。
+ * 各机器下次「HNA 同步」先拉后推，会把删除同步到本地。
+ * ============================================================ */
+function guessRepoFromUrl(base) {
+  // https://<owner>.github.io/<repo>/ → owner/repo；https://<owner>.github.io/ → owner/<owner>.github.io
+  try {
+    const u = new URL(base || location.href);
+    const m = u.hostname.match(/^([^.]+)\.github\.io$/i);
+    if (!m) return "";
+    const seg = u.pathname.split("/").filter(Boolean)[0];
+    return m[1] + "/" + (seg && !seg.endsWith(".html") ? seg : m[1] + ".github.io");
+  } catch { return ""; }
+}
+async function ghConfig() {
+  let repo = "", token = "";
+  try { repo = (await kvGet("ghRepo")) || ""; token = (await kvGet("ghToken")) || ""; } catch {}
+  return { repo: repo || guessRepoFromUrl(cloudBase), token };
+}
+async function ghSettings() {
+  const cur = await ghConfig();
+  const repo = prompt("云端归档仓库（owner/repo）：", cur.repo);
+  if (repo === null) return false;
+  const token = prompt(
+    "GitHub token（fine-grained，只给这个仓库 Contents: Read and write 权限）。\n留空则清除已保存的 token：",
+    cur.token);
+  if (token === null) return false;
+  await kvSet("ghRepo", repo.trim());
+  await kvSet("ghToken", token.trim());
+  toast(token.trim() ? "已保存 GitHub 设置（仅存在本浏览器）" : "已清除 token");
+  return !!token.trim();
+}
+async function ghApi(cfg, path, opt = {}) {
+  const res = await fetch(`https://api.github.com/repos/${cfg.repo}${path}`, {
+    ...opt,
+    headers: {
+      Authorization: `Bearer ${cfg.token}`,
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      ...(opt.body ? { "Content-Type": "application/json" } : {}),
+    },
+  });
+  if (!res.ok) {
+    let detail = "";
+    try { detail = (await res.json()).message || ""; } catch {}
+    const hint = res.status === 401 ? "token 无效或过期"
+      : res.status === 403 ? "token 没有这个仓库的写权限"
+      : res.status === 404 ? "仓库名不对，或 token 看不到这个仓库" : "";
+    throw new Error(`GitHub ${res.status}${hint ? "：" + hint : ""}${detail ? "（" + detail + "）" : ""}`);
+  }
+  return res.status === 204 ? null : res.json();
+}
+async function deleteCloudSnapshots(dirs) {
+  const cfg = await ghConfig();
+  if (!cfg.token || !cfg.repo) {
+    if (!(await ghSettings())) return false;
+    return deleteCloudSnapshots(dirs);
+  }
+  const branch = (await ghApi(cfg, "")).default_branch || "main";
+  const head = (await ghApi(cfg, `/git/ref/heads/${branch}`)).object.sha;
+  const baseTree = (await ghApi(cfg, `/git/commits/${head}`)).tree.sha;
+  const tree = await ghApi(cfg, `/git/trees/${baseTree}?recursive=1`);
+  if (tree.truncated) throw new Error("仓库文件太多，GitHub 没返回完整文件树，请在电脑上删除后同步");
+  const gone = new Set(dirs);
+  const entries = tree.tree
+    .filter((t) => t.type === "blob" && gone.has(t.path.split("/")[0]))
+    .map((t) => ({ path: t.path, mode: t.mode, type: "blob", sha: null }));   // sha:null = 删除
+  if (!entries.length) throw new Error("云端仓库里找不到这些快照文件夹（可能已经删过了，试试刷新云端）");
+  const man = cloudManifest || { snapshots: [] };
+  const snaps = (man.snapshots || []).filter((s) => !gone.has(s.dir));
+  const newMan = { ...man, generated_at: new Date().toISOString().slice(0, 19), snapshot_count: snaps.length, snapshots: snaps };
+  entries.push({ path: "manifest.json", mode: "100644", type: "blob", content: JSON.stringify(newMan, null, 2) + "\n" });
+  const newTree = await ghApi(cfg, "/git/trees", { method: "POST", body: JSON.stringify({ base_tree: baseTree, tree: entries }) });
+  const titles = dirs.map((d) => (libEntries.find((e) => e.dir === d) || {}).title || d);
+  const commit = await ghApi(cfg, "/git/commits", { method: "POST", body: JSON.stringify({
+    message: `viewer: 删除 ${dirs.length} 个快照\n\n` + titles.map((t) => "- " + t).join("\n"),
+    tree: newTree.sha, parents: [head],
+  }) });
+  await ghApi(cfg, `/git/refs/heads/${branch}`, { method: "PATCH", body: JSON.stringify({ sha: commit.sha }) });
+  cloudManifest = newMan;
+  libEntries = libEntries.filter((e) => !gone.has(e.dir));
+  return true;
+}
+function setManageMode(on) {
+  manageMode = on;
+  delSel.clear();
+  renderLibrary();
+}
+$("btn-cloud-manage").addEventListener("click", () => setManageMode(!manageMode));
+$("btn-gh-settings").addEventListener("click", () => ghSettings().catch((e) => showError(e.message)));
+$("btn-cloud-delete").addEventListener("click", async () => {
+  if (!delSel.size) return;
+  const dirs = [...delSel];
+  const titles = dirs.map((d) => (libEntries.find((e) => e.dir === d) || {}).title || d);
+  if (!confirm(`从云端仓库删除这 ${dirs.length} 个快照？\n\n${titles.join("\n")}\n\n（会在 GitHub 上生成一次提交；各机器下次同步时本地副本也会移除。git 历史里仍可找回。）`)) return;
+  const btn = $("btn-cloud-delete");
+  btn.disabled = true; btn.textContent = "删除中…";
+  try {
+    if (await deleteCloudSnapshots(dirs)) {
+      setManageMode(false);
+      toast(`已从云端删除 ${dirs.length} 个快照 · Pages 约 1 分钟后更新`);
+    }
+  } catch (e) {
+    showError("云端删除失败：" + e.message);
+  } finally {
+    btn.disabled = false;
+    renderLibrary();
+  }
 });
 
 async function scanArchive() {
@@ -1321,10 +1447,19 @@ function renderLibrary() {
   const cards = $("lib-cards");
   cards.textContent = "";
   $("btn-reconnect").style.display = dirHandle && cloudBase === null && !libEntries.length ? "" : "none";
-  $("btn-cloud-refresh").style.display = cloudBase !== null ? "" : "none";
-  if (cloudBase !== null && cloudBase !== "") $("cloud-url").value = cloudBase;
-  if (cloudBase !== null) {
-    $("lib-sub").textContent = `☁ 云端归档 · ${libEntries.length} 个快照 · 只读（标注要在电脑上连本地文件夹改，改完跑「HNA 同步」上云）`;
+  const cloud = cloudBase !== null;
+  $("btn-cloud-refresh").style.display = cloud ? "" : "none";
+  $("btn-cloud-manage").style.display = cloud && libEntries.length ? "" : "none";
+  $("btn-cloud-manage").textContent = manageMode ? "✕ 退出管理" : "🗑 管理快照";
+  $("btn-cloud-delete").style.display = cloud && manageMode ? "" : "none";
+  $("btn-cloud-delete").textContent = `删除选中 (${delSel.size})`;
+  $("btn-cloud-delete").disabled = !delSel.size;
+  $("btn-gh-settings").style.display = cloud ? "" : "none";
+  if (cloud && cloudBase !== "") $("cloud-url").value = cloudBase;
+  if (cloud && manageMode) {
+    $("lib-sub").textContent = `☁ 管理模式 · 点卡片勾选，再点「删除选中」从云端仓库删除（首次会要 GitHub token）`;
+  } else if (cloud) {
+    $("lib-sub").textContent = `☁ 云端归档 · ${libEntries.length} 个快照 · 标注只读（在电脑上连本地文件夹改，改完跑「HNA 同步」上云）· 删快照用「管理快照」`;
   } else if (!window.showDirectoryPicker) {
     $("lib-sub").textContent = "此浏览器不支持文件夹访问（需要 Chrome / Edge）。仍可连云端归档，或回图视图拖入单个 graph.json。";
   } else if (libEntries.length) {
@@ -1339,7 +1474,18 @@ function renderLibrary() {
     c.querySelector(".c-title").textContent = e.title;
     c.querySelector(".c-ctx").textContent = e.context;
     c.querySelector(".c-info").textContent = `${fmtDate(e.date)} · ${e.nodeCount} 节点`;
-    c.addEventListener("click", () => openSnapshot(e));
+    if (manageMode) {
+      c.classList.add("manage");
+      if (delSel.has(e.dir)) c.classList.add("sel");
+      c.addEventListener("click", () => {
+        if (delSel.has(e.dir)) delSel.delete(e.dir); else delSel.add(e.dir);
+        c.classList.toggle("sel", delSel.has(e.dir));
+        $("btn-cloud-delete").textContent = `删除选中 (${delSel.size})`;
+        $("btn-cloud-delete").disabled = !delSel.size;
+      });
+    } else {
+      c.addEventListener("click", () => openSnapshot(e));
+    }
     cards.appendChild(c);
   }
   if (!libEntries.length && dirHandle) {
