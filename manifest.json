@@ -1,7 +1,16 @@
 {
-  "generated_at": "2026-09-10T20:28:56",
-  "snapshot_count": 9,
+  "generated_at": "2026-09-11T15:51:06",
+  "snapshot_count": 10,
   "snapshots": [
+    {
+      "dir": "2026-09-11_uv_layout_name",
+      "title": "uv_layout_name",
+      "date": "2026-09-11T15:50:54-06:00",
+      "node_count": 1,
+      "context": "Sop",
+      "root": "/obj/trynew_copy_1_1/trynew_copy1/uv_layout_name",
+      "houdini_version": "22.0.368"
+    },
     {
       "dir": "2026-09-10_用uv分布模型的中心点",
       "title": "用uv分布模型的中心点",
