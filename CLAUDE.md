@@ -4,7 +4,7 @@
 
 ## 仓库结构
 
-- `<日期>_<名字>/graph.json` — 一个快照：Houdini 网络的完整导出（schema v1）。节点含 `type`（真实节点类型）、`parms`（**只有非默认参数**，raw=表达式原文 + eval=求值结果）、`code`（VEX/Python 源码）、`user_data`、连线、网络框、便签。
+- `<日期>_<名字>/graph.json` — 一个快照：Houdini 网络的完整导出（schema v1）。节点含 `type`（真实节点类型）、`parms`（键的顺序 = Houdini 参数面板顺序；raw=表达式原文 + eval=求值结果 + label/folder；2026-09-10 之后的快照连默认值参数也导出并标 `default: true`，**读的时候先过滤掉 default 的**，老快照只有非默认参数）、`code`（VEX/Python 源码）、`user_data`、连线、网络框、便签。
 - `<日期>_<名字>/meta.json` — 标题、日期、节点数。
 - `<日期>_<名字>/nodes.hipnc` — 对应的 Houdini 工程文件（二进制，别读）。
 - `manifest.json` — 快照清单（同步时自动重建）。

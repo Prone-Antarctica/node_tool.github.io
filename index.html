@@ -224,6 +224,16 @@
   #parms table { width: 100%; border-collapse: collapse; font-size: 12px; }
   #parms td { padding: 3px 6px 3px 0; vertical-align: top; border-bottom: 1px solid #2a2a2a; }
   #parms td.k { color: #9ec98f; font-family: var(--mono); white-space: nowrap; max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+  #parms td.k small { display: block; font-size: 10px; color: var(--text-dim); }
+  #parms td.k.sub { padding-left: 10px; color: var(--text-dim); }
+  #parms td.folder { color: #c9a35a; font-size: 11px; letter-spacing: .5px; padding-top: 8px; border-bottom: 1px solid #3a3324; }
+  #parms tr.def td { opacity: .45; }
+  #parms tr.def:hover td { opacity: .9; }
+  #parms h3 .p-toggle {
+    float: right; font-size: 10px; text-transform: none; letter-spacing: 0; padding: 0 6px; margin-top: -2px;
+    background: transparent; color: var(--accent); border: 1px solid var(--panel-border); border-radius: 3px; cursor: pointer;
+  }
+  #parms h3 .p-toggle:hover { background: #2a2a2a; }
   #parms td.v { font-family: var(--mono); word-break: break-all; }
   #parms .expr { color: var(--accent); display: block; font-size: 11px; margin-top: 1px; word-break: break-all; }
   #parms .ramp { color: var(--text-dim); font-size: 11px; }
@@ -313,6 +323,8 @@ const svg = $("canvas");
 let graph = null;        // 当前 graph.json
 let level = null;        // 当前显示的网络路径
 let selected = null;     // 选中节点的 id（参数面板）
+let showAllParms = false; // 参数面板：false = 只看改过的，true = 连默认值一起（新快照才有默认值）
+try { showAllParms = localStorage.getItem("hna.showAllParms") === "1"; } catch {}
 let marqueeSel = null;   // 框选的节点 id 集合（Set，null = 没有框选）
 let searchQuery = "";    // 搜索词（命中高亮 / 其余变暗）
 let dirHandle = null;    // 归档文件夹句柄（File System Access API）
@@ -835,17 +847,49 @@ function renderParmPanel(n) {
   if (n.comment) add("div", "p-comment", n.comment);
   for (const w of n.warnings || []) add("div", "p-warn", "⚠ " + w);
 
-  /* 参数表：只列非默认值（导出器只导这些） */
-  add("h3", null, `参数（非默认，${Object.keys(n.parms || {}).length} 个）`);
-  const names = Object.keys(n.parms || {}).sort();
+  /* 参数表：键的顺序就是 Houdini 面板顺序（新导出器），不要 sort。
+     新快照含默认值参数（default:true），默认只显示改过的，可切到全部；老快照本来就只有改过的。 */
+  const allNames = Object.keys(n.parms || {});
+  const changed = allNames.filter((k) => !n.parms[k].default);
+  const hasDefaults = changed.length !== allNames.length;
+  const showAll = hasDefaults && showAllParms;
+  const names = showAll ? allNames : changed;
+  const h3 = add("h3", null, showAll ? `参数（全部 ${allNames.length} 个，改过 ${changed.length}）`
+                                    : `参数（改过 ${changed.length} 个${hasDefaults ? `，共 ${allNames.length}` : ""}）`);
+  if (hasDefaults) {
+    const tg = document.createElement("button");
+    tg.className = "p-toggle";
+    tg.textContent = showAll ? "只看改过的" : "显示全部";
+    tg.addEventListener("click", () => {
+      showAllParms = !showAllParms;
+      try { localStorage.setItem("hna.showAllParms", showAllParms ? "1" : "0"); } catch {}
+      renderParmPanel(n);
+    });
+    h3.appendChild(tg);
+  }
   if (!names.length) {
     add("div", "empty", "全部保持默认值");
   } else {
     const table = add("table");
+    let lastFolder = null, lastLabel = null;
     for (const name of names) {
       const v = n.parms[name];
+      if ((v.folder || "") !== lastFolder && v.folder !== undefined) {
+        // folder 变了：插一行小标题（和 Houdini 的 tab / 折叠组对应）
+        const ftr = document.createElement("tr");
+        const ftd = document.createElement("td"); ftd.className = "folder"; ftd.colSpan = 2; ftd.textContent = v.folder;
+        ftr.appendChild(ftd); table.appendChild(ftr);
+        lastFolder = v.folder || ""; lastLabel = null;
+      }
       const tr = document.createElement("tr");
-      const k = document.createElement("td"); k.className = "k"; k.textContent = name; k.title = name;
+      if (v.default) tr.className = "def";
+      const k = document.createElement("td"); k.className = "k"; k.title = name;
+      if (v.label) {
+        // 同一 tuple 的分量（tx/ty/tz）共用标签：标签只在第一个分量上显示，后面的只显示内部名
+        if (v.label !== lastLabel) { k.textContent = v.label; const s = document.createElement("small"); s.textContent = name; k.appendChild(s); }
+        else { k.textContent = name; k.classList.add("sub"); }
+        lastLabel = v.label;
+      } else { k.textContent = name; lastLabel = null; }
       const val = document.createElement("td"); val.className = "v";
       if (v.ramp) {
         const r = v.ramp;
@@ -1090,7 +1134,7 @@ function fmtParmMd(name, v) {
     const r = v.ramp;
     return `- \`${name}\`: ramp [${r.keys.map((k, i) => `${k}→${r.values[i]}(${r.basis[i]})`).join(", ")}]`;
   }
-  let s = `- \`${name}\` = ${JSON.stringify(v.eval)}`;
+  let s = `- \`${name}\`${v.label ? `（${v.label}）` : ""} = ${JSON.stringify(v.eval)}`;
   if (v.raw !== undefined && v.raw !== String(v.eval)) s += `　表达式: \`${v.raw}\``;
   return s;
 }
@@ -1104,7 +1148,7 @@ function pushNodeDetail(L, n, heading) {
   const ud = n.user_data || {};
   if (ud["hna.concept"]) L.push(`- 我标注的概念: ${ud["hna.concept"]}`);
   if (ud["hna.confidence"]) L.push(`- 我的掌握度: ${ud["hna.confidence"]}/5`);
-  const pn = Object.keys(n.parms || {}).sort();
+  const pn = Object.keys(n.parms || {}).filter((k) => !n.parms[k].default);  // 面板顺序，不 sort
   if (pn.length) {
     L.push("", "非默认参数：", "");
     for (const k of pn) L.push(fmtParmMd(k, n.parms[k]));
@@ -1459,7 +1503,7 @@ function renderLibrary() {
   if (cloud && manageMode) {
     $("lib-sub").textContent = `☁ 管理模式 · 点卡片勾选，再点「删除选中」从云端仓库删除（首次会要 GitHub token）`;
   } else if (cloud) {
-    $("lib-sub").textContent = `☁ 云端归档 · ${libEntries.length} 个快照 · 标注只读（在电脑上连本地文件夹改，改完跑「HNA 同步」上云）· 删快照用「管理快照」`;
+    $("lib-sub").textContent = `☁ 云端归档 · ${libEntries.length} 个快照 · 标注会直接提交到仓库（首次要 GitHub token，点「GitHub 设置」）· 删快照用「管理快照」`;
   } else if (!window.showDirectoryPicker) {
     $("lib-sub").textContent = "此浏览器不支持文件夹访问（需要 Chrome / Edge）。仍可连云端归档，或回图视图拖入单个 graph.json。";
   } else if (libEntries.length) {
@@ -1515,7 +1559,7 @@ setInterval(async () => {
 }, 5000);
 
 /* ============================================================
- * 标注写回（M5）：有文件夹权限就写回 graph.json，否则下载副本
+ * 标注写回（M5）：有文件夹权限就写回 graph.json；云端模式直接提交到仓库；都不行就下载副本
  * ============================================================ */
 async function saveGraphBack() {
   if (!graph) return;
@@ -1532,11 +1576,53 @@ async function saveGraphBack() {
       showError("写回失败：" + e.message + "，改为下载副本");
     }
   }
+  if (currentEntry && currentEntry.cloud) {
+    try {
+      if (await pushGraphToCloud(currentEntry)) {
+        toast(`已提交到云端仓库 ${currentEntry.dir}/graph.json · 各机器下次「HNA 同步」会拉下来`);
+        return;
+      }
+      toast("未配置 token，已下载修改副本");
+    } catch (e) {
+      showError("云端提交失败：" + e.message + "，改为下载副本");
+    }
+  }
   download(new Blob([JSON.stringify(graph, null, 2)], { type: "application/json" }),
            (fileName || "graph").replace(/\.json$/, "") + ".annotated.json");
   toast(currentEntry && currentEntry.cloud
-        ? "云端归档是只读的——已下载修改副本，回电脑改本地归档再同步"
+        ? "已下载修改副本（配置 GitHub token 后可直接提交到云端）"
         : "已下载修改副本（从快照库打开才能直接写回）");
+}
+
+/* 云端写回：用 Contents API 直接在归档仓库里提交 <dir>/graph.json。
+   和删除快照共用同一个 token（存本浏览器 IndexedDB）。
+   先拿远端当前 sha 再 PUT，别人（另一台机器的同步）刚改过就会 409/422，提示刷新重做。 */
+function b64utf8(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+async function pushGraphToCloud(entry) {
+  const cfg = await ghConfig();
+  if (!cfg.token || !cfg.repo) {
+    if (!(await ghSettings())) return false;
+    return pushGraphToCloud(entry);
+  }
+  const branch = (await ghApi(cfg, "")).default_branch || "main";
+  const path = `/contents/${encodeURIComponent(entry.dir)}/graph.json`;
+  let sha;
+  try { sha = (await ghApi(cfg, `${path}?ref=${encodeURIComponent(branch)}`)).sha; } catch { sha = undefined; }
+  const body = { message: `viewer: 标注 ${entry.title || entry.dir}`, branch, content: b64utf8(JSON.stringify(graph, null, 2) + "\n") };
+  if (sha) body.sha = sha;
+  try {
+    await ghApi(cfg, path, { method: "PUT", body: JSON.stringify(body) });
+  } catch (e) {
+    if (/GitHub (409|422)/.test(e.message)) throw new Error("云端这个快照刚被别处改过，请「刷新云端」后重新打开再标注");
+    throw e;
+  }
+  entry.graph = graph;
+  return true;
 }
 
 /* ============================================================
@@ -1599,7 +1685,7 @@ function renderStats() {
           if (ud["hna.confidence"]) o.confidence = ud["hna.confidence"];
           if (n.code && n.code.text) o.code = n.code;
           const parms = {};
-          for (const [k, v] of Object.entries(n.parms || {})) if (v.raw !== undefined) parms[k] = v.raw;
+          for (const [k, v] of Object.entries(n.parms || {})) if (v.raw !== undefined && !v.default) parms[k] = v.raw;
           if (Object.keys(parms).length) o.parms = parms;
           return o;
         }),
