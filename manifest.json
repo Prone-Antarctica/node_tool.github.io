@@ -1,7 +1,43 @@
 {
-  "generated_at": "2026-09-06T21:51:30",
-  "snapshot_count": 4,
+  "generated_at": "2026-09-10T20:13:49",
+  "snapshot_count": 8,
   "snapshots": [
+    {
+      "dir": "2026-09-10_模型导入步骤",
+      "title": "模型导入步骤",
+      "date": "2026-09-10T20:12:00-06:00",
+      "node_count": 8,
+      "context": "Sop",
+      "root": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+      "houdini_version": "22.0.368"
+    },
+    {
+      "dir": "2026-09-07_河流uv计算",
+      "title": "河流uv计算",
+      "date": "2026-09-07T20:47:08-06:00",
+      "node_count": 16,
+      "context": "Sop",
+      "root": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "houdini_version": "22.0.368"
+    },
+    {
+      "dir": "2026-09-06_用name删除1一个点以外的点",
+      "title": "用name删除1一个点以外的点",
+      "date": "2026-09-06T21:54:39-06:00",
+      "node_count": 1,
+      "context": "Sop",
+      "root": "/obj/trynew_copy_1_1/trynew_copy1",
+      "houdini_version": "22.0.368"
+    },
+    {
+      "dir": "2026-09-06_赋予特定点名字和法线",
+      "title": "赋予特定点名字和法线",
+      "date": "2026-09-06T21:53:09-06:00",
+      "node_count": 1,
+      "context": "Sop",
+      "root": "/obj/trynew_copy_1_1/trynew_copy1",
+      "houdini_version": "22.0.368"
+    },
     {
       "dir": "2026-09-06_设置面的中心点",
       "title": "设置面的中心点",
