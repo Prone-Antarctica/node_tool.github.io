@@ -1,0 +1,268 @@
+{
+  "schema": 1,
+  "exported_at": "2026-09-06T21:54:39-06:00",
+  "houdini_version": "22.0.368",
+  "hip_file": null,
+  "root": "/obj/trynew_copy_1_1/trynew_copy1",
+  "context": "Sop",
+  "flow": "vertical",
+  "nodes": [
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/Tag",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "name": "Tag",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -31.4874,
+        -20.0682
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);",
+          "eval": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    }
+  ],
+  "connections": [],
+  "network_boxes": [
+    {
+      "id": "nb_0",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        -32.80583475594284,
+        -25.13178836975494
+      ],
+      "size": [
+        5.478694761903302,
+        15.900659877276999
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": [
+        "/obj/trynew_copy_1_1/trynew_copy1/Tag"
+      ]
+    },
+    {
+      "id": "nb_1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        -24.739975238499497,
+        -25.346600006771087
+      ],
+      "size": [
+        2.9927752376888748,
+        8.187382449729988
+      ],
+      "color": [
+        0.6000000238418579,
+        0.6000000238418579,
+        0.6000000238418579
+      ],
+      "nodes": []
+    },
+    {
+      "id": "nb_2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        -19.859171434318412,
+        -33.76807576407906
+      ],
+      "size": [
+        11.381155012356276,
+        16.773435512244586
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": []
+    },
+    {
+      "id": "nb_3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        16.230900000000002,
+        -10.163422165731864
+      ],
+      "size": [
+        8.248004590479308,
+        18.641111446452356
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": []
+    },
+    {
+      "id": "nb_4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        28.75122512360058,
+        3.2471020086231195
+      ],
+      "size": [
+        6.291871324622026,
+        4.414500352086252
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": []
+    },
+    {
+      "id": "nb_5",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "comment": "",
+      "pos": [
+        -17.406499999999998,
+        -46.48024508643241
+      ],
+      "size": [
+        8.737802961715664,
+        9.202145082188565
+      ],
+      "color": [
+        0.5199999809265137,
+        0.5199999809265137,
+        0.5199999809265137
+      ],
+      "nodes": []
+    }
+  ],
+  "sticky_notes": [
+    {
+      "id": "sn_0",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "获取面的中心点；\n并赋予属性\n",
+      "pos": [
+        -24.74,
+        -12.4596
+      ],
+      "size": [
+        2.26906,
+        1.04757
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    },
+    {
+      "id": "sn_1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "贴合地形，并且删除道路上的点\n",
+      "pos": [
+        -11.7862,
+        -20.9862
+      ],
+      "size": [
+        2.5,
+        2.5
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    },
+    {
+      "id": "sn_2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "河水生成\nuv沿着河流朝向",
+      "pos": [
+        21.2556,
+        3.48609
+      ],
+      "size": [
+        2.5,
+        2.5
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    },
+    {
+      "id": "sn_3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "水车生成\nuv沿着河流朝向",
+      "pos": [
+        32.586,
+        3.72586
+      ],
+      "size": [
+        2.5,
+        2.5
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    },
+    {
+      "id": "sn_4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1",
+      "text": "随机旋转",
+      "pos": [
+        -11.7104,
+        -43.2624
+      ],
+      "size": [
+        2.5,
+        2.5
+      ],
+      "color": [
+        1.0,
+        0.968999981880188,
+        0.5220000147819519
+      ]
+    }
+  ]
+}

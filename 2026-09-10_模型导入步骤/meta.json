@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "title": "模型导入步骤",
+  "tags": [],
+  "created_at": "2026-09-10T20:12:00-06:00",
+  "root": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+  "context": "Sop",
+  "node_count": 8,
+  "houdini_version": "22.0.368",
+  "hip_file": null
+}

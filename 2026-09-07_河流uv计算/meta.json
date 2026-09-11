@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "title": "河流uv计算",
+  "tags": [],
+  "created_at": "2026-09-07T20:47:08-06:00",
+  "root": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+  "context": "Sop",
+  "node_count": 16,
+  "houdini_version": "22.0.368",
+  "hip_file": null
+}

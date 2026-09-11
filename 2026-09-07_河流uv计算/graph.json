@@ -1,0 +1,1023 @@
+{
+  "schema": 1,
+  "exported_at": "2026-09-07T20:47:08-06:00",
+  "houdini_version": "22.0.368",
+  "hip_file": null,
+  "root": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+  "context": "Sop",
+  "flow": "vertical",
+  "nodes": [
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/line2",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "line2",
+      "type": "line",
+      "type_label": "Line",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -2.2401,
+        3.71816
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "originz": {
+          "raw": "-ch('../../RiverWidth')*0.5",
+          "eval": -5.0
+        },
+        "diry": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "dirz": {
+          "raw": "1",
+          "eval": 1.0
+        },
+        "dist": {
+          "raw": "ch('../../RiverWidth')",
+          "eval": 10.0
+        },
+        "points": {
+          "raw": "3",
+          "eval": 3
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/copytopoints1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "copytopoints1",
+      "type": "copytopoints::2.0",
+      "type_label": "Copy to Points",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.7061,
+        2.43396
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        1.0,
+        0.6499999761581421,
+        0.10000000149011612
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "targetattribs": {
+          "raw": "3",
+          "eval": 3
+        },
+        "useapply1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "applyto1": {
+          "raw": "points",
+          "eval": 0
+        },
+        "applymethod1": {
+          "raw": "copy",
+          "eval": 0
+        },
+        "applyattribs1": {
+          "raw": "*,^v,^Alpha,^N,^up,^pscale,^scale,^orient,^rot,^pivot,^trans,^transform",
+          "eval": "*,^v,^Alpha,^N,^up,^pscale,^scale,^orient,^rot,^pivot,^trans,^transform"
+        },
+        "useapply2": {
+          "raw": "on",
+          "eval": 1
+        },
+        "applyto2": {
+          "raw": "points",
+          "eval": 0
+        },
+        "applymethod2": {
+          "raw": "mult",
+          "eval": 2
+        },
+        "applyattribs2": {
+          "raw": "Alpha",
+          "eval": "Alpha"
+        },
+        "useapply3": {
+          "raw": "on",
+          "eval": 1
+        },
+        "applyto3": {
+          "raw": "points",
+          "eval": 0
+        },
+        "applymethod3": {
+          "raw": "add",
+          "eval": 3
+        },
+        "applyattribs3": {
+          "raw": "v",
+          "eval": "v"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/uvtexture1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "uvtexture1",
+      "type": "texture",
+      "type_label": "UV Texture",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.5978,
+        -0.18856002384185677
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/skin3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "skin3",
+      "type": "skin",
+      "type_label": "Skin",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.5978,
+        1.12744
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "surftype": {
+          "raw": "cols",
+          "eval": 1
+        },
+        "keepshape": {
+          "raw": "on",
+          "eval": 1
+        },
+        "force": {
+          "raw": "on",
+          "eval": 1
+        },
+        "orderv": {
+          "raw": "3",
+          "eval": 3
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribcreate8",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "attribcreate8",
+      "type": "attribcreate::2.0",
+      "type_label": "Attribute Create",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.49620000000000025,
+        -8.044477376748889
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "enable1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "name1": {
+          "raw": "unreal_instance",
+          "eval": "unreal_instance"
+        },
+        "existing1": {
+          "raw": "better",
+          "eval": 3
+        },
+        "createvarmap1": {
+          "raw": "off",
+          "eval": 0
+        },
+        "varname1": {
+          "raw": "",
+          "eval": ""
+        },
+        "class1": {
+          "raw": "point",
+          "eval": 2
+        },
+        "savetoinfo1": {
+          "raw": "off",
+          "eval": 0
+        },
+        "type1": {
+          "raw": "index",
+          "eval": 3
+        },
+        "typeinfo1": {
+          "raw": "guess",
+          "eval": 0
+        },
+        "precision1": {
+          "raw": "auto",
+          "eval": 4
+        },
+        "size1": {
+          "raw": "1",
+          "eval": 1
+        },
+        "default1v1": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "default1v2": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "default1v3": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "default1v4": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "writevalues1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "uselocal1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "value1v1": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "value1v2": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "value1v3": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "value1v4": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "string1": {
+          "raw": "",
+          "eval": ""
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/unreal_material",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "unreal_material",
+      "type": "attribcreate::2.0",
+      "type_label": "Attribute Create",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.4962000000000002,
+        -7.1900500243663785
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "enable1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "name1": {
+          "raw": "unreal_material",
+          "eval": "unreal_material"
+        },
+        "existing1": {
+          "raw": "better",
+          "eval": 3
+        },
+        "createvarmap1": {
+          "raw": "off",
+          "eval": 0
+        },
+        "varname1": {
+          "raw": "",
+          "eval": ""
+        },
+        "class1": {
+          "raw": "primitive",
+          "eval": 1
+        },
+        "savetoinfo1": {
+          "raw": "off",
+          "eval": 0
+        },
+        "type1": {
+          "raw": "index",
+          "eval": 3
+        },
+        "typeinfo1": {
+          "raw": "guess",
+          "eval": 0
+        },
+        "precision1": {
+          "raw": "auto",
+          "eval": 4
+        },
+        "size1": {
+          "raw": "1",
+          "eval": 1
+        },
+        "default1v1": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "default1v2": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "default1v3": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "default1v4": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "writevalues1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "uselocal1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "value1v1": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "value1v2": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "value1v3": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "value1v4": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "string1": {
+          "raw": "/Script/Engine.MaterialInstanceConstant'/Game/Meshes/M_River_Inst.M_River_Inst'",
+          "eval": "/Script/Engine.MaterialInstanceConstant'/Game/Meshes/M_River_Inst.M_River_Inst'"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/UV.y",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "UV.y",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -0.4958000000000002,
+        -3.0743500238418577
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "int ppl = 3;\nint copy = @ptnum / ppl;\n@uv.y = copy / float(@numprim +3);\n\n//float pointUv=(@ptnum/(@numprim))*(@numprim);\n//@uv.y=pointUv/float(npoints(0));\n\n",
+          "eval": "int ppl = 3;\nint copy = @ptnum / ppl;\n@uv.y = copy / float(@numprim +3);\n\n//float pointUv=(@ptnum/(@numprim))*(@numprim);\n//@uv.y=pointUv/float(npoints(0));\n\n"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "int ppl = 3;\nint copy = @ptnum / ppl;\n@uv.y = copy / float(@numprim +3);\n\n//float pointUv=(@ptnum/(@numprim))*(@numprim);\n//@uv.y=pointUv/float(npoints(0));\n\n"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/uvtransform1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "uvtransform1",
+      "type": "uvtransform::2.0",
+      "type_label": "UV Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.49280000000000024,
+        -6.1900500243663785
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/UV.x",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "UV.x",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -0.39080000000000015,
+        -1.9965500238418579
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "@uv.x=float(@primnum)/float(@numprim-1);\n@Cd=@uv.x;\n\n//int ppl = 3;\n//@uv.x = (@ptnum % ppl) / float(ppl - 1);      // 横向 0, 0.5, 1\n//@uv.y = (@ptnum / ppl) / float(@numprim - 1); // 沿河 0 → 1",
+          "eval": "@uv.x=float(@primnum)/float(@numprim-1);\n@Cd=@uv.x;\n\n//int ppl = 3;\n//@uv.x = (@ptnum % ppl) / float(ppl - 1);      // 横向 0, 0.5, 1\n//@uv.y = (@ptnum / ppl) / float(@numprim - 1); // 沿河 0 → 1"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "@uv.x=float(@primnum)/float(@numprim-1);\n@Cd=@uv.x;\n\n//int ppl = 3;\n//@uv.x = (@ptnum % ppl) / float(ppl - 1);      // 横向 0, 0.5, 1\n//@uv.y = (@ptnum / ppl) / float(@numprim - 1); // 沿河 0 → 1"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/skin4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "skin4",
+      "type": "skin",
+      "type_label": "Skin",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.38780000346638277,
+        -4.132514024366377
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": true,
+        "render": true,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribwrangle9",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "attribwrangle9",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -0.33087575231046407,
+        -9.181172362893124
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "@N={0,1,0};",
+          "eval": "@N={0,1,0};"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "@N={0,1,0};"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/output0",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "output0",
+      "type": "output",
+      "type_label": "Output",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -0.13529797729069723,
+        -12.705032343559965
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "outputidx": {
+          "raw": "0",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/resample3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "resample3",
+      "type": "resample",
+      "type_label": "Resample",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.0,
+        3.71816
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "length": {
+          "raw": "3.29",
+          "eval": 3.29
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/null1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "null1",
+      "type": "null",
+      "type_label": "Null",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.0,
+        5.0091
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.6000000238418579,
+        0.699999988079071,
+        0.7699999809265137
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribdelete5",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "attribdelete5",
+      "type": "attribdelete",
+      "type_label": "Attribute Delete",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        0.0,
+        6.1118
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ptdel": {
+          "raw": "__vertex_id",
+          "eval": "__vertex_id"
+        },
+        "vtxdel": {
+          "raw": "*",
+          "eval": "*"
+        },
+        "primdel": {
+          "raw": "*",
+          "eval": "*"
+        },
+        "dtldel": {
+          "raw": "*",
+          "eval": "*"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribwrangle10",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver",
+      "name": "attribwrangle10",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        0.053047305211255835,
+        -10.728704127781679
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "class": {
+          "raw": "primitive",
+          "eval": 1
+        },
+        "snippet": {
+          "raw": "@N={0,1,0};",
+          "eval": "@N={0,1,0};"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "@N={0,1,0};"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/line2",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/copytopoints1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/resample3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/copytopoints1",
+      "to_input": 1
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/skin3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/uvtexture1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/copytopoints1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/skin3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/unreal_material",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribcreate8",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/uvtransform1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/unreal_material",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/UV.x",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/UV.y",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/skin4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/uvtransform1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/uvtexture1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/UV.x",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/UV.y",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/skin4",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribcreate8",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribwrangle9",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribwrangle10",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/output0",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/null1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/resample3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribdelete5",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/null1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribwrangle9",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/River_onlyriver/attribwrangle10",
+      "to_input": 0
+    }
+  ],
+  "network_boxes": [],
+  "sticky_notes": []
+}

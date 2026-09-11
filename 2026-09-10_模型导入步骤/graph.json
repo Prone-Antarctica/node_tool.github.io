@@ -1,0 +1,420 @@
+{
+  "schema": 1,
+  "exported_at": "2026-09-10T20:12:00-06:00",
+  "houdini_version": "22.0.368",
+  "hip_file": null,
+  "root": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+  "context": "Sop",
+  "flow": "vertical",
+  "nodes": [
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/file6",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+      "name": "file6",
+      "type": "file",
+      "type_label": "File",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.983,
+        9.76613
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.8999999761581421,
+        0.800000011920929,
+        0.550000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "file": {
+          "raw": "C:\\Users\\antisocial\\Content\\HoudiniBlocksGenerate\\BlockGenerate\\GenerateBlocks\\BP_Buildings_01.fbx",
+          "eval": "C:\\Users\\antisocial\\Content\\HoudiniBlocksGenerate\\BlockGenerate\\GenerateBlocks\\BP_Buildings_01.fbx"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/transform1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+      "name": "transform1",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.9506,
+        3.19906
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "-bbox(0,D_YMIN)",
+          "eval": 5.740718841552734
+        },
+        "rx": {
+          "raw": "90",
+          "eval": 90.0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/center1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+      "name": "center1",
+      "type": "matchsize",
+      "type_label": "Match Size",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -13.9506,
+        4.9855
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": true,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "justifytarget": {
+          "raw": "origin",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/bound1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+      "name": "bound1",
+      "type": "bound",
+      "type_label": "Bound",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.9506,
+        1.71642
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": true,
+        "render": true,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/delete1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+      "name": "delete1",
+      "type": "delete",
+      "type_label": "Delete",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.9506,
+        0.65908
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "stdswitcher1": {
+          "raw": "2",
+          "eval": 2
+        },
+        "affectnormal": {
+          "raw": "on",
+          "eval": 1
+        },
+        "diry": {
+          "raw": "1",
+          "eval": 1.0
+        },
+        "dirz": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "angle": {
+          "raw": "90",
+          "eval": 90.0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/name6",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+      "name": "name6",
+      "type": "name",
+      "type_label": "Name",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.922,
+        -1.82522
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "name1": {
+          "raw": "Building_01",
+          "eval": "Building_01"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/transform5",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+      "name": "transform5",
+      "type": "xform",
+      "type_label": "Transform",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        -13.7637,
+        7.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ty": {
+          "raw": "0",
+          "eval": 0.0
+        },
+        "rx": {
+          "raw": "90",
+          "eval": 90.0
+        },
+        "scale": {
+          "raw": "0.01",
+          "eval": 0.01
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/attribdelete1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce",
+      "name": "attribdelete1",
+      "type": "attribdelete",
+      "type_label": "Attribute Delete",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        -13.7637,
+        8.35326
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "ptdel": {
+          "raw": "fbx_rotation fbx_scale fbx_translation",
+          "eval": "fbx_rotation fbx_scale fbx_translation"
+        },
+        "vtxdel": {
+          "raw": "N uv",
+          "eval": "N uv"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/center1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/transform1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/transform5",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/center1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/transform1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/bound1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/bound1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/delete1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/delete1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/name6",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/attribdelete1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/transform5",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/file6",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/model_introduce/attribdelete1",
+      "to_input": 0
+    }
+  ],
+  "network_boxes": [],
+  "sticky_notes": []
+}
