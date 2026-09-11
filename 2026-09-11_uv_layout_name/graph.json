@@ -1,0 +1,496 @@
+{
+  "schema": 1,
+  "exported_at": "2026-09-11T15:50:54-06:00",
+  "houdini_version": "22.0.368",
+  "hip_file": null,
+  "root": "/obj/trynew_copy_1_1/trynew_copy1/uv_layout_name",
+  "context": "Sop",
+  "flow": "vertical",
+  "nodes": [
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/uv_layout_name/uvlayout1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/uv_layout_name",
+      "name": "uvlayout1",
+      "type": "uvlayout::3.0",
+      "type_label": "UV Layout",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.2643,
+        1.814
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "uvattrib": {
+          "raw": "P",
+          "eval": "P",
+          "label": "UV Attribute",
+          "folder": "Islands To Pack"
+        },
+        "projplane": {
+          "raw": "zx",
+          "eval": 2,
+          "label": "Projection Plane",
+          "folder": "Islands To Pack"
+        },
+        "group": {
+          "raw": "",
+          "eval": "",
+          "default": true,
+          "label": "Group",
+          "folder": "Islands To Pack"
+        },
+        "separatoredges": {
+          "raw": "",
+          "eval": "",
+          "default": true,
+          "label": "Separator Edges",
+          "folder": "Islands To Pack / Overrides / Connectivity"
+        },
+        "useislandattr": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "useislandattr",
+          "folder": "Islands To Pack / Overrides / Connectivity"
+        },
+        "islandattr": {
+          "raw": "island",
+          "eval": "island",
+          "default": true,
+          "label": "Island Attribute",
+          "folder": "Islands To Pack / Overrides / Connectivity"
+        },
+        "usetargetattr": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "usetargetattr",
+          "folder": "Islands To Pack / Overrides / Target Assignment"
+        },
+        "targetattr": {
+          "raw": "udim",
+          "eval": "udim",
+          "default": true,
+          "label": "Target Attribute",
+          "folder": "Islands To Pack / Overrides / Target Assignment"
+        },
+        "targetoverrides": {
+          "raw": "",
+          "eval": "",
+          "default": true,
+          "label": "Overrides",
+          "folder": "Islands To Pack / Overrides / Target Assignment"
+        },
+        "useislandscaleattr": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "useislandscaleattr",
+          "folder": "Islands To Pack / Overrides / Variable Scaling"
+        },
+        "islandscaleattr": {
+          "raw": "iscale",
+          "eval": "iscale",
+          "default": true,
+          "label": "Island Scale Attribute",
+          "folder": "Islands To Pack / Overrides / Variable Scaling"
+        },
+        "scaleoverrides": {
+          "raw": "",
+          "eval": "",
+          "default": true,
+          "label": "Overrides",
+          "folder": "Islands To Pack / Overrides / Variable Scaling"
+        },
+        "useislandsetattr": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "useislandsetattr",
+          "folder": "Islands To Pack / Overrides / Projection Offset"
+        },
+        "islandoffsetattr": {
+          "raw": "ioffset",
+          "eval": "ioffset",
+          "default": true,
+          "label": "Island Offset Attribute",
+          "folder": "Islands To Pack / Overrides / Projection Offset"
+        },
+        "offsetoverrides": {
+          "raw": "",
+          "eval": "",
+          "default": true,
+          "label": "Overrides",
+          "folder": "Islands To Pack / Overrides / Projection Offset"
+        },
+        "correctareas": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "Scale Islands to Match Their Surface Areas",
+          "folder": "Islands To Pack"
+        },
+        "axisalignislands": {
+          "raw": "none",
+          "eval": 0,
+          "label": "Axis Alignment",
+          "folder": "Islands To Pack"
+        },
+        "scaling": {
+          "raw": "custom",
+          "eval": 1,
+          "label": "Scale",
+          "folder": "Packing"
+        },
+        "scale": {
+          "raw": "1",
+          "eval": 1.0,
+          "default": true,
+          "label": "Fixed Scale",
+          "folder": "Packing"
+        },
+        "rotstep": {
+          "raw": "none",
+          "eval": 0,
+          "default": true,
+          "label": "Island Rotation Step",
+          "folder": "Packing"
+        },
+        "circledivs": {
+          "raw": "1",
+          "eval": 1,
+          "default": true,
+          "label": "Steps in 360 Degrees",
+          "folder": "Packing"
+        },
+        "packbetween": {
+          "raw": "on",
+          "eval": 1,
+          "label": "Avoid Packing Over Non-Group Islands",
+          "folder": "Packing"
+        },
+        "packincavities": {
+          "raw": "on",
+          "eval": 1,
+          "default": true,
+          "label": "Pack Islands in Cavities of Other Islands",
+          "folder": "Packing"
+        },
+        "padding": {
+          "raw": "ch(\"../../interval\")",
+          "eval": 120,
+          "label": "Island Padding",
+          "folder": "Packing"
+        },
+        "paddingboundary": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "Apply Padding Between Islands and Target Boundary",
+          "folder": "Packing"
+        },
+        "expandpadding": {
+          "raw": "on",
+          "eval": 1,
+          "label": "Spread Islands to All Available Space",
+          "folder": "Packing"
+        },
+        "iterations": {
+          "raw": "5",
+          "eval": 5,
+          "label": "Iterations",
+          "folder": "Packing / Advanced"
+        },
+        "resolution": {
+          "raw": "res4",
+          "eval": 3,
+          "label": "Search Resolution",
+          "folder": "Packing / Advanced"
+        },
+        "customresolution": {
+          "raw": "1840",
+          "eval": 1840,
+          "label": "Custom Resolution",
+          "folder": "Packing / Advanced"
+        },
+        "uvtolerance": {
+          "raw": "1e-5",
+          "eval": 1e-05,
+          "default": true,
+          "label": "Connectivity Tolerance",
+          "folder": "Packing / Advanced"
+        },
+        "scaletolerance": {
+          "raw": "0.005",
+          "eval": 0.005,
+          "default": true,
+          "label": "Scale Search Tolerance",
+          "folder": "Packing / Advanced"
+        },
+        "randseed": {
+          "raw": "50",
+          "eval": 50,
+          "label": "Random Seed",
+          "folder": "Packing / Advanced"
+        },
+        "targettype": {
+          "raw": "geo",
+          "eval": 2,
+          "label": "Pack Into",
+          "folder": "Targets"
+        },
+        "udimtilemethod": {
+          "raw": "range",
+          "eval": 0,
+          "default": true,
+          "label": "Method",
+          "folder": "Targets"
+        },
+        "usedefaulttarget": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "usedefaulttarget",
+          "folder": "Targets"
+        },
+        "defaulttarget": {
+          "raw": "0",
+          "eval": 0,
+          "default": true,
+          "label": "Default Target",
+          "folder": "Targets"
+        },
+        "usedefaultudimtarget": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "usedefaultudimtarget",
+          "folder": "Targets"
+        },
+        "defaultudimtarget": {
+          "raw": "1001",
+          "eval": 1001,
+          "default": true,
+          "label": "Default UDIM",
+          "folder": "Targets"
+        },
+        "rects": {
+          "raw": "1",
+          "eval": 1,
+          "default": true,
+          "label": "Number of Rectangles",
+          "folder": "Targets / Target Rectangles"
+        },
+        "tilesizex": {
+          "raw": "1",
+          "eval": 1.0,
+          "default": true,
+          "label": "Tile Size",
+          "folder": "Targets / Tile Grid"
+        },
+        "tilesizey": {
+          "raw": "1",
+          "eval": 1.0,
+          "default": true,
+          "label": "Tile Size",
+          "folder": "Targets / Tile Grid"
+        },
+        "numcolumns": {
+          "raw": "10",
+          "eval": 10,
+          "default": true,
+          "label": "Columns",
+          "folder": "Targets / Tile Grid"
+        },
+        "startingudim": {
+          "raw": "1001",
+          "eval": 1001,
+          "default": true,
+          "label": "Starting UDIM",
+          "folder": "Targets / Tile Grid"
+        },
+        "udimtilestart": {
+          "raw": "1001",
+          "eval": 1001,
+          "default": true,
+          "label": "Starting UDIM",
+          "folder": "Targets / UDIM Tile Range"
+        },
+        "udimtilecount": {
+          "raw": "1",
+          "eval": 1,
+          "default": true,
+          "label": "Number of Tiles",
+          "folder": "Targets / UDIM Tile Range"
+        },
+        "udimextendfixedislands": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "Extend Tiles for Fixed-Size Islands",
+          "folder": "Targets / UDIM Tile Range"
+        },
+        "targetuvattrib": {
+          "raw": "P",
+          "eval": "P",
+          "label": "UV Attribute",
+          "folder": "Targets"
+        },
+        "targetprojplane": {
+          "raw": "zx",
+          "eval": 2,
+          "label": "Projection Plane",
+          "folder": "Targets"
+        },
+        "targetgroup": {
+          "raw": "",
+          "eval": "",
+          "default": true,
+          "label": "Group",
+          "folder": "Targets"
+        },
+        "targetseparatoredges": {
+          "raw": "",
+          "eval": "",
+          "default": true,
+          "label": "Seperator Edges",
+          "folder": "Targets / Connectivity Overrides"
+        },
+        "usetargetislandattr": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "usetargetislandattr",
+          "folder": "Targets / Connectivity Overrides"
+        },
+        "targetislandattr": {
+          "raw": "targetisland",
+          "eval": "targetisland",
+          "default": true,
+          "label": "Island Attribute",
+          "folder": "Targets / Connectivity Overrides"
+        },
+        "stackislands": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "Stack Identical Islands",
+          "folder": "Island Stacking"
+        },
+        "invertedoverlays": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "Match Mirrored Islands",
+          "folder": "Island Stacking"
+        },
+        "stackonnongroup": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "Allow Stacking on Non-Group Islands",
+          "folder": "Island Stacking"
+        },
+        "overlaytolerance": {
+          "raw": "0.02",
+          "eval": 0.02,
+          "default": true,
+          "label": "Shape Tolerance",
+          "folder": "Island Stacking"
+        },
+        "generatenonpackedpoly": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "generatenonpackedpoly",
+          "folder": "Output Groups and Attributes"
+        },
+        "nonpackedpolys": {
+          "raw": "nonpacked",
+          "eval": "nonpacked",
+          "default": true,
+          "label": "Nonpacked Polygons",
+          "folder": "Output Groups and Attributes"
+        },
+        "generateislandattr": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "generateislandattr",
+          "folder": "Output Groups and Attributes"
+        },
+        "outputislandattr": {
+          "raw": "island",
+          "eval": "island",
+          "default": true,
+          "label": "Island Number",
+          "folder": "Output Groups and Attributes"
+        },
+        "generatetargetattr": {
+          "raw": "off",
+          "eval": 0,
+          "default": true,
+          "label": "generatetargetattr",
+          "folder": "Output Groups and Attributes"
+        },
+        "outputtargetattr": {
+          "raw": "target",
+          "eval": "target",
+          "default": true,
+          "label": "Assigned Target",
+          "folder": "Output Groups and Attributes"
+        },
+        "rect_use0": {
+          "raw": "on",
+          "eval": 1,
+          "label": "rect_use0"
+        },
+        "rect_center0x": {
+          "raw": "0.5",
+          "eval": 0.5,
+          "label": "Center"
+        },
+        "rect_center0y": {
+          "raw": "0.5",
+          "eval": 0.5,
+          "label": "Center"
+        },
+        "rect_size0x": {
+          "raw": "1",
+          "eval": 1.0,
+          "label": "Size"
+        },
+        "rect_size0y": {
+          "raw": "1",
+          "eval": 1.0,
+          "label": "Size"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    }
+  ],
+  "connections": [],
+  "network_boxes": [],
+  "sticky_notes": []
+}
