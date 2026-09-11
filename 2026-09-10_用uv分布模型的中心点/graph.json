@@ -1,0 +1,827 @@
+{
+  "schema": 1,
+  "exported_at": "2026-09-10T20:19:39-06:00",
+  "houdini_version": "22.0.368",
+  "hip_file": null,
+  "root": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+  "context": "Sop",
+  "flow": "vertical",
+  "nodes": [
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/attribwrangle1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "attribwrangle1",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        0.0,
+        6.111800000000002
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "@N={0,0,1};",
+          "eval": "@N={0,0,1};"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "@N={0,0,1};"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/null3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "null3",
+      "type": "null",
+      "type_label": "Null",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.0029999999999930083,
+        4.9323000000000015
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.6000000238418579,
+        0.699999988079071,
+        0.7699999809265137
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {},
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/center_point",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "center_point",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        0.261299999999995,
+        -0.8889999999999958
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "class": {
+          "raw": "primitive",
+          "eval": 1
+        },
+        "snippet": {
+          "raw": "addpoint(0,@P);",
+          "eval": "addpoint(0,@P);"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "addpoint(0,@P);"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/set_name",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "set_name",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        0.261299999999995,
+        -1.9773999999999958
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "string Tempname = pointattrib(0,\"name\",0,0);\nvector Tempnormal = pointattrib(0,\"N\",0,0);\nsetpointattrib(0,\"name\",4,Tempname);\nsetpointattrib(0,\"N\",4,Tempnormal);",
+          "eval": "string Tempname = pointattrib(0,\"name\",0,0);\nvector Tempnormal = pointattrib(0,\"N\",0,0);\nsetpointattrib(0,\"name\",4,Tempname);\nsetpointattrib(0,\"N\",4,Tempnormal);"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "string Tempname = pointattrib(0,\"name\",0,0);\nvector Tempnormal = pointattrib(0,\"N\",0,0);\nsetpointattrib(0,\"name\",4,Tempname);\nsetpointattrib(0,\"N\",4,Tempnormal);"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/Tag",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "Tag",
+      "type": "attribwrangle",
+      "type_label": "Attribute Wrangle",
+      "is_hda": true,
+      "hda_source": "C:/Users/antisocial/Content/houdini/otls/OPlibSop.hda",
+      "pos": [
+        0.261299999999995,
+        -3.0551999999999957
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "snippet": {
+          "raw": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);",
+          "eval": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);"
+        }
+      },
+      "code": {
+        "lang": "vex",
+        "text": "i@delete=0;\nsetpointattrib(0,\"delete\",4,1);"
+      },
+      "children": [],
+      "warnings": [
+        "locked HDA, children not exported"
+      ]
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/uvlayout1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "uvlayout1",
+      "type": "uvlayout::3.0",
+      "type_label": "UV Layout",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.2642999999999951,
+        1.8140000000000018
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "uvattrib": {
+          "raw": "P",
+          "eval": "P"
+        },
+        "projplane": {
+          "raw": "zx",
+          "eval": 2
+        },
+        "axisalignislands": {
+          "raw": "none",
+          "eval": 0
+        },
+        "scaling": {
+          "raw": "custom",
+          "eval": 1
+        },
+        "packbetween": {
+          "raw": "on",
+          "eval": 1
+        },
+        "padding": {
+          "raw": "ch(\"../../interval\")",
+          "eval": 120
+        },
+        "expandpadding": {
+          "raw": "on",
+          "eval": 1
+        },
+        "packingadvanced": {
+          "raw": "1",
+          "eval": 1
+        },
+        "iterations": {
+          "raw": "5",
+          "eval": 5
+        },
+        "resolution": {
+          "raw": "res4",
+          "eval": 3
+        },
+        "customresolution": {
+          "raw": "1840",
+          "eval": 1840
+        },
+        "randseed": {
+          "raw": "50",
+          "eval": 50
+        },
+        "targets": {
+          "raw": "1",
+          "eval": 1
+        },
+        "targettype": {
+          "raw": "geo",
+          "eval": 2
+        },
+        "folder0": {
+          "raw": "1",
+          "eval": 1
+        },
+        "targetuvattrib": {
+          "raw": "P",
+          "eval": "P"
+        },
+        "targetprojplane": {
+          "raw": "zx",
+          "eval": 2
+        },
+        "targetconnectivityoverrides": {
+          "raw": "1",
+          "eval": 1
+        },
+        "rect_use0": {
+          "raw": "on",
+          "eval": 1
+        },
+        "rect_center0x": {
+          "raw": "0.5",
+          "eval": 0.5
+        },
+        "rect_center0y": {
+          "raw": "0.5",
+          "eval": 0.5
+        },
+        "rect_size0x": {
+          "raw": "1",
+          "eval": 1.0
+        },
+        "rect_size0y": {
+          "raw": "1",
+          "eval": 1.0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/copytopoints4",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "copytopoints4",
+      "type": "copytopoints::2.0",
+      "type_label": "Copy to Points",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.2642999999999951,
+        3.7158000000000015
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        1.0,
+        0.6499999761581421,
+        0.10000000149011612
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "targetattribs": {
+          "raw": "3",
+          "eval": 3
+        },
+        "useapply1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "applyto1": {
+          "raw": "points",
+          "eval": 0
+        },
+        "applymethod1": {
+          "raw": "copy",
+          "eval": 0
+        },
+        "applyattribs1": {
+          "raw": "*,^v,^Alpha,^N,^up,^pscale,^scale,^orient,^rot,^pivot,^trans,^transform",
+          "eval": "*,^v,^Alpha,^N,^up,^pscale,^scale,^orient,^rot,^pivot,^trans,^transform"
+        },
+        "useapply2": {
+          "raw": "on",
+          "eval": 1
+        },
+        "applyto2": {
+          "raw": "points",
+          "eval": 0
+        },
+        "applymethod2": {
+          "raw": "mult",
+          "eval": 2
+        },
+        "applyattribs2": {
+          "raw": "Alpha",
+          "eval": "Alpha"
+        },
+        "useapply3": {
+          "raw": "on",
+          "eval": 1
+        },
+        "applyto3": {
+          "raw": "points",
+          "eval": 0
+        },
+        "applymethod3": {
+          "raw": "add",
+          "eval": 3
+        },
+        "applyattribs3": {
+          "raw": "v",
+          "eval": "v"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/delete3",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "delete3",
+      "type": "delete",
+      "type_label": "Delete",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.2642999999999951,
+        -5.714299999999998
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": true,
+        "render": true,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "group": {
+          "raw": "@delete==0",
+          "eval": "@delete==0"
+        },
+        "entity": {
+          "raw": "point",
+          "eval": 1
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/output0",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "output0",
+      "type": "output",
+      "type_label": "Output",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.26429999999999865,
+        -6.608499999999999
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "outputidx": {
+          "raw": "0",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/foreach_begin1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "foreach_begin1",
+      "type": "block_begin",
+      "type_label": "Block Begin",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.2658999999999949,
+        0.24140000000000228
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.75,
+        0.4000000059604645,
+        0.0
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "method": {
+          "raw": "piece",
+          "eval": 1
+        },
+        "blockpath": {
+          "raw": "../foreach_end1",
+          "eval": "../foreach_end1"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/foreach_end1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "foreach_end1",
+      "type": "block_end",
+      "type_label": "Block End",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        0.2658999999999949,
+        -4.139499999999995
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.75,
+        0.4000000059604645,
+        0.0
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "itermethod": {
+          "raw": "pieces",
+          "eval": 1
+        },
+        "method": {
+          "raw": "merge",
+          "eval": 1
+        },
+        "class": {
+          "raw": "primitive",
+          "eval": 0
+        },
+        "useattrib": {
+          "raw": "off",
+          "eval": 0
+        },
+        "blockpath": {
+          "raw": "../foreach_begin1",
+          "eval": "../foreach_begin1"
+        },
+        "templatepath": {
+          "raw": "../foreach_begin1",
+          "eval": "../foreach_begin1"
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/skin_transform1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "skin_transform1",
+      "type": "object_merge",
+      "type_label": "Object Merge",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        2.029799999999998,
+        3.1778000000000013
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        0.9760000109672546,
+        0.7799999713897705,
+        0.2630000114440918
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "enable1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "objpath1": {
+          "raw": "../../subnet1/null4",
+          "eval": "../../subnet1/null4"
+        },
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "expand1": {
+          "raw": "off",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    },
+    {
+      "id": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/scatter_point1",
+      "parent": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "name": "scatter_point1",
+      "type": "object_merge",
+      "type_label": "Object Merge",
+      "is_hda": false,
+      "hda_source": null,
+      "pos": [
+        2.029799999999998,
+        4.696500000000002
+      ],
+      "size": [
+        1.1296,
+        0.2824
+      ],
+      "color": [
+        1.0,
+        0.5289999842643738,
+        0.6240000128746033
+      ],
+      "shape": null,
+      "flags": {
+        "display": false,
+        "render": false,
+        "bypass": false,
+        "template": false,
+        "lock": false
+      },
+      "comment": "",
+      "user_data": {},
+      "parms": {
+        "enable1": {
+          "raw": "on",
+          "eval": 1
+        },
+        "objpath1": {
+          "raw": "/obj/trynew_copy_1_1/trynew_copy1/scatter_point",
+          "eval": "/obj/trynew_copy_1_1/trynew_copy1/scatter_point"
+        },
+        "group1": {
+          "raw": "",
+          "eval": ""
+        },
+        "expand1": {
+          "raw": "off",
+          "eval": 0
+        }
+      },
+      "code": null,
+      "children": [],
+      "warnings": []
+    }
+  ],
+  "connections": [
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/attribwrangle1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/null3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/foreach_begin1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/center_point",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/center_point",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/set_name",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/set_name",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/Tag",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/copytopoints4",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/uvlayout1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/skin_transform1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/uvlayout1",
+      "to_input": 1
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/null3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/copytopoints4",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/scatter_point1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/copytopoints4",
+      "to_input": 1
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/foreach_end1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/delete3",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/delete3",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/output0",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/uvlayout1",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/foreach_begin1",
+      "to_input": 0
+    },
+    {
+      "from": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/Tag",
+      "from_output": 0,
+      "to": "/obj/trynew_copy_1_1/trynew_copy1/subnet2/foreach_end1",
+      "to_input": 0
+    }
+  ],
+  "network_boxes": [],
+  "sticky_notes": []
+}
