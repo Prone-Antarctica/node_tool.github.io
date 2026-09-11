@@ -1,7 +1,16 @@
 {
-  "generated_at": "2026-09-10T20:13:49",
-  "snapshot_count": 8,
+  "generated_at": "2026-09-10T20:28:56",
+  "snapshot_count": 9,
   "snapshots": [
+    {
+      "dir": "2026-09-10_用uv分布模型的中心点",
+      "title": "用uv分布模型的中心点",
+      "date": "2026-09-10T20:19:39-06:00",
+      "node_count": 13,
+      "context": "Sop",
+      "root": "/obj/trynew_copy_1_1/trynew_copy1/subnet2",
+      "houdini_version": "22.0.368"
+    },
     {
       "dir": "2026-09-10_模型导入步骤",
       "title": "模型导入步骤",
